@@ -1,0 +1,91 @@
+﻿{
+  "version": "1.0.0",
+  "updatedAt": "2026-07-28T18:42:52.0771410+01:00",
+  "updatedBy": "Operador local",
+  "users": [
+    {
+      "upn": "c605161@corp.santander.pt",
+      "name": "Luis Pedro G. Flores Morim",
+      "notes": "6047 - Gestão de Riscos",
+      "enabled": true
+    },
+    {
+      "upn": "c605478@corp.santander.pt",
+      "name": "Graça Maria Conceição Ribeiro Valadão Vale",
+      "notes": "7182 - Contabilidade e Controlo de Gestão",
+      "enabled": true
+    },
+    {
+      "upn": "c605671@corp.santander.pt",
+      "name": "Isabel Guerreiro",
+      "notes": "6109 - COMISSÃO EXECUTIVA",
+      "enabled": true
+    },
+    {
+      "upn": "s300348@corp.santander.pt",
+      "name": "Sandra Oliveira Sereno",
+      "notes": "6329 - SAT Administração",
+      "enabled": true
+    },
+    {
+      "upn": "s301882@corp.santander.pt",
+      "name": "Amilcar Silva Lourenco",
+      "notes": "6109 - COMISSÃO EXECUTIVA",
+      "enabled": true
+    },
+    {
+      "upn": "s302030@corp.santander.pt",
+      "name": "Joaquim Filipe",
+      "notes": "6109 - COMISSÃO EXECUTIVA",
+      "enabled": true
+    },
+    {
+      "upn": "s610329@corp.santander.pt",
+      "name": "Bruno Miguel Dos Santos De Jesus",
+      "notes": "7184 - Secretaria Geral",
+      "enabled": true
+    },
+    {
+      "upn": "s612872@corp.santander.pt",
+      "name": "Lourenço de Albuquerque D’ Orey Vieira de Campos",
+      "notes": "7151 - PRIVATE BANKING",
+      "enabled": true
+    },
+    {
+      "upn": "s612915@corp.santander.pt",
+      "name": "Susana Ferreira",
+      "notes": "6109 - COMISSÃO EXECUTIVA",
+      "enabled": true
+    },
+    {
+      "upn": "s613455@corp.santander.pt",
+      "name": "João Eduardo Amorim Penas",
+      "notes": "7207 - CIO",
+      "enabled": true
+    },
+    {
+      "upn": "s615399@corp.santander.pt",
+      "name": "Inês Gancho",
+      "notes": "7239 - Transformation Office",
+      "enabled": true
+    },
+    {
+      "upn": "s615462@corp.santander.pt",
+      "name": "Verónica Soares Franco",
+      "notes": "6800 - Pessoas, Cultura e Organização",
+      "enabled": true
+    },
+    {
+      "upn": "s800214@corp.santander.pt",
+      "name": "Miguel Belo Carvalho",
+      "notes": "6109 - COMISSÃO EXECUTIVA",
+      "enabled": true
+    },
+    {
+      "upn": "t508376@corp.santander.pt",
+      "name": "Joao Anjos",
+      "notes": "6109 - COMISSÃO EXECUTIVA",
+      "enabled": true
+    }
+  ]
+}

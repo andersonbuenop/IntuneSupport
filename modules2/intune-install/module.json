@@ -1,0 +1,9 @@
+{
+    "name": "intune-install",
+    "title": "Instalação Intune",
+    "description": "Verificação de utilizadores, validação de grupos e instalação Intune",
+    "category": "Ferramentas",
+    "enabled": true,
+    "order": 5,
+    "version": "4.3.0"
+}

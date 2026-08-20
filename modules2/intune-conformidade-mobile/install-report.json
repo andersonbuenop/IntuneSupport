@@ -1,0 +1,16 @@
+{
+    "installedAt":  "2026-07-14T13:03:09.2932301+01:00",
+    "root":  "C:\\Temp\\SantanderSupportWebV2_PROD",
+    "moduleRoot":  "C:\\Temp\\SantanderSupportWebV2_PROD\\modules\\intune-conformidade-mobile",
+    "frontendPatched":  true,
+    "frontendFiles":  [
+                          "C:\\Temp\\SantanderSupportWebV2_PROD\\backups\\controle_harmony_historico_20260609_175353\\script.js"
+                      ],
+    "moduleFiles":  [
+                        "C:\\Temp\\SantanderSupportWebV2_PROD\\modules\\intune-conformidade-mobile\\page.html",
+                        "C:\\Temp\\SantanderSupportWebV2_PROD\\modules\\intune-conformidade-mobile\\style.css",
+                        "C:\\Temp\\SantanderSupportWebV2_PROD\\modules\\intune-conformidade-mobile\\script.js",
+                        "C:\\Temp\\SantanderSupportWebV2_PROD\\modules\\intune-conformidade-mobile\\api.ps1",
+                        "C:\\Temp\\SantanderSupportWebV2_PROD\\modules\\intune-conformidade-mobile\\config.json"
+                    ]
+}

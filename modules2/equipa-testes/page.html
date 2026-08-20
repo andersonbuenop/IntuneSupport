@@ -1,0 +1,228 @@
+﻿<div class="et-v2">
+  <div class="et-hero">
+    <div>
+      <div class="et-eyebrow">Santander Support Web</div>
+      <h2>Equipa de Testes</h2>
+      <p>Validação de utilizador, acessos Azure, dispositivos Intune e Microsoft Defender.</p>
+    </div>
+
+    <div class="et-hero-actions">
+      <button class="et-btn et-btn-light" onclick="equipaTestesStatus()">Verificar sessão</button>
+      <button class="et-btn et-btn-light" onclick="equipaTestesConectar()">Conectar Graph/Intune</button>
+    </div>
+  </div>
+
+  <div class="et-panel">
+    <div class="et-search-row">
+      <div class="et-input-wrap">
+        <label>Utilizador</label>
+        <input id="etUser" placeholder="Ex: e868019 ou utilizador@corp.santander.pt" onkeydown="if(event.key==='Enter') equipaTestesConsultar()" />
+      </div>
+
+      <button class="et-btn et-btn-primary" onclick="equipaTestesConsultar()">Consultar</button>
+      <button class="et-btn et-btn-dark" onclick="equipaTestesPrepararUtilizador()">Preparar Utilizador</button>
+    </div>
+  </div>
+
+  <div id="etMsg"></div>
+
+  <div id="etProgress" class="et-progress" style="display:none;">
+    <div class="et-progress-top">
+      <span id="etProgressText">A processar...</span>
+      <strong id="etProgressPercent">0%</strong>
+    </div>
+    <div class="et-progress-track">
+      <div id="etProgressBar" class="et-progress-bar"></div>
+    </div>
+  </div>
+
+  <div id="etResultado" style="display:none;">
+    <div class="et-user-card">
+      <div>
+        <div class="et-user-avatar">👤</div>
+      </div>
+      <div>
+        <h3 id="etUserName">-</h3>
+        <p id="etUserSub">-</p>
+        <div id="etUserBadges" class="et-badge-row"></div>
+      </div>
+    </div>
+
+    <div class="et-kpis">
+      <div class="et-kpi">
+        <span>Grupos OK</span>
+        <strong id="etKpiGroups">0/5</strong>
+      </div>
+      <div class="et-kpi">
+        <span>Em falta</span>
+        <strong id="etKpiMissing">0</strong>
+      </div>
+      <div class="et-kpi">
+        <span>Devices</span>
+        <strong id="etKpiDevices">0</strong>
+      </div>
+      <div class="et-kpi">
+        <span>Compliant</span>
+        <strong id="etKpiCompliant">0</strong>
+      </div>
+      <div class="et-kpi">
+        <span>Defender</span>
+        <strong id="etKpiDefender">Pendente</strong>
+      </div>
+    </div>
+
+    <div class="et-tabs">
+      <button class="active" onclick="etTab('info', this)">Informação</button>
+      <button onclick="etTab('azure', this)">Azure</button>
+      <button onclick="etTab('intune', this)">Intune</button>
+      <button onclick="etTab('acoes', this)">Ações</button>
+    </div>
+
+    <div id="tab-info" class="et-tab-content active">
+      <div class="et-panel">
+        <h3>Informação do Utilizador</h3>
+        <div id="etUserInfo" class="et-info-grid"></div>
+      </div>
+
+      <div class="et-panel">
+        <h3>Resultado automático</h3>
+        <div id="etResumoFinal"></div>
+      </div>
+    </div>
+
+    <div id="tab-azure" class="et-tab-content">
+      <div class="et-panel">
+        <div class="et-panel-head">
+          <div>
+            <h3>Grupos Azure</h3>
+            <p>Validação dos acessos necessários para a Equipa de Testes.</p>
+          </div>
+          <button class="et-btn et-btn-primary" onclick="equipaTestesAdicionarTodos()">Adicionar todos em falta</button>
+        </div>
+        <div id="etGrupos"></div>
+      </div>
+    </div>
+
+    <div id="tab-intune" class="et-tab-content">
+      <div class="et-panel">
+        <h3>Dispositivos Intune</h3>
+        <div id="etDevices" class="et-device-grid"></div>
+      </div>
+    </div>
+
+    <div id="tab-acoes" class="et-tab-content">
+      <div class="et-panel">
+        <h3>Ações</h3>
+        <div class="et-actions">
+          <button class="et-btn et-btn-primary" onclick="equipaTestesAdicionarTodos()">Adicionar grupos em falta</button>
+          <button class="et-btn et-btn-secondary" onclick="equipaTestesAbrirServiceNowCompleto()">Abrir ServiceNow completo</button>
+          <button class="et-btn et-btn-secondary" onclick="equipaTestesCopiarResumo()">Copiar resumo</button>
+          <button class="et-btn et-btn-secondary" onclick="equipaTestesExportCsv()">Exportar CSV</button>
+        </div>
+      </div>
+
+      <div class="et-panel">
+        <h3>Resposta para fecho do ticket</h3>
+        <textarea id="etRespostaTicket" style="width:100%;min-height:330px;border:1px solid #ddd;border-radius:14px;padding:14px;font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.5;"></textarea>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="et-btn et-btn-primary" onclick="equipaTestesGerarRespostaTicket()">Gerar resposta</button>
+          <button class="et-btn et-btn-secondary" onclick="equipaTestesCopiarRespostaTicket()">Copiar resposta</button>
+        </div>
+      </div>
+
+      <div class="et-panel">
+        <h3>Timeline</h3>
+        <div id="etTimeline" class="et-timeline"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.et-v2 { padding:22px; font-family:Segoe UI,Arial,sans-serif; color:#202124; }
+.et-hero { display:flex; justify-content:space-between; gap:20px; align-items:center; background:linear-gradient(135deg,#e40000,#8b0000); color:white; border-radius:22px; padding:26px; box-shadow:0 16px 38px rgba(0,0,0,.16); margin-bottom:18px; }
+.et-eyebrow { text-transform:uppercase; font-size:12px; letter-spacing:.12em; opacity:.85; font-weight:700; }
+.et-hero h2 { margin:4px 0; font-size:32px; }
+.et-hero p { margin:0; opacity:.9; }
+.et-hero-actions { display:flex; gap:10px; flex-wrap:wrap; }
+
+.et-panel { background:white; border:1px solid #eee; border-radius:18px; padding:18px; margin-bottom:16px; box-shadow:0 8px 24px rgba(0,0,0,.07); }
+.et-panel h3 { margin:0 0 10px; }
+.et-panel p { color:#666; margin:4px 0 0; }
+.et-panel-head { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:12px; }
+
+.et-search-row { display:flex; gap:12px; align-items:end; }
+.et-input-wrap { flex:1; }
+.et-input-wrap label { display:block; font-weight:700; font-size:13px; margin-bottom:6px; }
+.et-input-wrap input { width:100%; border:1px solid #ddd; border-radius:12px; padding:13px 14px; font-size:15px; }
+
+.et-btn { border:0; border-radius:12px; padding:12px 16px; font-weight:700; cursor:pointer; white-space:nowrap; }
+.et-btn-primary { background:#e40000; color:white; }
+.et-btn-dark { background:#242424; color:white; }
+.et-btn-light { background:rgba(255,255,255,.18); color:white; border:1px solid rgba(255,255,255,.32); }
+.et-btn-secondary { background:#f2f2f2; color:#222; }
+.et-btn-success { background:#087a31; color:white; }
+.et-btn-warning { background:#f59e0b; color:white; }
+
+.et-msg { padding:12px 14px; border-radius:14px; margin-bottom:14px; font-weight:600; }
+.et-msg-ok { background:#e7f7ed; color:#087a31; }
+.et-msg-err { background:#fdecec; color:#b00020; }
+.et-msg-info { background:#eef2ff; color:#3446a3; }
+
+.et-progress { background:white; border:1px solid #eee; border-radius:16px; padding:14px; margin-bottom:16px; box-shadow:0 6px 18px rgba(0,0,0,.06); }
+.et-progress-top { display:flex; justify-content:space-between; font-size:13px; margin-bottom:8px; }
+.et-progress-track { height:11px; background:#f1f1f1; border-radius:999px; overflow:hidden; }
+.et-progress-bar { height:100%; width:0%; background:linear-gradient(90deg,#e40000,#ff7474); transition:width .3s ease; }
+
+.et-user-card { display:grid; grid-template-columns:70px 1fr; gap:16px; background:white; border-radius:20px; padding:20px; border:1px solid #eee; box-shadow:0 8px 24px rgba(0,0,0,.07); margin-bottom:16px; }
+.et-user-avatar { width:58px; height:58px; border-radius:18px; display:flex; align-items:center; justify-content:center; font-size:28px; background:#f4f4f4; }
+.et-user-card h3 { margin:0; font-size:24px; }
+.et-user-card p { margin:4px 0 10px; color:#666; }
+
+.et-badge-row { display:flex; gap:8px; flex-wrap:wrap; }
+.et-badge { display:inline-flex; align-items:center; gap:5px; border-radius:999px; padding:6px 10px; font-size:12px; font-weight:800; }
+.et-badge-ok { background:#e7f7ed; color:#087a31; }
+.et-badge-no { background:#fdecec; color:#b00020; }
+.et-badge-warn { background:#fff4db; color:#a05a00; }
+.et-badge-neutral { background:#eef2ff; color:#3446a3; }
+
+.et-kpis { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:16px; }
+.et-kpi { background:white; border-radius:18px; padding:16px; border:1px solid #eee; box-shadow:0 6px 18px rgba(0,0,0,.06); }
+.et-kpi span { display:block; color:#777; font-size:12px; text-transform:uppercase; font-weight:800; }
+.et-kpi strong { font-size:26px; display:block; margin-top:6px; }
+
+.et-tabs { display:flex; gap:8px; margin-bottom:14px; flex-wrap:wrap; }
+.et-tabs button { border:1px solid #ddd; background:white; border-radius:999px; padding:10px 16px; cursor:pointer; font-weight:800; }
+.et-tabs button.active { background:#e40000; color:white; border-color:#e40000; }
+.et-tab-content { display:none; }
+.et-tab-content.active { display:block; }
+
+.et-info-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.et-info { background:#fafafa; border:1px solid #eee; border-radius:14px; padding:12px; }
+.et-info label { display:block; color:#777; font-size:11px; text-transform:uppercase; font-weight:800; margin-bottom:4px; }
+
+.et-table { width:100%; border-collapse:collapse; }
+.et-table th { text-align:left; background:#f8f8f8; padding:11px; border-bottom:1px solid #ddd; font-size:13px; }
+.et-table td { padding:11px; border-bottom:1px solid #eee; vertical-align:middle; }
+
+.et-device-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
+.et-device { border:1px solid #eee; border-radius:18px; padding:16px; background:#fff; box-shadow:0 6px 16px rgba(0,0,0,.05); }
+.et-device h4 { margin:0 0 4px; font-size:18px; }
+.et-device p { margin:0 0 12px; color:#666; }
+.et-device-details { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; }
+.et-device-field { background:#fafafa; border-radius:12px; padding:10px; border:1px solid #eee; }
+.et-device-field label { display:block; color:#777; font-size:11px; font-weight:800; text-transform:uppercase; }
+
+.et-actions { display:flex; gap:10px; flex-wrap:wrap; }
+.et-timeline { display:grid; gap:10px; }
+.et-timeline-item { border-left:4px solid #e40000; padding:8px 12px; background:#fafafa; border-radius:10px; }
+
+@media(max-width:1000px) {
+  .et-kpis { grid-template-columns:repeat(2,1fr); }
+  .et-info-grid { grid-template-columns:1fr; }
+  .et-device-grid { grid-template-columns:1fr; }
+  .et-search-row { flex-direction:column; align-items:stretch; }
+  .et-hero { flex-direction:column; align-items:flex-start; }
+}
+</style>
+

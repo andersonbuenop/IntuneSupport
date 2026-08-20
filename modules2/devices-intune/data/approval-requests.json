@@ -1,0 +1,38 @@
+{
+  "id": "REQ-20260617-215131",
+  "createdAt": "2026-06-17 21:51:31",
+  "createdBy": "CENTRAL\\E868019",
+  "actionType": "Delete",
+  "justification": "Device non compliant / sem utilização / validado pelo suporte.",
+  "status": "Aprovado 1/2",
+  "approvalsNeeded": 2,
+  "approvalsCount": 1,
+  "approvals": [
+    {
+      "user": "CENTRAL\\E868019",
+      "decision": "Aprovado",
+      "date": "2026-06-17 21:56:14",
+      "comment": "Aprovado."
+    }
+  ],
+  "devicesCount": 1,
+  "devices": [
+    {
+      "id": "ed8f53be-49ce-4ec0-aa49-d801f7973cd2",
+      "deviceName": "T507883_AndroidForWork_10/31/2023_8:12 AM",
+      "userDisplayName": "Ricardo Manuel Cruz Santos",
+      "userPrincipalName": "T507883@corp.santander.pt",
+      "operatingSystem": "Android",
+      "complianceState": "noncompliant",
+      "ownerType": "personal",
+      "diasSemSync": "25",
+      "serialNumber": "0",
+      "azureADDeviceId": "3d716315-ff7c-44e5-948d-fc2a0ad677b3",
+      "motivo": "Non compliant | Device pessoal",
+      "recomendacao": "Elegível para pedido de aprovação"
+    }
+  ],
+  "executed": false,
+  "executedAt": "",
+  "executionResult": []
+}

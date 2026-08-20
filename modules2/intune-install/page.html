@@ -1,0 +1,60 @@
+<div class="intune-install-page">
+  <section class="ii-hero">
+    <div><span class="ii-kicker">MICROSOFT INTUNE · ENTRA ID</span><h2>Instalação Intune</h2><p>Verifique o utilizador, confirme os grupos de acesso e prepare a resposta do pedido.</p></div>
+    <span id="intuneOverallBadge" class="ii-overall neutral">Aguardando</span>
+  </section>
+  <div id="progressIntune"></div>
+
+  <div class="ii-layout">
+    <section class="ii-card ii-search">
+      <div class="ii-step">1</div><div><h3>Verificar utilizador</h3><p>Introduza o ID Santander ou o UPN corporativo.</p></div>
+      <label class="ii-field"><span>Utilizador</span><input type="text" id="intuneUser" placeholder="Ex.: E868019 ou e868019@corp.santander.pt" autocomplete="off" spellcheck="false"></label>
+      <div class="ii-actions"><button class="ii-btn primary" id="btnIntuneVerificar">Verificar utilizador</button><button class="ii-btn secondary" id="btnIntuneLimpar">Limpar</button></div>
+      <div id="intuneStatus" class="field-info">Aguardando pesquisa...</div>
+    </section>
+
+    <section class="ii-card">
+      <div class="ii-step">2</div><div><h3>Dados encontrados</h3><p>Informação devolvida pelo Microsoft Graph.</p></div>
+      <div class="ii-info-grid">
+        <div><strong>Nome</strong><span id="intuneDisplayName">-</span></div>
+        <div><strong>UPN</strong><span id="intuneUpn">-</span></div>
+        <div class="wide"><strong>ObjectId</strong><span id="intuneObjectId">-</span></div>
+      </div>
+    </section>
+
+    <section class="ii-card ii-groups">
+      <div class="ii-step">3</div><div><h3>Grupos de acesso</h3><p>A adição só é disponibilizada quando necessária.</p></div>
+      <div class="ii-group"><span id="badgeCentral" class="badge-neutral">-</span><div><strong>Central</strong><small>GR_Intune_Central_Mdm</small></div><div class="ii-group-actions"><button class="ii-btn primary" id="btnAddCentral" disabled>Adicionar</button><button class="ii-btn danger" id="btnRemoveCentral" disabled>Remover</button></div></div>
+      <div class="ii-group"><span id="badgeRede" class="badge-neutral">-</span><div><strong>Rede</strong><small>GR_Intune_Rede_Mdm</small></div><div class="ii-group-actions"><button class="ii-btn primary" id="btnAddRede" disabled>Adicionar</button><button class="ii-btn danger" id="btnRemoveRede" disabled>Remover</button></div></div>
+      <div class="ii-group"><span id="badgeMac" class="badge-neutral">-</span><div><strong>Acesso MacBook</strong><small>GR_Intune_Central_MDM_MAC</small></div><div class="ii-group-actions"><button class="ii-btn primary" id="btnAddMac" disabled>Adicionar</button><button class="ii-btn danger" id="btnRemoveMac" disabled>Remover</button></div></div>
+    </section>
+
+    <section class="ii-card ii-devices">
+      <div class="ii-step">4</div><div><h3>Equipamentos configurados</h3><p>Dispositivos geridos pelo Intune associados ao utilizador.</p></div>
+      <div id="intuneDevicesSummary" class="ii-devices-summary">Pesquise um utilizador para consultar os equipamentos.</div>
+      <div id="intuneDevices" class="ii-device-list"></div>
+    </section>
+
+    <section class="ii-card ii-response">
+      <div class="ii-step">5</div><div><h3>Resposta ao utilizador</h3><p>Texto final com requisitos e instruções de sincronização.</p></div>
+      <textarea id="intuneTicket" rows="16" readonly placeholder="A resposta será gerada após a verificação."></textarea>
+      <div class="ii-actions"><button class="ii-btn primary" id="btnCopiarTicket" disabled>Copiar resposta</button></div>
+    </section>
+
+    <section class="ii-card ii-response ii-email">
+      <div class="ii-step">6</div><div><h3>Enviar dois e-mails de configuração</h3><p>Uma mensagem para Intune/Harmony e outra para MFA, cada uma com os seus manuais.</p></div>
+      <div class="ii-email-meta"><div><strong>Remetente</strong><span id="intuneEmailSender">User.Action.Required@santander.pt</span></div><div><strong>Destinatário</strong><span id="intuneEmailRecipient">-</span></div><div><strong>Envio</strong><span id="intuneEmailSubject">2 e-mails: Intune/Harmony e MFA</span></div></div>
+      <div class="ii-attachments"><strong>Manuais anexados</strong><div id="intuneEmailAttachments"><span class="ii-attachment-missing">Pesquise um utilizador para validar os anexos.</span></div></div>
+      <textarea id="intuneEmailBody" rows="18" readonly placeholder="O corpo do e-mail será preparado após a pesquisa."></textarea>
+      <div class="ii-actions"><button class="ii-btn primary" id="btnIntuneSendEmail" disabled>Enviar os dois e-mails</button></div>
+      <div id="intuneEmailStatus" class="field-info">E-mail ainda não preparado.</div>
+    </section>
+
+    <section id="intuneServiceNowBox" class="ii-card ii-response">
+      <div class="ii-step">7</div><div><h3>Registo ServiceNow</h3><p>Resumo técnico da verificação ou alteração efetuada.</p></div>
+      <textarea id="intuneServiceNowTexto" rows="13" readonly placeholder="O resumo será preparado automaticamente."></textarea>
+      <div class="ii-actions"><button class="ii-btn primary" id="btnIntuneCopiarServiceNow">Copiar registo</button><button class="ii-btn secondary" id="btnIntuneAbrirServiceNow">Abrir ServiceNow</button></div>
+      <div id="intuneLog" class="field-info">Log: -</div>
+    </section>
+  </div>
+</div>

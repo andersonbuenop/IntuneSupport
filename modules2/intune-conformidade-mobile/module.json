@@ -1,0 +1,14 @@
+{
+    "name":  "intune-conformidade-mobile",
+    "title":  "Intune - Conformidade Mobile",
+    "description":  "Consulta dispositivos móveis no Intune, identifica equipamentos em período de carência e apresenta detalhes das políticas de conformidade. Inclui proteção de utilizadores VIP com validação manual de notificações e remoções.",
+    "category":  "Ferramentas",
+    "enabled":  true,
+    "order":  50,
+    "id":  "intune-conformidade-mobile",
+    "module":  "intune-conformidade-mobile",
+    "icon":  "mobile",
+    "page":  "page.html",
+    "script":  "script.js",
+    "api":  "api.ps1"
+}

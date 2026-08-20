@@ -1,0 +1,864 @@
+<div class="module-page">
+    <section class="meu-hero">
+        <div>
+            <span class="meu-kicker">MICROSOFT 365 · ENTRA ID · EXCHANGE</span>
+            <h2>Criação de User (MEU)</h2>
+            <p>Preparação e configuração do utilizador num fluxo único e orientado.</p>
+        </div>
+        <span id="meuOverallStatus" class="meu-overall-status neutral">Aguardando pesquisa</span>
+    </section>
+
+    <div id="meuProgressArea" class="meu-progress-area" style="display:none;">
+        <div class="meu-progress-header">
+            <strong id="meuProgressTitulo">Processando...</strong>
+            <span id="meuProgressPercent">0%</span>
+        </div>
+
+        <div class="meu-progress-bar-bg">
+            <div id="meuProgressBar" class="meu-progress-bar"></div>
+        </div>
+
+        <div id="meuProgressMensagem" class="meu-progress-msg">
+            A iniciar operação...
+        </div>
+    </div>
+
+    <div class="card meu-search-card">
+        <div class="card-body">
+            <label for="meuInputUser">Utilizador</label>
+            <div class="meu-search-row">
+                <input id="meuInputUser" class="form-control" placeholder="UPN, email ou ID do utilizador" autocomplete="off" spellcheck="false">
+                <button type="button" class="btn btn-danger" onclick="meuPesquisar()">Pesquisar</button>
+                <button type="button" class="btn btn-secondary" onclick="meuLimpar()">Limpar</button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card" id="meuInfoCard" style="display:none;">
+        <div class="card-body">
+            <h5>Dados do utilizador</h5>
+
+            <div class="meu-info-grid">
+                <div class="meu-info-box"><span>Nome</span><strong id="infoNome">-</strong></div>
+                <div class="meu-info-box"><span>UPN Entra ID</span><strong id="infoUPN">-</strong></div>
+                <div class="meu-info-box"><span>Email Entra ID</span><strong id="infoEmailEntra">-</strong></div>
+                <div class="meu-info-box"><span>Estado Entra ID</span><strong id="infoEstadoEntra">-</strong></div>
+                <div class="meu-info-box"><span>Object ID</span><strong id="infoObjectId">-</strong></div>
+                <div class="meu-info-box"><span>Domínio AD Local</span><strong id="infoDominioAD">-</strong></div>
+                <div class="meu-info-box"><span>SamAccountName</span><strong id="infoSam">-</strong></div>
+                <div class="meu-info-box"><span>Estado AD Local</span><strong id="infoEstadoAD">-</strong></div>
+                <div class="meu-info-box"><span>Existe no EXO</span><strong id="infoExoExiste">-</strong></div>
+                <div class="meu-info-box"><span>Detalhe EXO</span><strong id="infoExoDetalhe">-</strong></div>
+                <div class="meu-info-box"><span>Data de criação no AD</span><strong id="infoCriacaoAD">-</strong></div>
+                <div class="meu-info-box meu-info-wide"><span>DN</span><strong id="infoDN">-</strong></div>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="meu-people-grid">
+        <div class="card">
+            <div class="card-body">
+                <h5>Número do ticket</h5>
+                <label>Ticket</label>
+                <input id="meuNumeroTicket" class="form-control" placeholder="Ex: INC0000000000 / RITM0000000000">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <h5>Responsáveis do utilizador</h5>
+
+                <label>User de contato 1</label>
+                <div class="meu-contact-row">
+                    <input id="meuContato1" class="form-control" placeholder="Ex: s613220">
+                    <input id="meuContato1Email" class="form-control" readonly placeholder="Email do utilizador">
+                </div>
+
+                <br>
+
+                <label>User de contato 2</label>
+                <div class="meu-contact-row">
+                    <input id="meuContato2" class="form-control" placeholder="Ex: s613220">
+                    <input id="meuContato2Email" class="form-control" readonly placeholder="Email do utilizador">
+                </div>
+
+                <br>
+
+                <label>User de contato 3</label>
+                <div class="meu-contact-row">
+                    <input id="meuContato3" class="form-control" placeholder="Ex: s613220">
+                    <input id="meuContato3Email" class="form-control" readonly placeholder="Email do utilizador">
+                </div>
+
+                <br>
+
+                <label>User Supervisão</label>
+                <div class="meu-contact-row">
+                    <input id="meuSupervisao" class="form-control" placeholder="Ex: s613220">
+                    <input id="meuSupervisaoEmail" class="form-control" readonly placeholder="Email do utilizador">
+                </div>
+            </div>
+        </div>
+
+        <div class="card meu-config-card">
+            <div class="card-body">
+                <span class="meu-config-kicker">FLUXO AUTOMÁTICO</span>
+                <h5>Configurar utilizador</h5>
+                <p>Executa TPA, licença E3, Arquivo Online e limite de destinatários numa sequência acompanhada.</p>
+                <ul class="meu-config-summary">
+                    <li>Utilizador pesquisado</li>
+                    <li>Ticket e responsáveis preenchidos</li>
+                    <li>Retoma a partir de uma eventual falha</li>
+                </ul>
+                <button type="button" class="btn btn-danger meu-config-button" onclick="meuConfigurarUtilizador()">
+                    Configurar utilizador
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="meu-section-heading"><div><span>ETAPAS PRINCIPAIS</span><h3>Ações do processo MEU</h3></div><p>Execute apenas as ações necessárias para o utilizador pesquisado.</p></div>
+    <div class="meu-actions-grid">
+    <div class="card meu-action-card">
+        <div class="card-body">
+            <h5>Temporary Access Pass</h5>
+            <p>TPA multiuso com validade de 8 horas.</p>
+
+            <button class="btn btn-danger" onclick="meuCriarTPA()">Criar TPA 8 horas</button>
+            <br>
+
+            <div id="meuTpaProgressArea" class="meu-tpa-progress-area" style="display:none;">
+                <div class="meu-tpa-progress-header">
+                    <strong id="meuTpaProgressTitulo">Criando TPA...</strong>
+                    <span id="meuTpaProgressPercent">0%</span>
+                </div>
+
+                <div class="meu-tpa-progress-bg">
+                    <div id="meuTpaProgressBar" class="meu-tpa-progress-bar"></div>
+                </div>
+
+                <div id="meuTpaProgressMensagem" class="meu-tpa-progress-msg">
+                    A iniciar criação do Temporary Access Pass...
+                </div>
+            </div>
+
+            <br><br>
+
+            <label>TPA gerado</label>
+            <input id="meuTpaValor" class="form-control" readonly>
+
+            <br>
+
+            <label>Validade</label>
+            <input id="meuTpaValidade" class="form-control" readonly>
+        </div>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="card meu-action-card">
+        <div class="card-body">
+            <h5>Licença E3</h5>
+            <p>Verifica se o utilizador pertence ao grupo GR_PT_M365_E3.</p>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                <span id="meuE3Bolinha"
+                      style="width:16px;height:16px;border-radius:50%;background:#dc3545;display:inline-block;"></span>
+                <strong id="meuE3StatusTexto">Licença não verificada</strong>
+            </div>
+
+            <label>Grupo de licença</label>
+            <input id="meuE3Grupo" class="form-control" value="GR_PT_M365_E3" readonly>
+            <br>
+
+            <div id="meuE3ProgressArea" class="meu-e3-progress-area" style="display:none;">
+                <div class="meu-e3-progress-header">
+                    <strong id="meuE3ProgressTitulo">Processando Licença E3...</strong>
+                    <span id="meuE3ProgressPercent">0%</span>
+                </div>
+
+                <div class="meu-e3-progress-bg">
+                    <div id="meuE3ProgressBar" class="meu-e3-progress-bar"></div>
+                </div>
+
+                <div id="meuE3ProgressMensagem" class="meu-e3-progress-msg">
+                    A iniciar operação...
+                </div>
+            </div>
+
+            <br>
+
+            <button class="btn btn-danger" onclick="meuAtribuirE3()">Atribuir Licença E3</button>
+        </div>
+    </div>
+
+
+    <!-- === MEU ARQUIVO ONLINE CARD START === -->
+    <br>
+
+    <div class="card meu-action-card" id="meuArquivoOnlineCard">
+        <div class="card-body">
+            <h5>Arquivo Online EXO</h5>
+            <p>Este passo faz parte do processo MEU. Ativa/verifica o Arquivo Online da mailbox no Exchange Online.</p>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+                <span id="meuArquivoOnlineBolinha"
+                      style="width:16px;height:16px;border-radius:50%;background:#dc3545;display:inline-block;"></span>
+                <strong id="meuArquivoOnlineStatus">Arquivo Online não verificado</strong>
+            </div>
+
+            
+            <div id="meuArquivoOnlineProgressArea" class="meu-e3-progress-area" style="display:none;">
+                <div class="meu-e3-progress-header">
+                    <strong id="meuArquivoOnlineProgressTitulo">Processando Arquivo Online...</strong>
+                    <span id="meuArquivoOnlineProgressPercent">0%</span>
+                </div>
+
+                <div class="meu-e3-progress-bg">
+                    <div id="meuArquivoOnlineProgressBar" class="meu-e3-progress-bar"></div>
+                </div>
+
+                <div id="meuArquivoOnlineProgressMensagem" class="meu-e3-progress-msg">
+                    A iniciar operação...
+                </div>
+            </div>
+
+            <br>
+
+            <button class="btn btn-danger" onclick="meuAtivarArquivoOnlineExo()">Ativar Arquivo Online</button>
+        </div>
+    </div>
+    <!-- === MEU ARQUIVO ONLINE CARD END === -->
+
+    <br>
+
+    <div class="card meu-action-card" id="meuRecipientLimitCard">
+        <div class="card-body">
+            <h5>Limite de destinatários</h5>
+            <p>Define o número máximo de destinatários permitido por mensagem na mailbox do utilizador.</p>
+            <label for="meuRecipientLimit">Máximo de destinatários</label>
+            <div class="meu-inline-action">
+                <input id="meuRecipientLimit" class="form-control" type="number" min="1" max="1000" step="1" value="50" inputmode="numeric">
+                <button type="button" class="btn btn-danger" onclick="meuDefinirRecipientLimit()">Aplicar limite</button>
+            </div>
+            <div id="meuRecipientLimitStatus" class="meu-field-status" aria-live="polite">Valor padrão: 50 destinatários.</div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="meu-work-grid">
+<div class="card meu-work-card">
+        <div class="card-body">
+            <h5>MEU</h5>
+            <p>Comandos para criação/configuração MEU no AD local.</p>
+
+            <button class="btn btn-secondary" onclick="meuCopiarComandos()">Copiar comandos</button>
+
+            <br><br>
+
+            <label>Comandos gerados</label>
+            <textarea id="meuComandosBox"
+                      class="form-control"
+                      style="height:260px;font-family:Consolas,monospace;"
+                      readonly>Aguardando pesquisa do utilizador...</textarea>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card meu-work-card">
+        <div class="card-body">
+            <h5>Resposta para o Ticket</h5>
+            <p>Resposta montada automaticamente com os dados preenchidos no módulo.</p>
+
+            <button class="btn btn-secondary" onclick="meuCopiarRespostaTicket()">Copiar resposta</button>
+
+            <br><br>
+
+            <textarea id="meuRespostaTicketBox"
+                      class="form-control"
+                      style="height:360px;font-family:Consolas,monospace;"
+                      readonly>Aguardando dados do utilizador...</textarea>
+        </div>
+    </div>
+
+    </div>
+
+    <br>
+    <br>
+
+    <div class="card" id="meuEmailResponsavelCard">
+        <div class="card-body">
+            <h5>Email para o Responsável</h5>
+            <p>Email MFA montado automaticamente e aberto no Outlook para validação antes do envio.</p>
+
+            <label>Assunto</label>
+            <input id="meuEmailAssunto" class="form-control" readonly>
+
+            <br>
+
+            <label>Para</label>
+            <input id="meuEmailPara" class="form-control" readonly>
+
+            <br>
+
+            <label>CC</label>
+            <input id="meuEmailCc" class="form-control" value="pessoasecultura.contratacao@santander.pt" readonly>
+
+            <br>
+
+            <label>Manual MFA para anexar</label>
+<div style="display:grid;grid-template-columns:1fr 180px;gap:10px;">
+    <input id="meuManualMfaPath" class="form-control" value="C:\Temp\SantanderSupportWebV2_PROD\files\Manual_MFA.pdf">
+    <button class="btn btn-secondary" onclick="meuEscolherManualMfa()">Procurar Manual</button>
+</div>
+
+<br>
+
+<button class="btn btn-danger" onclick="meuAbrirEmailOutlook()">Criar Email no Outlook</button>
+            <button class="btn btn-secondary" onclick="meuCopiarCorpoEmail()">Copiar corpo HTML</button>
+
+            <br><br>
+
+            <label>Pré-visualização HTML</label>
+            <textarea id="meuEmailHtmlBox"
+                      class="form-control"
+                      style="height:320px;font-family:Consolas,monospace;"
+                      readonly>Aguardando dados...</textarea>
+        </div>
+    </div>
+
+
+
+    <div class="card">
+        <div class="card-body">
+            <h5>Resultado técnico</h5>
+            <textarea id="meuResultado"
+                      class="form-control"
+                      style="height:260px;font-family:Consolas,monospace;"
+                      readonly>Aguardando...</textarea>
+        </div>
+    </div>
+
+    <div id="meuWorkflowOverlay" class="meu-workflow-overlay" role="dialog" aria-modal="true" aria-labelledby="meuWorkflowTitle" aria-hidden="true">
+        <div class="meu-workflow-modal">
+            <div class="meu-workflow-header">
+                <span class="meu-workflow-eyebrow">CONFIGURAÇÃO AUTOMÁTICA</span>
+                <h3 id="meuWorkflowTitle">Configurar utilizador</h3>
+                <p id="meuWorkflowSubtitle">A preparar as etapas do processo MEU.</p>
+            </div>
+            <div class="meu-workflow-body">
+                <div class="meu-workflow-progress-head">
+                    <strong id="meuWorkflowProgressText">Preparar configuração</strong>
+                    <span id="meuWorkflowPercent">0%</span>
+                </div>
+                <div class="meu-workflow-progress"><span id="meuWorkflowProgressBar"></span></div>
+                <div id="meuWorkflowSteps" class="meu-workflow-steps">
+                    <div class="meu-workflow-step pending" data-workflow-step="0"><span class="meu-workflow-step-icon">1</span><div><strong>Validar dados</strong><small>Utilizador, ticket e responsáveis</small></div><em>Aguardando</em></div>
+                    <div class="meu-workflow-step pending" data-workflow-step="1"><span class="meu-workflow-step-icon">2</span><div><strong>Criar Temporary Access Pass</strong><small>TPA multiuso com validade de 8 horas</small></div><em>Aguardando</em></div>
+                    <div class="meu-workflow-step pending" data-workflow-step="2"><span class="meu-workflow-step-icon">3</span><div><strong>Atribuir licença E3</strong><small>Grupo GR_PT_M365_E3</small></div><em>Aguardando</em></div>
+                    <div class="meu-workflow-step pending" data-workflow-step="3"><span class="meu-workflow-step-icon">4</span><div><strong>Ativar Arquivo Online</strong><small>Mailbox no Exchange Online</small></div><em>Aguardando</em></div>
+                    <div class="meu-workflow-step pending" data-workflow-step="4"><span class="meu-workflow-step-icon">5</span><div><strong>Definir limite de destinatários</strong><small>Aplica o valor indicado no módulo</small></div><em>Aguardando</em></div>
+                    <div class="meu-workflow-step pending" data-workflow-step="5"><span class="meu-workflow-step-icon">6</span><div><strong>Atualizar documentos</strong><small>Comandos, resposta e email</small></div><em>Aguardando</em></div>
+                    <div class="meu-workflow-step pending" data-workflow-step="6"><span class="meu-workflow-step-icon">7</span><div><strong>Copiar resposta do ticket</strong><small>Resposta de fecho para a área de transferência</small></div><em>Aguardando</em></div>
+                    <div class="meu-workflow-step pending" data-workflow-step="7"><span class="meu-workflow-step-icon">8</span><div><strong>Abrir email no Outlook</strong><small>Email preparado para revisão e envio</small></div><em>Aguardando</em></div>
+                </div>
+                <div id="meuWorkflowMessage" class="meu-workflow-message">Aguardando início.</div>
+                <div class="meu-workflow-footer">
+                    <span id="meuWorkflowElapsed">Tempo total: 0s</span>
+                    <div>
+                        <button id="meuWorkflowRetry" type="button" class="btn btn-secondary" onclick="meuRetomarConfiguracao()" style="display:none;">Tentar novamente</button>
+                        <button id="meuWorkflowClose" type="button" class="btn btn-danger" onclick="meuFecharWorkflow()" disabled>Fechar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<style>
+.module-page {
+    --st-red: #ec0000;
+    --st-red-dark: #b80000;
+    --st-bg: #f4f5f7;
+    --st-card: #ffffff;
+    --st-border: #e5e7eb;
+    --st-text: #1f2937;
+    --st-muted: #6b7280;
+    --st-green: #198754;
+    --st-shadow: 0 10px 28px rgba(0,0,0,.08);
+}
+
+.module-page {
+    background: var(--st-bg);
+    padding: 24px;
+    border-radius: 18px;
+}
+
+.module-page h2 {
+    color: var(--st-red);
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 4px;
+}
+
+.module-page > p {
+    color: var(--st-muted);
+    margin-bottom: 22px;
+}
+
+.module-page .card {
+    border: 1px solid var(--st-border) !important;
+    border-radius: 18px !important;
+    box-shadow: var(--st-shadow);
+    overflow: hidden;
+    background: var(--st-card);
+}
+
+.module-page .card-body {
+    padding: 22px !important;
+}
+
+.module-page .card h5 {
+    color: var(--st-text);
+    font-size: 18px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    padding-left: 12px;
+    border-left: 5px solid var(--st-red);
+}
+
+.module-page .card p {
+    color: var(--st-muted);
+    margin-bottom: 18px;
+}
+
+.module-page label {
+    font-weight: 700;
+    color: var(--st-text);
+    margin-bottom: 6px;
+}
+
+.module-page .form-control {
+    border-radius: 12px !important;
+    border: 1px solid #d1d5db !important;
+    padding: 10px 12px !important;
+    transition: all .2s ease;
+}
+
+.module-page .form-control:focus {
+    border-color: var(--st-red) !important;
+    box-shadow: 0 0 0 3px rgba(236,0,0,.12) !important;
+}
+
+.module-page textarea.form-control {
+    background: #fbfbfc;
+}
+
+.module-page .btn {
+    border-radius: 999px !important;
+    padding: 10px 18px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    transition: all .2s ease;
+}
+
+.module-page .btn-danger {
+    background: var(--st-red) !important;
+}
+
+.module-page .btn-danger:hover {
+    background: var(--st-red-dark) !important;
+    transform: translateY(-1px);
+}
+
+.module-page .btn-secondary {
+    background: #374151 !important;
+}
+
+.module-page .btn-secondary:hover {
+    background: #111827 !important;
+    transform: translateY(-1px);
+}
+
+.meu-inline-action {
+    display: grid;
+    grid-template-columns: minmax(140px, 220px) auto;
+    gap: 10px;
+    align-items: center;
+}
+
+.meu-field-status { margin-top: 10px; color: var(--st-muted); font-size: 13px; font-weight: 600; }
+.meu-field-status.success { color: var(--st-green); }
+.meu-field-status.error { color: var(--st-red-dark); }
+
+.meu-info-box {
+    background: linear-gradient(180deg,#ffffff,#fafafa);
+    border: 1px solid var(--st-border);
+    border-radius: 16px;
+    padding: 16px;
+    min-height: 82px;
+}
+
+.meu-info-box span {
+    display: block;
+    font-size: 12px;
+    color: var(--st-muted);
+    margin-bottom: 6px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+}
+
+.meu-info-box strong {
+    display: block;
+    font-size: 15px;
+    color: var(--st-text);
+    word-break: break-word;
+}
+
+.meu-info-wide {
+    grid-column: 1 / -1;
+}
+
+#meuE3Bolinha {
+    box-shadow: 0 0 0 4px rgba(236,0,0,.12);
+}
+
+#meuE3StatusTexto {
+    color: var(--st-text);
+}
+
+#meuTpaValor {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--st-red);
+    letter-spacing: 1px;
+}
+
+#meuRespostaTicketBox,
+#meuEmailHtmlBox,
+#meuComandosBox,
+#meuResultado {
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.module-page .card + .card,
+.module-page br + .card {
+    margin-top: 18px;
+}
+
+@media (max-width: 768px) {
+    .module-page {
+        padding: 14px;
+    }
+
+    .module-page .card-body {
+        padding: 16px !important;
+    }
+
+    .module-page h2 {
+        font-size: 24px;
+    }
+
+    .meu-inline-action { grid-template-columns: 1fr; }
+}
+
+.meu-progress-area {
+    background: #ffffff;
+    border: 1px solid var(--st-border);
+    border-left: 5px solid var(--st-red);
+    border-radius: 16px;
+    padding: 16px;
+    margin: 18px 0;
+    box-shadow: var(--st-shadow);
+}
+
+.meu-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--st-text);
+    margin-bottom: 10px;
+}
+
+.meu-progress-bar-bg {
+    width: 100%;
+    height: 14px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.meu-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--st-red);
+    border-radius: 999px;
+    transition: width .3s ease;
+}
+
+.meu-progress-msg {
+    margin-top: 10px;
+    color: var(--st-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.meu-tpa-progress-area {
+    background: #fff;
+    border: 1px solid var(--st-border);
+    border-left: 5px solid var(--st-red);
+    border-radius: 16px;
+    padding: 14px;
+    margin: 14px 0;
+    box-shadow: 0 8px 22px rgba(0,0,0,.06);
+}
+
+.meu-tpa-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--st-text);
+}
+
+.meu-tpa-progress-bg {
+    width: 100%;
+    height: 14px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.meu-tpa-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--st-red);
+    border-radius: 999px;
+    transition: width .35s ease;
+}
+
+.meu-tpa-progress-msg {
+    margin-top: 10px;
+    color: var(--st-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.meu-e3-progress-area {
+    background: #fff;
+    border: 1px solid var(--st-border);
+    border-left: 5px solid var(--st-red);
+    border-radius: 16px;
+    padding: 14px;
+    margin: 14px 0;
+    box-shadow: 0 8px 22px rgba(0,0,0,.06);
+}
+
+.meu-e3-progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--st-text);
+}
+
+.meu-e3-progress-bg {
+    width: 100%;
+    height: 14px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.meu-e3-progress-bar {
+    width: 0%;
+    height: 100%;
+    background: var(--st-red);
+    border-radius: 999px;
+    transition: width .35s ease;
+}
+
+.meu-e3-progress-msg {
+    margin-top: 10px;
+    color: var(--st-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* MEU V3 - organização visual e leitura orientada por tarefas */
+.module-page {
+    display: grid;
+    gap: 18px;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    color: var(--st-text);
+}
+
+.module-page > br,
+.meu-actions-grid > br,
+.meu-work-grid > br { display: none; }
+
+.meu-hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 24px 26px;
+    border: 1px solid var(--st-border);
+    border-radius: 18px;
+    background: linear-gradient(135deg, #fff 62%, #fff4f4);
+    box-shadow: 0 8px 24px rgba(15, 23, 42, .05);
+}
+
+.module-page .meu-hero h2 { margin: 4px 0 3px; color: var(--st-text); font-size: 28px; }
+.module-page .meu-hero p { margin: 0; color: var(--st-muted); }
+.meu-kicker { color: var(--st-red); font-size: 11px; font-weight: 900; letter-spacing: .12em; }
+.meu-overall-status { flex: 0 0 auto; padding: 8px 12px; border-radius: 999px; font-size: 12px; font-weight: 800; }
+.meu-overall-status.neutral { color: #526071; background: #eef2f6; }
+.meu-overall-status.loading { color: #075985; background: #e0f2fe; }
+.meu-overall-status.success { color: #166534; background: #dcfce7; }
+.meu-overall-status.error { color: #991b1b; background: #fee2e2; }
+
+.module-page .card {
+    border-radius: 16px !important;
+    box-shadow: 0 7px 22px rgba(15, 23, 42, .055);
+}
+
+.meu-search-card .card-body { padding: 18px !important; }
+.meu-search-row { display: grid; grid-template-columns: minmax(260px, 1fr) auto auto; gap: 10px; align-items: center; }
+.meu-search-row .btn { min-width: 96px; white-space: nowrap; }
+
+.meu-info-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 16px; border: 1px solid var(--st-border); border-radius: 13px; overflow: hidden; }
+.meu-info-grid .meu-info-box { min-height: 78px; border: 0; border-right: 1px solid var(--st-border); border-bottom: 1px solid var(--st-border); border-radius: 0; background: #fff; }
+.meu-info-grid .meu-info-wide { grid-column: 1 / -1; border-bottom: 0; }
+
+.meu-people-grid { display: grid; grid-template-columns: minmax(230px, .7fr) minmax(480px, 1.45fr) minmax(260px, .85fr); gap: 18px; align-items: stretch; }
+.meu-contact-row { display: grid; grid-template-columns: minmax(130px, 180px) 1fr; gap: 10px; }
+.meu-config-card { border-top: 4px solid var(--st-red) !important; }
+.meu-config-card .card-body { display: flex; flex-direction: column; height: 100%; box-sizing: border-box; }
+.meu-config-kicker { color: var(--st-red); font-size: 10px; font-weight: 900; letter-spacing: .11em; }
+.meu-config-card h5 { margin-top: 8px; }
+.meu-config-summary { display: grid; gap: 8px; margin: 2px 0 18px; padding: 0; list-style: none; color: #475569; font-size: 12px; }
+.meu-config-summary li { position: relative; padding-left: 18px; }
+.meu-config-summary li::before { content: "✓"; position: absolute; left: 0; color: var(--st-green); font-weight: 900; }
+.meu-config-button { align-self: flex-start; margin-top: auto; white-space: nowrap; }
+
+.meu-section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; padding: 4px 2px 0; }
+.meu-section-heading span { color: var(--st-red); font-size: 10px; font-weight: 900; letter-spacing: .12em; }
+.meu-section-heading h3 { margin: 3px 0 0; font-size: 20px; }
+.meu-section-heading p { margin: 0; color: var(--st-muted); font-size: 13px; }
+
+.meu-actions-grid { display: grid; grid-template-columns: repeat(4, minmax(220px, 1fr)); gap: 14px; align-items: stretch; }
+.meu-action-card { margin: 0 !important; min-width: 0; }
+.meu-action-card .card-body { display: flex; flex-direction: column; min-height: 100%; padding: 18px !important; box-sizing: border-box; }
+.meu-action-card h5 { font-size: 16px; }
+.meu-action-card p { min-height: 38px; font-size: 12px; line-height: 1.45; }
+.meu-action-card > .card-body > .btn { align-self: flex-start; margin-top: auto; white-space: nowrap; }
+.meu-action-card .form-control { padding: 9px 10px !important; }
+
+.meu-inline-action { grid-template-columns: minmax(88px, 110px) auto; justify-content: start; }
+.meu-inline-action .btn { justify-self: start; width: auto !important; min-width: 0 !important; padding: 9px 14px !important; white-space: nowrap; }
+
+.meu-tpa-progress-area,
+.meu-e3-progress-area { padding: 11px; margin: 10px 0; box-shadow: none; }
+
+.meu-work-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; align-items: stretch; }
+.meu-work-card { margin: 0 !important; }
+.meu-work-card .card-body { height: 100%; box-sizing: border-box; }
+.meu-work-card textarea { min-height: 250px; resize: vertical; }
+
+#meuEmailResponsavelCard,
+.meu-work-grid + #meuEmailResponsavelCard { margin-top: 0 !important; }
+
+.meu-workflow-overlay { position: fixed; inset: 0; z-index: 10020; display: none; align-items: center; justify-content: center; padding: 20px; background: rgba(15, 23, 42, .58); backdrop-filter: blur(3px); }
+.meu-workflow-overlay.open { display: flex; }
+.meu-workflow-modal { width: min(760px, 100%); max-height: 92vh; overflow: auto; border-radius: 22px; background: #fff; box-shadow: 0 28px 90px rgba(15, 23, 42, .38); }
+.meu-workflow-header { padding: 24px 28px 22px; color: #fff; background: linear-gradient(135deg, #b40000, #ec0000); }
+.meu-workflow-eyebrow { font-size: 10px; font-weight: 900; letter-spacing: .14em; opacity: .85; }
+.meu-workflow-header h3 { margin: 5px 0 4px; font-size: 25px; }
+.meu-workflow-header p { margin: 0; color: rgba(255,255,255,.88); }
+.meu-workflow-body { padding: 24px 28px 22px; }
+.meu-workflow-progress-head { display: flex; justify-content: space-between; gap: 16px; margin-bottom: 9px; }
+.meu-workflow-progress { height: 11px; overflow: hidden; border-radius: 999px; background: #e5e7eb; }
+.meu-workflow-progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--st-red); transition: width .3s ease; }
+.meu-workflow-steps { display: grid; gap: 9px; margin-top: 20px; }
+.meu-workflow-step { display: grid; grid-template-columns: 36px 1fr auto; align-items: center; gap: 12px; padding: 11px 13px; border: 1px solid #e5e7eb; border-radius: 12px; background: #f8fafc; }
+.meu-workflow-step-icon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: #e5e7eb; color: #64748b; font-size: 12px; font-weight: 900; }
+.meu-workflow-step strong, .meu-workflow-step small { display: block; }
+.meu-workflow-step small { margin-top: 2px; color: #64748b; }
+.meu-workflow-step em { color: #64748b; font-size: 11px; font-style: normal; font-weight: 800; }
+.meu-workflow-step.running { border-color: #93c5fd; background: #eff6ff; }
+.meu-workflow-step.running .meu-workflow-step-icon { color: #fff; background: #2563eb; animation: meuPulse 1s infinite alternate; }
+.meu-workflow-step.success { border-color: #bbf7d0; background: #f0fdf4; }
+.meu-workflow-step.success .meu-workflow-step-icon { color: #fff; background: #16a34a; }
+.meu-workflow-step.success em { color: #15803d; }
+.meu-workflow-step.error { border-color: #fecaca; background: #fef2f2; }
+.meu-workflow-step.error .meu-workflow-step-icon { color: #fff; background: #dc2626; }
+.meu-workflow-step.error em { color: #b91c1c; }
+.meu-workflow-message { margin-top: 18px; padding: 12px 14px; border-radius: 11px; color: #475569; background: #f1f5f9; font-size: 13px; }
+.meu-workflow-message.success { color: #166534; background: #ecfdf5; }
+.meu-workflow-message.error { color: #991b1b; background: #fef2f2; }
+.meu-workflow-footer { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 18px; }
+.meu-workflow-footer > span { color: #64748b; font-size: 12px; }
+.meu-workflow-footer > div { display: flex; gap: 9px; }
+@keyframes meuPulse { from { transform: scale(.92); opacity: .75; } to { transform: scale(1); opacity: 1; } }
+
+@media (max-width: 1350px) {
+    .meu-people-grid { grid-template-columns: minmax(240px, .7fr) minmax(480px, 1.3fr); }
+    .meu-config-card { grid-column: 1 / -1; }
+    .meu-actions-grid { grid-template-columns: repeat(2, minmax(250px, 1fr)); }
+    .meu-info-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 900px) {
+    .meu-people-grid, .meu-work-grid { grid-template-columns: 1fr; }
+    .meu-info-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .meu-search-row { grid-template-columns: 1fr auto auto; }
+}
+
+@media (max-width: 650px) {
+    .meu-hero, .meu-section-heading { align-items: flex-start; flex-direction: column; }
+    .meu-actions-grid, .meu-info-grid, .meu-search-row, .meu-contact-row { grid-template-columns: 1fr; }
+    .meu-search-row .btn { width: 100%; }
+    .meu-info-grid .meu-info-wide { grid-column: auto; }
+    .meu-workflow-body, .meu-workflow-header { padding-left: 18px; padding-right: 18px; }
+    .meu-workflow-step { grid-template-columns: 34px 1fr; }
+    .meu-workflow-step em { grid-column: 2; }
+    .meu-workflow-footer { align-items: stretch; flex-direction: column; }
+}
+</style>
+
+
+
+<div class="card">
+    <div class="card-header">
+        Ações Finais
+    </div>
+
+    <div style="padding:20px;display:flex;gap:12px;flex-wrap:wrap;">
+
+        <button
+            class="btn btn-danger"
+            onclick="meuNovoUtilizador()">
+            ↑ Novo Utilizador
+        </button>
+
+        <button
+            class="btn btn-secondary"
+            onclick="meuLimparTudo()">
+            🧹 Limpar Tudo
+        </button>
+
+    </div>
+</div>
+</div>

@@ -1,0 +1,8 @@
+{
+    "name": "criacao-user-meu",
+    "title": "Criação de User (MEU)",
+    "description": "Preparar o MEU no Entra ID, AD Local e Exchange Online",
+    "category": "Ferramentas",
+    "enabled": true,
+    "order": 3
+}

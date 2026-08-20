@@ -1,0 +1,2960 @@
+{
+  "3c455749-ec9e-4244-a28f-08a6eae75273": [
+    {
+      "timestamp": "2026-08-03T10:12:47.0764855+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T18:56:58.5744192+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "406a55fa-11e8-4002-95ae-c63164da5878": [
+    {
+      "timestamp": "2026-07-27T11:34:35.7509249+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T16:32:49.4738068+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "03ed1ab7-872b-4d61-a03d-4a7c0f94a6ea": [
+    {
+      "timestamp": "2026-08-06T11:36:47.3536125+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "ee8252a4-fb7d-406d-889d-38f75def7af3": [
+    {
+      "timestamp": "2026-08-10T09:53:35.0318908+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "95d78fa6-256c-4061-8108-eebd4b02a477": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7842882+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:02:04.5212275+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "6883b042-6ea5-442b-913e-5eb4ce424686": [
+    {
+      "timestamp": "2026-08-03T10:14:24.8418566+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T13:24:17.9661266+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "6098f523-a735-48fe-99b8-014436eb4e46": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0454444+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:01:58.9235046+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c7862e31-0a9f-4b2d-99ee-68b44234af7a": [
+    {
+      "timestamp": "2026-07-29T11:07:44.0887062+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "ecb0e287-218a-4fbb-ad55-c09da0fd253c": [
+    {
+      "timestamp": "2026-08-03T10:15:00.4186737+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "95dd865c-7b9d-4048-8d16-8c36a54edb99": [
+    {
+      "timestamp": "2026-07-27T11:34:26.6318798+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:14:33.2586214+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "46b4ddeb-79a4-41f1-b166-12061200d160": [
+    {
+      "timestamp": "2026-07-20T18:01:58.8968209+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "8f9272e2-20f2-4c88-b29e-422af05ff8dc": [
+    {
+      "timestamp": "2026-07-30T11:01:26.8051797+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-30T15:10:40.6884002+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-07T12:19:21.4773032+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T14:13:16.5239042+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c3b7821f-1ecb-4fa9-8509-7a0dc4da6838": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7377418+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:02:00.8170853+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "de15b411-8015-4f13-9f09-1907218324a4": [
+    {
+      "timestamp": "2026-07-20T18:01:58.888766+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-23T12:46:39.9881306+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "6b85c770-82ea-4e04-8791-6f2fa35aa982": [
+    {
+      "timestamp": "2026-08-03T10:14:12.0334974+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "87a78a8e-32b8-4def-993e-ec6c7a25378e": [
+    {
+      "timestamp": "2026-07-22T11:00:29.5453666+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "fac2ad8c-a05e-469f-9e2b-0197ce5d735b": [
+    {
+      "timestamp": "2026-08-05T12:13:57.7758254+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "49274a55-8d1b-4705-98d1-f7850a3a9aaf": [
+    {
+      "timestamp": "2026-07-16T16:57:50.1870669+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "9a15e7d5-cc14-4aac-aad5-9ec8b46c20fb": [
+    {
+      "timestamp": "2026-07-28T11:34:46.140021+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T11:07:44.2253905+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-07T09:43:31.0739498+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:54:28.1551508+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "e047a334-347a-4bb2-a377-f5d9c9af8167": [
+    {
+      "timestamp": "2026-08-07T09:44:17.3303926+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "a72ca2a8-20be-4953-8455-9ce5effd773f": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7513219+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "219c22f4-f86d-412f-ae55-4b65f60da12d": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0710009+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "145e9fb0-125b-4ed4-ac99-b654a4f7ed8d": [
+    {
+      "timestamp": "2026-07-17T16:05:12.0422123+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T10:53:10.1605696+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "2ca14d02-0045-40ad-862b-5e84caac6191": [
+    {
+      "timestamp": "2026-07-20T18:02:00.7889466+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-21T17:52:34.3504392+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-10T09:53:57.8444197+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "1a3820e1-12f0-4368-810f-e117cebcf366": [
+    {
+      "timestamp": "2026-07-27T11:34:35.6954988+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T16:32:49.4301494+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "a4ed13d6-79cf-4b80-824c-5e79cc7fb5c1": [
+    {
+      "timestamp": "2026-08-03T10:14:03.7324893+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T13:24:21.8119957+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "6a801cbe-7f6a-446b-930d-c73fc94ad7f4": [
+    {
+      "timestamp": "2026-07-28T11:34:52.6047308+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T11:07:45.6164374+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "29d023db-c453-4d8c-85c2-b67212d5d0a5": [
+    {
+      "timestamp": "2026-08-10T09:55:07.1125843+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "54963939-1fc0-433d-8554-b6f8df64209d": [
+    {
+      "timestamp": "2026-07-24T14:00:35.2721009+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:35.6482853+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "37763355-c3f1-43a8-a9b0-10cbc8fc24b0": [
+    {
+      "timestamp": "2026-07-28T11:34:41.2245578+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T14:06:32.6356039+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "aa261e25-e654-476e-a69c-5157aaac07cf": [
+    {
+      "timestamp": "2026-07-30T15:10:29.1511384+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:13:50.6099708+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "f8638551-da60-481f-afce-316767897ba4": [
+    {
+      "timestamp": "2026-08-03T10:13:05.0572838+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T11:13:53.2124504+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "133e206e-48d3-4f19-9126-5a05e2dbc51d": [
+    {
+      "timestamp": "2026-07-22T11:00:25.5439507+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "d24590c8-224b-4db5-8b6c-876fae44cd04": [
+    {
+      "timestamp": "2026-07-17T14:36:30.963371+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-17T15:26:37.0309281+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "165dbd9e-1bf8-462e-8905-3f33dab27c77": [
+    {
+      "timestamp": "2026-08-04T09:54:17.063962+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "20fb3a7a-a86c-47cf-85d0-8dbf1df6eb59": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7284605+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "0b61a541-9393-4835-b9eb-4cd55530f6b7": [
+    {
+      "timestamp": "2026-07-22T10:52:59.1428494+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-23T12:46:45.189678+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "37885ca4-ac51-4f4f-91ab-35124d084f69": [
+    {
+      "timestamp": "2026-07-28T11:34:41.2885804+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:12:55.5790282+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "fe55a676-8fc0-4704-a9ed-e85166e36cb2": [
+    {
+      "timestamp": "2026-07-28T11:34:52.6464455+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:15:52.5151049+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "d6bd8672-8a39-42b0-a2bf-446a9542c0bd": [
+    {
+      "timestamp": "2026-07-20T18:02:00.7125524+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "c10946ad-d49d-47fc-8122-b8adc95c2823": [
+    {
+      "timestamp": "2026-08-07T09:43:50.7955297+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:54:47.4702943+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "f0d691ba-2e89-4f57-aefb-bfba96295122": [
+    {
+      "timestamp": "2026-08-04T09:55:24.4586588+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T15:57:23.3063375+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "8f97b230-5257-4250-9309-228c64497613": [
+    {
+      "timestamp": "2026-07-22T10:52:59.0929013+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T17:38:43.8573434+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-10T09:53:05.8560396+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "eae36c95-0042-4bff-baa4-548441fee6a9": [
+    {
+      "timestamp": "2026-07-16T16:57:41.3375078+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:02:00.7677494+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "27279ee1-1619-4e07-97d8-9931f841fe5b": [
+    {
+      "timestamp": "2026-08-10T09:54:24.2011487+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "ea554eed-c5c6-40d3-8008-dfe33911b56e": [
+    {
+      "timestamp": "2026-07-20T18:02:04.4467449+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "2f4ec3b9-5e2a-4ee8-8939-64b04f6694b5": [
+    {
+      "timestamp": "2026-07-16T16:57:46.0985837+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:02:00.7740753+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "ef37b51d-0832-4973-8fe7-836cf78f089e": [
+    {
+      "timestamp": "2026-08-10T09:54:18.038377+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "8a37d8ba-bf98-4bab-abbe-5c6be7a9a1e2": [
+    {
+      "timestamp": "2026-07-23T17:57:17.7241582+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "821ac8ac-47a0-4c68-b7f4-952e55ec80ee": [
+    {
+      "timestamp": "2026-08-06T09:40:19.7962108+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "b926e9f1-bbed-4e24-836b-35f18cf68825": [
+    {
+      "timestamp": "2026-07-22T10:52:59.0724349+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "4f096c47-8407-42f5-8d8a-c9b3d50c970f": [
+    {
+      "timestamp": "2026-07-20T18:02:04.4289326+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "1a81d2e6-cd24-42bf-afaa-0bcc331f8ac6": [
+    {
+      "timestamp": "2026-07-17T14:36:28.5235625+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T10:52:56.9738195+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "e401f4b8-54cf-4ece-8ddc-c8dd25049222": [
+    {
+      "timestamp": "2026-08-03T10:15:26.0772685+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:55:12.1996447+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "002af850-4d5b-4ed4-aa94-d57d1bdade85": [
+    {
+      "timestamp": "2026-07-28T11:34:52.5488447+01:00",
+      "complianceState": "noncompliant",
+      "diagnosticCategory": "Equipamento móvel não conforme",
+      "risk": "Alto"
+    }
+  ],
+  "803f1881-aff4-4d95-a3b0-b8de3ce7f4bb": [
+    {
+      "timestamp": "2026-07-15T01:00:08.3027674+01:00",
+      "complianceState": "noncompliant",
+      "diagnosticCategory": "Equipamento móvel não conforme",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-23T17:57:17.8601667+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-24T14:00:35.2882204+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-03T10:15:18.1628549+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "b36172c4-f4e8-42f5-828e-9640ea27eed3": [
+    {
+      "timestamp": "2026-07-27T11:34:26.6443736+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "be887a6a-6072-4706-8da4-0138a26eb72c": [
+    {
+      "timestamp": "2026-08-03T10:12:51.4517089+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T11:13:47.1060304+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "740021d3-3c29-4267-a1df-0a9a1d1ae7cd": [
+    {
+      "timestamp": "2026-07-27T11:34:10.4427447+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "4c9e16d0-9ef4-4663-aa14-21d9ab04c70b": [
+    {
+      "timestamp": "2026-07-17T14:36:28.5753602+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "ab2eb310-f8c3-46bf-b798-b5c2177d20c0": [
+    {
+      "timestamp": "2026-08-10T09:55:01.1460831+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "d3e3ae6d-8f0f-490d-af8c-83a138ad8783": [
+    {
+      "timestamp": "2026-08-06T09:40:07.0661885+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "9faeb10e-6eb8-454b-8ccd-1e5aa6b4fe82": [
+    {
+      "timestamp": "2026-08-10T09:52:56.5050208+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "aa434a91-dd33-4c7d-b7f1-9236ecc2a659": [
+    {
+      "timestamp": "2026-08-03T10:14:59.041359+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "5af5de4c-153e-41de-a685-f45240edfe17": [
+    {
+      "timestamp": "2026-08-03T10:16:00.4550734+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "b5966a5a-dbe6-4210-b927-4aa106869c80": [
+    {
+      "timestamp": "2026-07-15T01:00:05.8742484+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "8169910f-508a-442c-82d2-0053160f42be": [
+    {
+      "timestamp": "2026-07-29T11:07:37.5139559+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:12:54.3711855+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "0da745af-9e5f-47a9-aa38-b429760394c8": [
+    {
+      "timestamp": "2026-08-03T10:15:20.8112542+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "ef6e4078-75f6-478d-9ad0-bb567ca00b19": [
+    {
+      "timestamp": "2026-08-10T09:54:46.5671938+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "57b35967-7f98-4aa4-a722-a8d8ae15e183": [
+    {
+      "timestamp": "2026-07-27T11:34:26.6398827+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "f96caac6-4946-40d9-b95c-b697c3780464": [
+    {
+      "timestamp": "2026-07-20T18:02:04.415091+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-21T10:49:14.4284054+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "3ef82d4b-4dfd-4730-a278-58f39afc33a1": [
+    {
+      "timestamp": "2026-07-27T11:34:26.5649586+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "95ab9c99-065f-4d16-8d2a-1c1b205ccef8": [
+    {
+      "timestamp": "2026-07-28T17:04:49.4747598+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "b46b94e2-ef75-40e9-9fa0-0f86217ba53b": [
+    {
+      "timestamp": "2026-07-28T17:04:51.3560039+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "69007903-ba08-4c5b-ada4-2746d0fec1e1": [
+    {
+      "timestamp": "2026-08-05T12:14:21.1967629+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "384fd7b9-f500-41be-838c-6176af60f1ee": [
+    {
+      "timestamp": "2026-07-22T17:38:47.9570504+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:26.5993714+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "9cfba381-383f-4599-ac8b-a44f53e5c3bb": [
+    {
+      "timestamp": "2026-07-17T14:36:30.9803568+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T10:53:05.9054615+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "4dd1b441-8f6f-4081-879f-982f59f614f2": [
+    {
+      "timestamp": "2026-07-16T19:25:05.785588+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-17T09:51:10.4023032+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "bfc01aa4-fb32-4add-afe2-5249dc94b781": [
+    {
+      "timestamp": "2026-07-16T09:52:45.5978633+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-28T17:04:51.6166563+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T11:07:40.0756996+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-10T09:53:19.416316+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "e8b8fd12-87b8-45a4-82a4-27b4ac4d8d75": [
+    {
+      "timestamp": "2026-07-16T19:25:05.7375736+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "33eeaca5-765f-4a11-876c-e73197ca18bf": [
+    {
+      "timestamp": "2026-07-24T14:00:35.3935181+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "864e8f05-2620-42f0-a1d7-0c1e81c5f958": [
+    {
+      "timestamp": "2026-07-21T11:15:49.1938456+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "d755a0b5-d2fb-4118-9a30-7cd9dc3e7e9b": [
+    {
+      "timestamp": "2026-07-20T18:02:00.8100097+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "6407ad17-59dc-4eca-a98d-4864bc292a52": [
+    {
+      "timestamp": "2026-08-10T09:53:39.2034556+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "d4b8c06e-039e-4f3c-a7d4-e2c1044072b6": [
+    {
+      "timestamp": "2026-07-16T16:57:50.179535+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-17T15:26:41.3023754+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:35.790794+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T16:32:49.5447741+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "315bca39-5dd5-43c0-85cb-385452070f46": [
+    {
+      "timestamp": "2026-07-29T11:07:40.1047666+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-31T09:49:30.9465674+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "d9141ccf-e4ae-4a54-9161-abc4446a71c2": [
+    {
+      "timestamp": "2026-07-27T11:34:35.6546212+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "3052ba2c-084e-4f30-b65a-a827207872d4": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7445865+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "9f06240d-95ea-4476-b2d1-05768cb5ac2f": [
+    {
+      "timestamp": "2026-08-03T10:12:48.0941152+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T09:53:37.6409656+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "4efe0040-379c-4a06-a7f2-edf6ce64d3ef": [
+    {
+      "timestamp": "2026-07-15T01:00:12.7856046+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "176a7c01-59ad-41ce-a5d2-55b8f7663093": [
+    {
+      "timestamp": "2026-07-27T11:34:26.5451596+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-28T11:34:46.0185373+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c62030ba-ab01-4783-8ce4-2043af70aadf": [
+    {
+      "timestamp": "2026-07-22T10:52:59.0511524+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "d4db7eb9-bf0c-4eac-a2fa-57a68687ff77": [
+    {
+      "timestamp": "2026-08-10T09:53:44.3974188+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "5e310598-04bb-47d3-8d35-0b85c50451fd": [
+    {
+      "timestamp": "2026-07-27T11:34:10.4979586+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T17:52:15.2014533+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "99c2d926-2f10-4014-815d-be4309857c12": [
+    {
+      "timestamp": "2026-08-10T09:54:45.4353028+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "ab94fdf6-0ebc-42e9-ab0f-2ab43645f7d3": [
+    {
+      "timestamp": "2026-08-05T12:14:26.3973587+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-06T09:39:06.9861548+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "d8da9927-b94a-4cf5-b235-9eb0e1192473": [
+    {
+      "timestamp": "2026-08-10T09:54:35.7916466+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "55b9fe83-e090-43fb-8e24-159b1397ee23": [
+    {
+      "timestamp": "2026-07-27T11:34:10.3997506+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "738256b1-ccfa-46dc-87e9-07f0927e63d1": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0211066+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "fe55c655-94f3-4491-a0aa-7fb33f2d9d5a": [
+    {
+      "timestamp": "2026-07-20T18:02:00.8024548+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-21T10:49:10.4601092+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-07-29T11:07:44.1692276+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:14:37.4635127+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "916f5a86-5499-4d38-8c8b-dca637ed0f21": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7710432+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-21T10:49:14.4410208+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-03T10:15:29.0821322+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T09:55:42.4340012+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c99d6593-f70c-40f2-80ba-43935cf9c5a3": [
+    {
+      "timestamp": "2026-07-16T09:52:39.1637361+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-08-03T10:13:32.088306+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "02c0d66f-31a3-4ee4-a37c-4b3290c043b9": [
+    {
+      "timestamp": "2026-08-10T09:53:14.6783906+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "1a8f41ff-4e4f-4729-a97e-5a9fc29686d2": [
+    {
+      "timestamp": "2026-07-22T11:00:25.538094+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-23T12:46:50.7394534+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "a1bef800-2125-4fec-afa7-70537be49d04": [
+    {
+      "timestamp": "2026-08-10T09:53:53.1071847+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "a461cf88-075c-4bb6-b6da-00dcdd843093": [
+    {
+      "timestamp": "2026-07-20T18:01:58.8791398+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-21T10:49:10.2765499+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "acf14b01-677c-4293-b24d-5d33928fa191": [
+    {
+      "timestamp": "2026-08-07T09:43:11.5448847+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T14:13:50.0881303+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "64c15a73-b4a8-49d3-8cc0-32ca22054b23": [
+    {
+      "timestamp": "2026-08-07T09:42:12.0108499+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-07T12:18:49.4931453+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "9ab226e7-1656-4865-82a3-d158615576db": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7775385+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:02:04.4547802+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "b5d84c0a-0ec7-489d-b295-f0cce448db2b": [
+    {
+      "timestamp": "2026-07-21T10:49:14.4938461+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T10:53:10.2453755+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "0a5fd64e-29b5-44b7-9fb3-283928cde61e": [
+    {
+      "timestamp": "2026-07-17T14:36:28.5382776+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "cef803ad-1581-4ad0-acb5-afa012983dfa": [
+    {
+      "timestamp": "2026-08-07T12:20:18.9467417+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "9bd2fb25-b2c7-4f2a-a9d2-5f23d7609a23": [
+    {
+      "timestamp": "2026-07-23T17:57:17.7120739+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:26.5336107+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "0c4b4823-b9c5-4327-aeb7-e54e1c407d1e": [
+    {
+      "timestamp": "2026-07-28T11:34:52.68836+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T18:24:31.1475532+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "40c8acd0-ec41-4ef9-aa3c-a7d9513b6191": [
+    {
+      "timestamp": "2026-07-27T11:34:35.5896936+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "b00a8470-4eeb-49aa-9735-e843b4bc6c53": [
+    {
+      "timestamp": "2026-07-29T21:34:28.699612+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-30T11:01:32.295916+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-10T09:55:40.5665584+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "fa3b431f-ac8b-4268-adc4-61053e8680a5": [
+    {
+      "timestamp": "2026-08-04T14:02:34.383479+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-06T09:39:53.6306445+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "08de7724-5ea6-411c-bab4-3b07ac9fd4e4": [
+    {
+      "timestamp": "2026-07-22T10:53:00.9145115+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "d403d5de-6c30-46cf-84be-9650a8c417c6": [
+    {
+      "timestamp": "2026-07-20T18:02:00.8466234+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "e5c93e1f-f1c5-4796-9ff8-52e3413bb148": [
+    {
+      "timestamp": "2026-07-16T16:57:41.3157242+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:02:00.7353455+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "bb5238b4-a4b0-415d-84f6-4508839426b7": [
+    {
+      "timestamp": "2026-07-21T17:52:34.2883327+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:26.4998403+01:00",
+      "complianceState": "noncompliant",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "49029c1c-42bf-484c-a932-d532571aa350": [
+    {
+      "timestamp": "2026-08-07T12:54:54.8694291+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "257e22e3-9971-4f88-979c-318256b98a41": [
+    {
+      "timestamp": "2026-07-28T11:34:41.3324657+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "06ea59e4-bc96-46b3-b54b-55e516645b19": [
+    {
+      "timestamp": "2026-07-29T18:24:29.2177351+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:14:17.0590577+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "a0503abc-901f-4516-8eea-d6741b388f85": [
+    {
+      "timestamp": "2026-08-03T10:15:32.2830927+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T13:25:24.6048576+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "9d68b88f-5944-4001-8040-07a7f7a6096a": [
+    {
+      "timestamp": "2026-07-16T16:57:38.9657751+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "f2828d7b-aa46-4472-8341-c638fb0ebc22": [
+    {
+      "timestamp": "2026-07-20T18:02:04.4693226+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-21T10:49:14.4614984+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "9e569873-37e1-4096-893f-152d83ba5a28": [
+    {
+      "timestamp": "2026-07-27T11:34:10.4363528+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T18:24:24.6643056+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "ea2385b7-0c31-42ca-841d-1691e4bf6c88": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0336036+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "f0943667-6a80-47ca-a41d-b473115e671a": [
+    {
+      "timestamp": "2026-07-30T11:01:32.1225197+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-31T10:22:33.9620835+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "afc654c2-ccbe-4c28-93d9-e49e5fb01b2d": [
+    {
+      "timestamp": "2026-07-16T16:57:50.1958215+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:02:04.5300502+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "a25a527b-833c-4785-87c4-a88904ea0ab0": [
+    {
+      "timestamp": "2026-07-23T12:46:50.8341652+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "15058a1e-0245-4560-873a-cc0c73ad9801": [
+    {
+      "timestamp": "2026-07-23T12:46:50.9549092+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "e89b0932-e3ea-417a-b22e-37b3b33374ea": [
+    {
+      "timestamp": "2026-07-17T14:36:28.6107763+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-23T12:46:50.6766026+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "089b8115-0d79-44ac-bd26-7c36388b62ef": [
+    {
+      "timestamp": "2026-08-10T09:54:13.2629092+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "534c9629-2563-422f-9588-f278b290e8e1": [
+    {
+      "timestamp": "2026-08-07T09:44:31.6751095+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:55:38.8174733+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c41b62e5-b472-4289-b896-962273ccb151": [
+    {
+      "timestamp": "2026-07-27T11:34:26.6467753+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-28T11:34:46.1244212+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-07T09:43:28.4122492+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "4811ac7c-de57-4e94-afb0-e178b7f96987": [
+    {
+      "timestamp": "2026-07-29T11:07:45.5784441+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:55:10.8854757+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "e330b95e-4982-49f1-9ce7-6acc38162036": [
+    {
+      "timestamp": "2026-07-15T10:07:34.4857108+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "f4b547e2-5fbd-4e1a-9f33-024a9aac0100": [
+    {
+      "timestamp": "2026-07-29T21:26:23.9398137+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-30T11:01:26.6614198+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "d38183dd-8693-47b1-891a-253db9d5d6e0": [
+    {
+      "timestamp": "2026-07-20T18:01:58.9686341+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "a6b19043-8fe1-4198-80a3-28198f967b6d": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0544176+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-21T10:49:10.3098846+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-03T10:13:13.768449+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:52:54.0823684+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "684fdc5d-af19-4df6-a7da-871d0d9f5c4c": [
+    {
+      "timestamp": "2026-07-30T11:01:31.9900487+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:54:20.6315812+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "10c4529b-12d2-4c7d-bf4c-d22bef153a82": [
+    {
+      "timestamp": "2026-07-29T21:26:30.0941885+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-30T11:01:32.2206757+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-10T14:15:31.3840916+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "c89c9064-5bd0-492d-9f86-468e920e1682": [
+    {
+      "timestamp": "2026-07-20T18:01:58.982738+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-21T10:49:10.3448216+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "50c86b1d-7802-4b81-b1ee-76fb6fa5c966": [
+    {
+      "timestamp": "2026-08-03T10:14:30.6352427+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T14:14:19.8457695+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "ba210806-b101-4d5d-af21-f1260f731ddb": [
+    {
+      "timestamp": "2026-07-22T10:53:10.2683202+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-24T14:00:35.3483064+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-03T10:16:04.3944122+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-06T09:41:11.3423499+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "f4ed8a17-9c5e-4248-96bc-3922703f0413": [
+    {
+      "timestamp": "2026-07-22T11:00:19.117593+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T14:18:15.5591014+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-04T09:54:18.3817973+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T15:56:15.3672354+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "177d812e-fce4-43b9-b9af-4bb943410846": [
+    {
+      "timestamp": "2026-08-10T09:53:30.4731309+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "04279274-9c80-4c83-b212-8562adf9b13b": [
+    {
+      "timestamp": "2026-08-03T10:14:29.2772761+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "d7fcd940-dbaa-4fd4-ac3b-e9424d231cdc": [
+    {
+      "timestamp": "2026-07-24T14:00:35.3423306+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "1117a7f9-01ba-46fd-8e40-51e0f0782c6a": [
+    {
+      "timestamp": "2026-07-16T16:57:41.3223671+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "f26139a2-2355-4d29-ad86-a9d155612ff7": [
+    {
+      "timestamp": "2026-08-10T09:54:38.505826+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "8ce7b473-b4bf-45d5-8724-9fa1d44906e5": [
+    {
+      "timestamp": "2026-08-10T09:54:34.5747618+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "a763657a-d967-4908-b170-6c5a4b9541bf": [
+    {
+      "timestamp": "2026-08-04T09:54:23.7869891+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "54748685-6409-4d4e-9164-57307fde972e": [
+    {
+      "timestamp": "2026-07-16T09:52:51.7003648+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "d61b9118-23eb-4483-a4e6-19480dbb0227": [
+    {
+      "timestamp": "2026-08-03T10:12:33.1078528+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T11:13:41.2732418+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "edba8fc5-f5e3-424c-8674-3fce42c5b61c": [
+    {
+      "timestamp": "2026-08-04T09:54:07.1140184+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:53:27.9443281+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "55b5cd22-ade8-433f-b38a-218df6bf277d": [
+    {
+      "timestamp": "2026-07-31T09:48:50.1289905+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:13:10.9887197+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "d7236b9a-5859-4199-b1df-f643e8a1a1d2": [
+    {
+      "timestamp": "2026-07-24T14:00:35.3994303+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "74da3676-1aee-4bef-92f1-8c4022d64f02": [
+    {
+      "timestamp": "2026-08-07T09:43:25.8908671+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "e2e949cb-a24a-49d9-ac32-d6d04f18f15b": [
+    {
+      "timestamp": "2026-07-27T11:34:35.6825052+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:15:38.5179153+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "53667e45-568a-4bae-9120-cb4dd0156a91": [
+    {
+      "timestamp": "2026-07-22T17:38:48.0926894+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "6f31b517-14e1-4c97-bb34-68491ca7fd8c": [
+    {
+      "timestamp": "2026-08-10T09:53:55.2440229+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "c9d6b653-5fb5-478b-a1f4-ac26ad19252c": [
+    {
+      "timestamp": "2026-07-17T14:36:37.329427+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "b0d34581-f9ac-4cf3-9938-3a3b070c5f57": [
+    {
+      "timestamp": "2026-07-20T18:02:00.7272954+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "5ac54bda-d41e-49e0-be93-81390a241da0": [
+    {
+      "timestamp": "2026-08-03T10:14:35.9453276+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-07T09:43:13.1896976+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "ff2b3486-8d21-4a27-89eb-2d77f952647e": [
+    {
+      "timestamp": "2026-08-10T09:52:46.0042678+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "06e8a6b0-ed7b-4219-add6-bd07e4ac525e": [
+    {
+      "timestamp": "2026-08-10T09:54:54.5082428+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "0dcaa02c-de6d-4420-8d2a-f6df97d7c8c7": [
+    {
+      "timestamp": "2026-07-30T15:11:18.7160391+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:15:51.0885574+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "5424f0bd-e054-4105-a881-8889f816ac1b": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7107285+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "51566f18-15af-40aa-8fd8-7ec359c81312": [
+    {
+      "timestamp": "2026-07-24T14:00:29.5427816+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "fd8b9e6e-9673-4950-b681-73b3c36e1b7b": [
+    {
+      "timestamp": "2026-07-27T11:34:26.6295361+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "774c47d5-6e40-496a-9906-8e0000b773db": [
+    {
+      "timestamp": "2026-07-31T09:53:06.4166378+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:14:31.9042957+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "7407d785-473a-425e-8329-918b08d2ea06": [
+    {
+      "timestamp": "2026-07-27T16:32:49.3310383+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-28T11:34:50.3423288+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-28T17:04:56.9934774+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T11:07:45.486796+01:00",
+      "complianceState": "noncompliant",
+      "diagnosticCategory": "Equipamento móvel não conforme",
+      "risk": "Alto"
+    }
+  ],
+  "e057b547-3006-4578-8a90-57afdf6e4b1e": [
+    {
+      "timestamp": "2026-08-03T10:14:20.47858+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "70f250b9-939b-4a34-b4ba-42a167b392de": [
+    {
+      "timestamp": "2026-07-16T16:57:41.3300123+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:01:58.9896436+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "b26ac0dd-0e6d-4148-92e4-1e326b03f41e": [
+    {
+      "timestamp": "2026-07-28T11:34:41.3094156+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:12:58.3456645+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "cb6c4cee-c4a9-4983-8e88-db0acee535e7": [
+    {
+      "timestamp": "2026-08-06T11:37:52.1904252+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "566a5be6-a390-4954-8307-51d3ca8058e9": [
+    {
+      "timestamp": "2026-07-17T12:08:26.7322883+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Aguardando avaliação/sincronização",
+      "risk": "Médio"
+    }
+  ],
+  "5461eddb-d775-4533-b908-9b6e889f5643": [
+    {
+      "timestamp": "2026-07-27T11:34:35.6042436+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T16:32:48.2203628+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "7def6d1a-8ad9-4a9a-9a26-d5bdb56fdc3a": [
+    {
+      "timestamp": "2026-07-17T14:36:37.345664+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "b1990747-6081-413c-91a2-03b731ac6dc9": [
+    {
+      "timestamp": "2026-07-17T14:36:28.4872888+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "ddd93a00-e60a-48e0-9fc8-be9c484c5795": [
+    {
+      "timestamp": "2026-07-27T11:34:35.6143715+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:15:01.7289928+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "97484cc7-4f81-4005-8d44-b06c00e83748": [
+    {
+      "timestamp": "2026-07-22T11:00:25.646184+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "459b15db-586e-4f14-96ba-cae11a43daac": [
+    {
+      "timestamp": "2026-08-07T09:44:09.3994066+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "6668934d-3c53-4c55-880b-c31d6f4b1917": [
+    {
+      "timestamp": "2026-08-03T10:15:16.6864124+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "843a3a2b-aed6-4ab1-84f2-6bf17a898baa": [
+    {
+      "timestamp": "2026-08-10T09:54:07.7342526+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "13ca67b9-90b2-4ba8-81be-a55ed9e90770": [
+    {
+      "timestamp": "2026-07-16T16:57:47.75841+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "c4527364-092b-4a7a-bd30-1a05e95e6883": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0084919+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-20T18:01:58.8323035+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "3fe6ea2f-c0e9-4ad0-b73e-3399a3905b3d": [
+    {
+      "timestamp": "2026-08-07T09:42:10.7571514+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "222a40bc-52eb-4b05-b110-aa3d416f8720": [
+    {
+      "timestamp": "2026-08-10T14:14:52.6181120+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony - configuração incompleta",
+      "risk": "Alto"
+    }
+  ],
+  "7a1d6cd8-c047-4783-b0f8-2512fdc741ec": [
+    {
+      "timestamp": "2026-07-22T11:00:17.0133395+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T14:18:12.1528399+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "5c40d018-2e65-46ac-9fc6-39787a610c32": [
+    {
+      "timestamp": "2026-08-10T09:53:31.8501762+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "10e99bad-721a-481f-861f-154cf08cf469": [
+    {
+      "timestamp": "2026-08-04T13:23:10.9572084+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "53efa794-90e6-45c7-85e7-68ede19725b9": [
+    {
+      "timestamp": "2026-08-03T10:14:02.2955104+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:54:00.2101097+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c8aec107-3ad9-42cf-bde1-e5cdfa8ecd49": [
+    {
+      "timestamp": "2026-08-04T09:55:47.5877069+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-05T12:16:19.3020839+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "9ec795f9-08a2-4f66-8a9a-2ffb4cb346db": [
+    {
+      "timestamp": "2026-07-22T10:52:59.0269655+01:00",
+      "complianceState": "noncompliant",
+      "diagnosticCategory": "Equipamento móvel não conforme",
+      "risk": "Alto"
+    }
+  ],
+  "d804f399-99c4-4bd0-9aef-6361b59cf7db": [
+    {
+      "timestamp": "2026-07-27T11:34:26.6107016+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "206eeac9-1743-4850-b1cf-fc95959903a8": [
+    {
+      "timestamp": "2026-07-28T11:34:52.6539307+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T11:07:47.8650783+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "1e587b8e-ed74-4c24-9844-58ab7a89da14": [
+    {
+      "timestamp": "2026-07-27T11:34:26.5395751+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "47b66a79-03d4-42ec-afab-1e0e3f215ec7": [
+    {
+      "timestamp": "2026-07-23T12:46:45.0921101+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "45c34818-4741-4a5a-85b2-3e1248551f10": [
+    {
+      "timestamp": "2026-08-10T09:53:24.5733971+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "296c4177-7eab-4e7e-93ce-513306d35656": [
+    {
+      "timestamp": "2026-07-23T17:57:12.6811191+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T16:32:43.462002+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "7530d01d-4bc2-4b0e-9484-23cc71474f7d": [
+    {
+      "timestamp": "2026-07-27T11:34:19.6254654+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "15463f2c-4711-43cc-9b73-448aec52c601": [
+    {
+      "timestamp": "2026-07-21T10:49:10.3531115+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T10:52:59.1125928+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "96deb882-7df1-486c-9c4b-ebf49eacf9f5": [
+    {
+      "timestamp": "2026-07-16T16:57:50.1612698+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "14ab67f4-e645-44a6-ace0-a611acf8c1b8": [
+    {
+      "timestamp": "2026-07-24T14:00:35.212055+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "d39cf226-bab7-40a9-b219-1a9cc80848dc": [
+    {
+      "timestamp": "2026-07-22T11:00:16.9593219+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "4ca8e65e-2e22-4661-a0c3-b8f0e87c8524": [
+    {
+      "timestamp": "2026-07-22T17:38:48.0683507+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:35.634562+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "cc510bef-4017-4d57-a609-22ed204176a1": [
+    {
+      "timestamp": "2026-08-10T09:53:09.3396515+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "80f9c3e5-93da-4b40-ba61-9280d9a6999e": [
+    {
+      "timestamp": "2026-08-03T10:14:45.5331865+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "4250b6af-23c4-4cfa-a649-ab23c08f4d7a": [
+    {
+      "timestamp": "2026-07-16T16:57:47.7646989+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-17T16:57:27.0897641+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-07-28T11:34:50.3875303+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-28T17:04:57.0288672+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "05178cee-086f-4f5c-8d89-2766bd241632": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0629631+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "81da6f5a-d0d3-42ef-8d3b-9fc062ed23c7": [
+    {
+      "timestamp": "2026-07-28T11:34:50.3681738+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-28T17:04:55.6875338+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "df8de40f-3eb3-48e1-9cd1-0fa7175416e2": [
+    {
+      "timestamp": "2026-08-03T10:12:50.1851098+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T11:13:33.0855856+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "af83ffc6-c6fd-4729-9774-3797e7f2c574": [
+    {
+      "timestamp": "2026-08-06T09:39:05.536773+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "ef011c49-515f-4e55-8568-4ded50532373": [
+    {
+      "timestamp": "2026-08-03T10:13:25.3746946+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:53:13.5008975+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "61ac996f-cb8d-4d66-a948-b29bf163912f": [
+    {
+      "timestamp": "2026-07-20T18:02:04.406995+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "9f68c636-682e-4e7a-97d6-72266e3d55de": [
+    {
+      "timestamp": "2026-07-22T11:00:25.5718006+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-22T14:18:20.7252641+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "51b99e8b-3ba6-49c8-b2b3-b91ac09f075d": [
+    {
+      "timestamp": "2026-07-28T11:34:50.3941432+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-30T15:11:08.4319974+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c2025903-1553-4800-b995-6f57a5aa5f32": [
+    {
+      "timestamp": "2026-07-22T10:53:05.8790602+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-23T12:46:50.8023166+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-10T09:53:54.5059762+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "6f1bf908-cdc2-4d74-b938-985c40996e51": [
+    {
+      "timestamp": "2026-07-20T18:02:04.3754488+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "80b97131-97e6-4e49-8cf3-b55d542b8f1b": [
+    {
+      "timestamp": "2026-07-27T11:34:35.6762248+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-29T18:24:30.9872861+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "8d357bb3-40e9-4f9d-9d53-de869fab9605": [
+    {
+      "timestamp": "2026-08-03T10:15:27.575527+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T18:06:28.6344525+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "0dabb527-3c7a-46b2-b187-12f840e44627": [
+    {
+      "timestamp": "2026-07-27T11:34:10.4715101+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "24835c15-0398-4237-ab9a-20ff39bb02b6": [
+    {
+      "timestamp": "2026-08-06T09:39:17.9552539+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "34c35c10-0956-4cfa-8bc3-98dbf34d0718": [
+    {
+      "timestamp": "2026-08-10T09:54:26.9979442+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "7cc52ab8-f070-473f-b8f1-af26c76ff7dd": [
+    {
+      "timestamp": "2026-07-20T18:02:04.4214821+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "46deaacd-ed40-409b-a892-b2f9f7ce0da2": [
+    {
+      "timestamp": "2026-08-10T09:54:51.9521816+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "ae985cb2-ea4e-4bcd-a1ca-ab14801dd79a": [
+    {
+      "timestamp": "2026-08-03T17:53:24.4611517+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-04T13:24:54.758134+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "847f4422-ca1b-441d-8de3-1f83360d8b69": [
+    {
+      "timestamp": "2026-07-24T14:00:24.1475108+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:10.5199686+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-03T10:13:12.1878938+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T14:06:48.6653647+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "a7d46188-9a9b-451f-b283-3023ab1b9b7c": [
+    {
+      "timestamp": "2026-07-23T17:57:12.6201355+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "35e43e64-8866-4b83-b605-0ebbc5db3247": [
+    {
+      "timestamp": "2026-08-03T10:12:38.7344833+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "0d0dbd3a-0dac-404b-9118-3c1c1b3a8a64": [
+    {
+      "timestamp": "2026-07-17T14:36:28.594081+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    }
+  ],
+  "eb8c2e7d-7131-4c97-a3cd-666f8af3d073": [
+    {
+      "timestamp": "2026-08-07T09:42:56.2665963+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "2a3ea8da-8434-471e-bf85-debcb2340029": [
+    {
+      "timestamp": "2026-07-15T01:00:10.7002094+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "ae18d47f-56d7-4e27-8778-21befc753c5d": [
+    {
+      "timestamp": "2026-07-16T19:25:05.7773324+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "4d0a41e5-4562-4df4-b74e-fcdb73d0a317": [
+    {
+      "timestamp": "2026-08-07T09:44:24.9431615+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:55:29.9558553+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "ff645074-53e7-4508-8d2b-023d47e6201c": [
+    {
+      "timestamp": "2026-07-31T09:48:38.8313676+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:12:39.742072+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "4d497935-dc85-4b48-95c8-b2e65eccdcfe": [
+    {
+      "timestamp": "2026-08-03T10:15:04.5170796+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-06T09:40:39.1801296+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "c3d8041f-0df3-4c3a-a7a2-4f2989dc527c": [
+    {
+      "timestamp": "2026-07-16T16:57:39.0776218+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-17T15:26:34.9468158+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:19.7067524+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T16:32:43.4312213+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "bedadf59-0e17-4169-9f49-3a219fa75e58": [
+    {
+      "timestamp": "2026-08-10T09:53:16.7525414+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "03d1ad57-f3e3-47a2-9db6-39e207e016e9": [
+    {
+      "timestamp": "2026-07-31T09:49:58.0843976+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:14:00.7704998+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "3a9b3d2d-4247-440b-a4a1-39205d35e08f": [
+    {
+      "timestamp": "2026-07-31T09:49:55.5490597+01:00",
+      "complianceState": "inGracePeriod",
+      "diagnosticCategory": "Harmony / Mobile Threat Defense",
+      "risk": "Alto"
+    }
+  ],
+  "e92d5d26-855c-4b5e-b715-57e292c07ad3": [
+    {
+      "timestamp": "2026-07-16T16:57:46.1059486+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-17T16:19:58.9432557+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-07T09:43:06.2448946+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-10T09:53:43.1654137+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "01c76fc3-b976-4fea-833b-6707aaa37dfa": [
+    {
+      "timestamp": "2026-07-28T11:34:45.9572231+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:14:13.2009848+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "51cc13c2-0a69-4b16-829d-25c1a117f90b": [
+    {
+      "timestamp": "2026-07-27T11:34:10.5326322+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T10:12:59.5835721+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "cf8bdb0e-d1e9-443e-8163-ce38305da4da": [
+    {
+      "timestamp": "2026-08-03T10:15:34.0226643+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-08-03T14:08:51.6746366+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    }
+  ],
+  "1ad8c7ee-81f1-4bdc-9673-923bd748933c": [
+    {
+      "timestamp": "2026-07-30T15:11:02.7925615+01:00",
+      "complianceState": "noncompliant",
+      "diagnosticCategory": "Integridade do dispositivo",
+      "risk": "Alto"
+    }
+  ],
+  "34b7d60e-2d74-4585-80dd-e9b529a85a6e": [
+    {
+      "timestamp": "2026-07-16T16:57:50.1683463+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Alto"
+    },
+    {
+      "timestamp": "2026-07-17T15:26:41.2799651+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-07-27T11:34:35.8118941+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    },
+    {
+      "timestamp": "2026-07-27T16:32:49.5157565+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Comunicação restabelecida",
+      "risk": "Baixo"
+    },
+    {
+      "timestamp": "2026-08-07T09:44:32.7540791+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ],
+  "7c05ac23-18eb-4ca7-af29-f6213990ed52": [
+    {
+      "timestamp": "2026-08-10T09:55:36.46996+01:00",
+      "complianceState": "compliant",
+      "diagnosticCategory": "Pré-alerta de comunicação com o Intune",
+      "risk": "Médio"
+    }
+  ]
+}

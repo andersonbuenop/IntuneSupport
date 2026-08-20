@@ -1,0 +1,14 @@
+{
+  "id": "devices-intune",
+  "name": "devices-intune",
+  "module": "devices-intune",
+  "title": "Devices Intune",
+  "description": "Consulta de dispositivos Intune por utilizador, UPN, email, nome do equipamento, número de série, IMEI ou Azure Device ID.",
+  "category": "Ferramentas",
+  "icon": "monitor",
+  "enabled": true,
+  "order": 6,
+  "page": "page.html",
+  "script": "script.js",
+  "api": "api.ps1"
+}

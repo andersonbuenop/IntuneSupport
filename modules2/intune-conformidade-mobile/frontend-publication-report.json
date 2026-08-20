@@ -1,0 +1,27 @@
+{
+    "installedAt":  "2026-07-14T13:12:37.3655453+01:00",
+    "root":  "C:\\Temp\\SantanderSupportWebV2_PROD",
+    "moduleRoot":  "C:\\Temp\\SantanderSupportWebV2_PROD\\modules\\intune-conformidade-mobile",
+    "webModuleRoot":  "C:\\Temp\\SantanderSupportWebV2_PROD\\web\\modules\\intune-conformidade-mobile",
+    "appJs":  "C:\\Temp\\SantanderSupportWebV2_PROD\\web\\js\\app.js",
+    "appJsPatchedNow":  true,
+    "markerPresent":  true,
+    "indexChecked":  true,
+    "moduleFiles":  [
+                        "api.ps1",
+                        "config.json",
+                        "install-report.json",
+                        "page.html",
+                        "README.md",
+                        "script.js",
+                        "style.css"
+                    ],
+    "webModuleFiles":  [
+                           "config.json",
+                           "index.html",
+                           "page.html",
+                           "script.js",
+                           "style.css"
+                       ],
+    "backupRoot":  "C:\\Temp\\SantanderSupportWebV2_PROD\\backups\\publicar_conformidade_mobile_20260714_131237"
+}

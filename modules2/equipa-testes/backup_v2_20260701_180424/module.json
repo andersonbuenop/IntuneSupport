@@ -1,0 +1,19 @@
+{
+  "id": "equipa-testes",
+  "module": "equipa-testes",
+  "slug": "equipa-testes",
+  "name": "Equipa de Testes",
+  "title": "Equipa de Testes",
+  "label": "Equipa de Testes",
+  "description": "Validação de utilizadores, grupos Azure, Intune e Microsoft Defender",
+  "category": "Ferramentas",
+  "type": "Ferramentas",
+  "order": 35,
+  "enabled": true,
+  "active": true,
+  "visible": true,
+  "page": "page.html",
+  "script": "script.js",
+  "api": "api.ps1",
+  "path": "modules/equipa-testes/page.html"
+}

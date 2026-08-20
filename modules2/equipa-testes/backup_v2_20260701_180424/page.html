@@ -1,0 +1,209 @@
+﻿<div class="et-page">
+  <div class="et-header">
+    <div>
+      <h2>Equipa de Testes</h2>
+      <p>Validação de grupos Azure, dispositivos Intune e Microsoft Defender.</p>
+    </div>
+  </div>
+
+  <div class="et-card">
+    <label>Utilizador</label>
+    <div class="et-search">
+      <input id="etUser" placeholder="UPN, sAMAccountName ou e-mail" />
+      <button onclick="equipaTestesConectarGlobal()" class="et-btn et-secondary">Conectar Graph/Intune</button>
+<button onclick="equipaTestesConsultar()" class="et-btn et-primary">Consultar</button>
+    </div>
+  </div>
+
+  <div id="etMsg"></div>
+
+<div id="etProgressBox" class="et-progress-box" style="display:none;">
+  <div class="et-progress-label">
+    <span id="etProgressText">A processar...</span>
+    <span id="etProgressPercent">0%</span>
+  </div>
+  <div class="et-progress-track">
+    <div id="etProgressBar" class="et-progress-bar"></div>
+  </div>
+</div>
+
+  <div id="etResultado" style="display:none;">
+    <div class="et-grid">
+      <div class="et-card">
+        <h3>Utilizador</h3>
+        <div id="etUserInfo"></div>
+      </div>
+
+      <div class="et-card">
+        <h3>Resumo</h3>
+        <div id="etResumo"></div>
+      </div>
+    </div>
+
+    <div class="et-card">
+      <h3>Acessos Azure</h3>
+      <div id="etGrupos"></div>
+    </div>
+
+    <div class="et-card">
+      <h3>Dispositivos Intune / Microsoft Defender</h3>
+      <div id="etDevices"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+.et-page {
+  padding: 22px;
+  font-family: Segoe UI, Arial, sans-serif;
+  color: #222;
+}
+
+.et-header {
+  background: linear-gradient(135deg, #e40000, #990000);
+  color: white;
+  border-radius: 18px;
+  padding: 22px 26px;
+  margin-bottom: 18px;
+  box-shadow: 0 8px 22px rgba(0,0,0,.12);
+}
+
+.et-header h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.et-header p {
+  margin: 6px 0 0;
+  opacity: .92;
+}
+
+.et-card {
+  background: white;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  border: 1px solid #eee;
+}
+
+.et-search {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.et-search input {
+  flex: 1;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.et-btn {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.et-primary {
+  background: #e40000;
+  color: white;
+}
+
+.et-secondary {
+  background: #f1f1f1;
+  color: #222;
+}
+
+.et-success {
+  background: #0f8a3b;
+  color: white;
+}
+
+.et-warning {
+  background: #f59e0b;
+  color: white;
+}
+
+.et-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.et-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.et-table th {
+  text-align: left;
+  background: #f7f7f7;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.et-table td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
+}
+
+.et-badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.et-ok {
+  background: #e7f7ed;
+  color: #087a31;
+}
+
+.et-no {
+  background: #fdecec;
+  color: #b00020;
+}
+
+.et-neutral {
+  background: #eef2ff;
+  color: #3446a3;
+}
+
+.et-msg {
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin-bottom: 14px;
+}
+
+.et-msg-ok {
+  background: #e7f7ed;
+  color: #087a31;
+}
+
+.et-msg-err {
+  background: #fdecec;
+  color: #b00020;
+}
+
+.et-kv {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  gap: 8px;
+  margin: 6px 0;
+}
+
+@media(max-width:900px) {
+  .et-grid { grid-template-columns: 1fr; }
+  .et-search { flex-direction: column; }
+}
+</style>
+
+
+

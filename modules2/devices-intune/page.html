@@ -1,0 +1,662 @@
+<div class="module-page devices-intune-page">
+
+    <style>
+        .devices-intune-page {
+            font-family: "Segoe UI", Arial, sans-serif;
+        }
+
+        .di-hero {
+            background: linear-gradient(135deg, #b00020 0%, #e4002b 55%, #ff4b5c 100%);
+            color: white;
+            border-radius: 18px;
+            padding: 24px;
+            margin-bottom: 18px;
+            box-shadow: 0 12px 30px rgba(180,0,32,.22);
+        }
+
+        .di-hero h2 {
+            margin: 0 0 6px 0;
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .di-hero p {
+            margin: 0;
+            opacity: .92;
+        }
+
+        .di-panel {
+            background: #fff;
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 24px rgba(0,0,0,.08);
+            border: 1px solid #eee;
+        }
+
+        .di-search-row {
+            display: grid;
+            grid-template-columns: 1fr auto auto auto auto;
+            gap: 10px;
+            align-items: end;
+        }
+
+        .di-input label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+        .di-input input {
+            width: 100%;
+            border: 1px solid #d9d9d9;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .di-input input:focus {
+            border-color: #e4002b;
+            box-shadow: 0 0 0 3px rgba(228,0,43,.12);
+        }
+
+        .di-btn {
+            border: 0;
+            border-radius: 12px;
+            padding: 12px 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .15s ease;
+            white-space: nowrap;
+        }
+
+        .di-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(0,0,0,.12);
+        }
+
+        .di-btn-primary {
+            background: #e4002b;
+            color: white;
+        }
+
+        .di-btn-secondary {
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        .di-btn-dark {
+            background: #222;
+            color: white;
+        }
+
+        .di-alert {
+            border-radius: 14px;
+            padding: 12px 14px;
+            margin: 12px 0;
+            font-weight: 600;
+        }
+
+        .di-alert-info { background: #eef5ff; color: #174a7c; border: 1px solid #cfe4ff; }
+        .di-alert-ok { background: #ecfdf3; color: #146c43; border: 1px solid #b7ebc6; }
+        .di-alert-aviso { background: #fff8e5; color: #8a6100; border: 1px solid #ffe2a8; }
+        .di-alert-erro { background: #fff0f0; color: #a40018; border: 1px solid #ffc9d1; }
+
+        .di-kpis {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(130px, 1fr));
+            gap: 12px;
+            margin: 16px 0;
+        }
+
+        .di-kpi {
+            background: white;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #eee;
+            box-shadow: 0 6px 18px rgba(0,0,0,.06);
+        }
+
+        .di-kpi span {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .04em;
+        }
+
+        .di-kpi strong {
+            display: block;
+            font-size: 28px;
+            margin-top: 6px;
+            color: #202020;
+        }
+
+        .di-device-card {
+            background: white;
+            border-radius: 18px;
+            border: 1px solid #ececec;
+            box-shadow: 0 8px 24px rgba(0,0,0,.08);
+            margin-bottom: 16px;
+            overflow: hidden;
+        }
+
+        .di-device-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            padding: 18px;
+            border-bottom: 1px solid #f0f0f0;
+            background: #fafafa;
+        }
+
+        .di-device-title h3 {
+            margin: 0;
+            font-size: 19px;
+            color: #202020;
+        }
+
+        .di-device-title p {
+            margin: 4px 0 0;
+            color: #666;
+            font-size: 13px;
+        }
+
+        .di-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: start;
+            justify-content: flex-end;
+        }
+
+        .di-badge {
+            border-radius: 999px;
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 800;
+            background: #eee;
+            color: #333;
+        }
+
+        .di-badge-red { background: #ffe8ec; color: #b00020; }
+        .di-badge-green { background: #e8f8ef; color: #126b3a; }
+        .di-badge-blue { background: #e9f3ff; color: #135c9c; }
+        .di-badge-dark { background: #242424; color: white; }
+
+        .di-details {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(180px, 1fr));
+            gap: 12px;
+            padding: 18px;
+        }
+
+        .di-field {
+            background: #fbfbfb;
+            border: 1px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 12px;
+            min-height: 66px;
+        }
+
+        .di-field label {
+            display: block;
+            font-size: 11px;
+            color: #777;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+        }
+
+        .di-field div {
+            font-size: 14px;
+            color: #222;
+            word-break: break-word;
+        }
+
+        .di-table-wrap {
+            overflow-x: auto;
+            border-radius: 16px;
+            border: 1px solid #eee;
+            background: white;
+        }
+
+        .di-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .di-table th {
+            background: #202020;
+            color: white;
+            padding: 11px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .di-table td {
+            border-bottom: 1px solid #eee;
+            padding: 10px;
+            vertical-align: top;
+        }
+
+        .di-muted {
+            color: #777;
+        }
+
+        @media (max-width: 1100px) {
+            .di-search-row {
+                grid-template-columns: 1fr;
+            }
+
+            .di-kpis {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .di-details {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+            .di-progress-wrap {
+            background: #fff;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin: 12px 0 16px 0;
+            border: 1px solid #eee;
+            box-shadow: 0 6px 18px rgba(0,0,0,.06);
+        }
+
+        .di-progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .di-progress-bar-bg {
+            width: 100%;
+            height: 10px;
+            background: #f0f0f0;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .di-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #b00020, #e4002b, #ff4b5c);
+            border-radius: 999px;
+            transition: width .35s ease;
+        }
+
+.di-input select{
+    width:100%;
+    border:1px solid #d9d9d9;
+    border-radius:12px;
+    padding:12px;
+    font-size:14px;
+    background:white;
+}
+</style>
+
+    <div class="di-hero">
+        <h2>💻 Devices Intune</h2>
+        <p>Consulta profissional de dispositivos Intune por utilizador, UPN, email, nome do equipamento, número de série, IMEI ou Azure Device ID.</p>
+    </div>
+
+    <div class="di-panel">
+        <div class="di-search-row">
+            <div class="di-input">
+                <label>Pesquisar dispositivo ou utilizador</label>
+                <input id="devicesIntuneQuery"
+                       placeholder="Ex: e868019, user@corp.santander.pt, M1V62T22TJ, IMEI, Device Name">
+            </div>
+
+            <button class="di-btn di-btn-primary" onclick="devicesIntunePesquisar()">Pesquisar</button>
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneStatus()">Status Intune</button>
+            <button class="di-btn di-btn-dark" onclick="devicesIntuneConectar()">Conectar WAM</button>
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneLimpar()">Limpar</button>
+        </div>
+
+        <div style="margin-top:12px;">
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneExportCsv()">Exportar CSV</button>
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneExportHtml()">Exportar HTML</button>
+        </div>
+    </div>
+
+    <div id="devicesIntuneProgress" class="di-progress-wrap" style="display:none;">
+    <div class="di-progress-info">
+        <span id="devicesIntuneProgressText">A iniciar...</span>
+        <span id="devicesIntuneProgressPercent">0%</span>
+    </div>
+    <div class="di-progress-bar-bg">
+        <div id="devicesIntuneProgressBar" class="di-progress-bar"></div>
+    </div>
+</div>
+
+
+    <div class="di-panel">
+        <h3>📥 Importação em Massa CSV</h3>
+        <p class="di-muted">
+            Importe um CSV com coluna Pesquisa, SerialNumber, DeviceName, UPN, User, Email ou IMEI.
+        </p>
+
+        <div class="di-search-row">
+            <div class="di-input">
+                <label>Selecionar ficheiro CSV</label>
+                <input type="file" id="devicesIntuneCsvFile" accept=".csv">
+            </div>
+
+            <button class="di-btn di-btn-primary" onclick="devicesIntuneImportCsv()">Validar CSV</button>
+            <button class="di-btn di-btn-dark" onclick="devicesIntunePesquisarCsv()">Consultar Intune</button>
+
+<button
+    class="di-btn di-btn-dark"
+    onclick="devicesIntuneNonCompliant()">
+
+    Non-Compliant
+
+</button>
+
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneLimparCsv()">Limpar CSV</button>
+        </div>
+
+        <div id="devicesIntuneCsvInfo" style="margin-top:12px;"></div>
+        <div id="devicesIntuneCsvPreview" style="margin-top:12px;"></div>
+    </div>
+
+    <div id="devicesIntuneStatus"></div>
+    
+    <div class="di-panel" id="devicesIntuneFiltrosPanel" style="display:none;">
+        <h3>🔎 Filtros e seleção</h3>
+
+        <div class="di-search-row">
+            <div class="di-input">
+                <label style="display:none">Compliance</label>
+                <div id="devicesIntuneFiltroCompliance" style="display:flex;gap:10px;flex-wrap:wrap;padding:10px 0;">
+    <label style="display:flex;gap:6px;align-items:center;font-weight:600;">
+        <input type="checkbox" class="di-filter-compliance" value="compliant" onchange="devicesIntuneAplicarFiltros()" checked>
+        Compliant
+    </label>
+
+    <label style="display:flex;gap:6px;align-items:center;font-weight:600;">
+        <input type="checkbox" class="di-filter-compliance" value="noncompliant" onchange="devicesIntuneAplicarFiltros()" checked>
+        Non Compliant
+    </label>
+
+    <label style="display:flex;gap:6px;align-items:center;font-weight:600;">
+        <input type="checkbox" class="di-filter-compliance" value="semestado" onchange="devicesIntuneAplicarFiltros()" checked>
+        Sem estado
+    </label>
+
+    <label style="display:flex;gap:6px;align-items:center;font-weight:600;">
+        <input type="checkbox" class="di-filter-compliance" value="unknown" onchange="devicesIntuneAplicarFiltros()" checked>
+        Unknown/Error
+    </label>
+</div>
+
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;">
+    <button class="di-btn di-btn-secondary" style="padding:8px 10px;" onclick="devicesIntuneMarcarComplianceProblemas()">Mostrar problemas</button>
+    <button class="di-btn di-btn-secondary" style="padding:8px 10px;" onclick="devicesIntuneMarcarComplianceTodos()">Todos</button>
+</div>
+            </div>
+
+            <div class="di-input">
+                <label>Tipo de equipamento</label>
+<select id="devicesIntuneFiltroTipoEquipamento" onchange="devicesIntuneAplicarFiltros()" style="width:100%;border:1px solid #d9d9d9;border-radius:12px;padding:12px 14px;font-size:14px;margin-bottom:8px;">
+    <option value="">Todos</option>
+    <option value="windows">Windows Desktop/Laptop</option>
+    <option value="mobile">Mobile / Tablet / iPad</option>
+    <option value="macos">macOS</option>
+</select>
+
+<label>Sistema Operativo</label>
+                <select id="devicesIntuneFiltroSO" onchange="devicesIntuneAplicarFiltros()" style="width:100%;border:1px solid #d9d9d9;border-radius:12px;padding:12px 14px;font-size:14px;">
+                    <option value="">Todos</option>
+                    <option value="android">Android</option>
+                    <option value="ios">iOS/iPadOS</option>
+                    <option value="windows">Windows</option>
+                    <option value="macos">macOS</option>
+                </select>
+            </div>
+
+            <div class="di-input">
+                <label>Último Sync</label>
+                <select id="devicesIntuneFiltroSync" onchange="devicesIntuneAplicarFiltros()" style="width:100%;border:1px solid #d9d9d9;border-radius:12px;padding:12px 14px;font-size:14px;">
+                    <option value="">Todos</option>
+                    <option value="30">Sem sync > 30 dias</option>
+                    <option value="60">Sem sync > 60 dias</option>
+                    <option value="90">Sem sync > 90 dias</option>
+                </select>
+            </div>
+
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneLimparFiltros()">Limpar filtros</button>
+            <button class="di-btn di-btn-primary" onclick="devicesIntuneSelecionarFiltrados()">Selecionar filtrados</button>
+        </div>
+
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneLimparSelecao()">Limpar seleção</button>
+            <button class="di-btn di-btn-dark" onclick="devicesIntunePrepararExclusaoSelecionados()">Preparar exclusão</button>
+<button class="di-btn di-btn-primary" onclick="devicesIntuneValidarSelecionados()">Validar selecionados</button>
+<button class="di-btn di-btn-secondary" onclick="devicesIntuneExportarSelecionadosCsv()">Exportar selecionados CSV</button>
+<button class="di-btn di-btn-dark" onclick="devicesIntuneEnviarDeleteIntuneSelecionados()">Enviar solicitação Intune</button>
+            <span id="devicesIntuneSelecionadosInfo" class="di-muted">0 device(s) selecionado(s)</span>
+        </div>
+
+        <div class="di-alert di-alert-aviso" style="margin-top:12px;">
+            Atenção: no Intune Santander, ações como Delete, Retire ou Wipe podem exigir aprovação de 2 pessoas.
+            Nesta fase o sistema apenas prepara a lista selecionada.
+        </div>
+    </div>
+
+    
+<div class="di-panel">
+
+    <div class="di-search-row">
+
+        <div class="di-input">
+            <label>Pesquisar Utilizador</label>
+            <input
+                id="devicesIntuneQuery"
+                type="text"
+                placeholder="UPN, email ou device">
+        </div>
+
+        <div class="di-input">
+            <label style="display:none">Tipo Equipamento</label>
+
+            <select id="devicesIntuneTipoFiltro" style="display:none">
+
+                <option value="">Todos</option>
+
+                <option value="android">
+                    Android
+                </option>
+
+                <option value="iphone">
+                    iPhone
+                </option>
+
+                <option value="ipad">
+                    iPad
+                </option>
+
+                <option value="tablet">
+                    Tablet
+                </option>
+
+                <option value="windows">
+                    Windows
+                </option>
+
+                <option value="macos">
+                    macOS
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="di-input">
+
+            <label style="display:none">Compliance</label>
+
+            <select id="devicesIntuneComplianceFiltro" style="display:none">
+
+                <option value="">
+                    Todos
+                </option>
+
+                <option value="compliant">
+                    Compliant
+                </option>
+
+                <option value="noncompliant">
+                    Non Compliant
+                </option>
+
+                <option value="ingraceperiod">
+                    In Grace Period
+                </option>
+
+                <option value="unknown">
+                    Unknown
+                </option>
+
+            </select>
+
+        </div>
+
+        <button
+            class="di-btn di-btn-secondary"
+            onclick="
+const p=document.getElementById('devicesIntuneAdvancedFilters');
+p.style.display=(p.style.display==='none'||p.style.display==='')?'block':'none';
+">
+
+            Filtros Avançados
+
+        </button>
+
+        <button
+            class="di-btn di-btn-primary"
+            onclick="devicesIntunePesquisarTodos()">
+
+            Consultar Intune
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<div class="di-panel" id="devicesIntuneAdvancedFilters" style="display:none;margin-top:10px;">
+
+    <h4>Filtros Avançados</h4>
+
+    <div style="display:flex;gap:40px;flex-wrap:wrap;">
+
+        <div>
+
+            <strong>Equipamentos</strong><br>
+
+            <label><input type="checkbox" class="diTipo" value="android"> Android</label><br>
+            <label><input type="checkbox" class="diTipo" value="iphone"> iPhone</label><br>
+            <label><input type="checkbox" class="diTipo" value="ipad"> iPad</label><br>
+            <label><input type="checkbox" class="diTipo" value="tablet"> Tablet</label><br>
+            <label><input type="checkbox" class="diTipo" value="windows"> Windows</label><br>
+            <label><input type="checkbox" class="diTipo" value="macos"> macOS</label>
+
+        </div>
+
+        <div>
+
+            <strong>Compliance</strong><br>
+
+            <label><input type="checkbox" class="diCompliance" value="compliant"> Compliant</label><br>
+            <label><input type="checkbox" class="diCompliance" value="noncompliant"> Non-Compliant</label><br>
+            <label><input type="checkbox" class="diCompliance" value="ingraceperiod"> Grace Period</label><br>
+            <label><input type="checkbox" class="diCompliance" value="unknown"> Unknown</label>
+
+        </div>
+
+    </div>
+
+</div>
+
+<div id="devicesIntuneResumo"></div>
+    
+    <div class="di-panel" id="devicesIntuneApprovalPanel">
+        <h3>🛡️ Pedidos de Aprovação Intune</h3>
+        <p class="di-muted">
+            Histórico local dos pedidos preparados pelo módulo. Nenhuma ação real é executada até aprovação e fase de execução.
+        </p>
+
+        <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="di-btn di-btn-secondary" onclick="devicesIntuneCarregarPedidosAprovacao()">Atualizar pedidos</button>
+        </div>
+
+        <div id="devicesIntuneApprovalResultado" style="margin-top:12px;"></div>
+    </div>
+
+    
+    <div class="di-panel di-maa-workspace" id="devicesIntuneMaaMonitorPanel">
+        <div class="di-maa-heading">
+            <div>
+                <span class="di-maa-eyebrow">Multi Admin Approval</span>
+                <h3>Solicitações Intune MAA</h3>
+                <p class="di-muted">Acompanhe, aprove e conclua pedidos de remoção de equipamentos num único fluxo.</p>
+            </div>
+            <div class="di-maa-cadence"><span></span> Verificação automática: a cada 1 hora</div>
+        </div>
+
+        <div class="di-maa-config-grid">
+            <div class="di-maa-card">
+                <div class="di-maa-card-title">Utilizadores monitorizados</div>
+                <div class="di-input">
+                    <label for="devicesIntuneMaaUsers">UPN dos solicitantes MAA</label>
+                    <textarea id="devicesIntuneMaaUsers" rows="3" placeholder="Um UPN por linha">au_86246723@santandernet.onmicrosoft.com&#10;au_81680372@santandernet.onmicrosoft.com</textarea>
+                    <small class="di-muted">Estados acompanhados: needsApproval e approved.</small>
+                </div>
+                <button class="di-btn di-btn-secondary" onclick="devicesIntuneMaaSaveUsersFromInput()">Guardar utilizadores</button>
+            </div>
+            <div class="di-maa-card di-maa-quick-card">
+                <div class="di-maa-card-title">Ações rápidas</div>
+                <p class="di-muted">Consulte o Intune agora ou atualize apenas os dados já carregados.</p>
+                <div class="di-maa-button-row">
+                    <button class="di-btn di-btn-primary" onclick="devicesIntuneMaaCheckNow()">Verificar agora</button>
+                    <button class="di-btn di-btn-secondary" onclick="devicesIntuneMaaRender()">Atualizar painel</button>
+                    <button class="di-btn di-btn-secondary" onclick="devicesIntuneMaaAtivarNotificacoesWindowsGlobal()">Notificações Windows</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="di-maa-toolbar">
+            <div class="di-maa-toolbar-group">
+                <span>Comunicação</span>
+                <button class="di-btn di-btn-primary" onclick="devicesIntuneMaaEnviarAlertaManualGlobal()">Outlook/Teams</button>
+                <button class="di-btn di-btn-secondary" onclick="devicesIntuneMaaAbrirContactosGlobal()">Gerir contactos</button>
+            </div>
+            <div class="di-maa-toolbar-group di-maa-toolbar-end">
+                <span>Gestão da fila</span>
+                <button class="di-btn di-btn-alert" onclick="devicesIntuneMaaSendSystemAlert()">Notificar aprovador agora</button>
+                <button class="di-btn di-btn-secondary" onclick="devicesIntuneMaaLimparConcluidos()">Limpar concluídos</button>
+            </div>
+        </div>
+
+        <div id="devicesIntuneMaaUserResultado" style="margin-top:12px;"></div>
+        <div id="devicesIntuneMaaMonitorResultado" style="margin-top:12px;"></div>
+    </div>
+
+    <div id="devicesIntuneResultado"></div>
+
+</div>

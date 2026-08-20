@@ -1,0 +1,11 @@
+{
+  "version": "13.0.0",
+  "notificationStartDays": 8,
+  "removalDays": 13,
+  "notificationIntervalDays": 1,
+  "enabled": true,
+  "updatedAt": "2026-07-20T19:56:30.8655214+01:00",
+  "updatedBy": "E868019",
+  "preventiveConfigVersion": "12.0.0",
+  "preventiveConfigUpdatedAt": "2026-08-04T13:21:56.1409833+01:00"
+}

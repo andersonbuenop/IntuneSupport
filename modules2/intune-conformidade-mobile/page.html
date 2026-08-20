@@ -1,0 +1,492 @@
+<div class="icm-shell" id="icmRoot">
+  <section class="icm-hero">
+    <div>
+      <div class="icm-eyebrow">INTUNE • MOBILE COMPLIANCE</div>
+      <h1>Conformidade de equipamentos móveis</h1>
+      <p>Diagnóstico de dispositivos em período de carência e não conformes, com foco em Harmony Mobile.</p>
+    </div>
+    <div class="icm-connection">
+      <span class="icm-dot" id="icmConnDot"></span>
+      <span id="icmConnText">Graph desligado</span>
+    </div>
+  </section>
+
+  <section class="icm-toolbar">
+    <div class="icm-search-wrap">
+      <label for="icmSearch">Utilizador ou dispositivo</label>
+      <input id="icmSearch" type="text" placeholder="UPN, email, nome ou device name">
+    </div>
+
+    <button class="icm-btn icm-btn-light" id="icmConnect">Conectar Graph</button>
+    <button class="icm-btn icm-btn-light" id="icmConnectExchange">Conectar Exchange</button>
+    <button class="icm-btn icm-btn-primary" id="icmSearchUser">Pesquisar utilizador</button>
+    <button class="icm-btn icm-btn-primary" id="icmScan">Procurar problemas e pré-alertas</button>
+    <button class="icm-btn icm-btn-light" id="icmOpenAllTickets" disabled>Abrir pedidos em sequência</button>
+    <button class="icm-btn icm-btn-light" id="icmExport">Exportar CSV</button>
+    <button class="icm-btn icm-btn-light" id="icmClear">Limpar</button>
+  </section>
+
+  <section class="icm-filters">
+    <button class="icm-chip active" data-filter="all">Todos</button>
+    <button class="icm-chip" data-filter="inGracePeriod">Em carência</button>
+    <button class="icm-chip" data-filter="noncompliant">Não conformes</button>
+    <button class="icm-chip" data-filter="preventive">Pré-alerta</button>
+    <button class="icm-chip" data-filter="removalImminent">Remoção iminente</button>
+    <button class="icm-chip" data-filter="Harmony">Harmony</button>
+    <button class="icm-chip" data-filter="harmonyIncomplete">Harmony por configurar</button>
+    <button class="icm-chip" data-filter="Android">Android</button>
+    <button class="icm-chip" data-filter="iOS">iPhone/iPad</button>
+    <button class="icm-chip" data-filter="high">Risco alto</button>
+  </section>
+
+  <section class="icm-dashboard">
+    <article class="icm-card">
+      <span>Móveis analisados</span><strong id="icmCountTotal">0</strong>
+    </article>
+    <article class="icm-card warning">
+      <span>Em período de carência</span><strong id="icmCountGrace">0</strong>
+    </article>
+    <article class="icm-card danger">
+      <span>Não conformes</span><strong id="icmCountNoncompliant">0</strong>
+    </article>
+    <article class="icm-card danger">
+      <span>Risco alto</span><strong id="icmCountHigh">0</strong>
+    </article>
+    <article class="icm-card">
+      <span>Problemas Harmony</span><strong id="icmCountHarmony">0</strong>
+    </article>
+    <article class="icm-card">
+      <span>Expiram em 48 horas</span><strong id="icmCount48h">0</strong>
+    </article>
+    <article class="icm-card warning">
+      <span>Pré-alerta</span><strong id="icmCountPreventive">0</strong>
+    </article>
+    <article class="icm-card danger">
+      <span>Remoção iminente</span><strong id="icmCountRemovalImminent">0</strong>
+    </article>
+  </section>
+
+  <section class="icm-progress hidden" id="icmProgressWrap">
+    <div class="icm-progress-head">
+      <span id="icmProgressText">A processar...</span>
+      <strong id="icmProgressPercent">0%</strong>
+    </div>
+    <div class="icm-progress-track"><div id="icmProgressBar"></div></div>
+  </section>
+
+  <section class="icm-main">
+    <div class="icm-table-panel">
+      <div class="icm-panel-head">
+        <div>
+          <h2>Dispositivos</h2>
+          <span id="icmResultInfo">Nenhum resultado</span>
+        </div>
+      </div>
+
+      <div class="icm-table-scroll">
+        <table class="icm-table">
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Dispositivo</th>
+              <th>Utilizador</th>
+              <th>SO</th>
+              <th>Modelo</th>
+              <th>Conformidade</th>
+              <th>Fim da carência</th>
+              <th>Último check-in</th>
+              <th>Dias sem sync</th>
+              <th>Prazo preventivo</th>
+              <th>Diagnóstico</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="icmTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <aside class="icm-detail-panel">
+      <div class="icm-empty" id="icmEmptyDetail">
+        Selecione um dispositivo para visualizar o diagnóstico.
+      </div>
+
+      <div id="icmDetail" class="hidden">
+        <div class="icm-detail-title">
+          <div>
+            <div class="icm-eyebrow">DIAGNÓSTICO</div>
+            <h2 id="icmDetailDevice">—</h2>
+            <span id="icmDetailUser">—</span>
+          </div>
+          <span class="icm-risk" id="icmDetailRisk">—</span>
+        </div>
+
+        <div class="icm-info-grid" id="icmInfoGrid"></div>
+
+        <article class="icm-diagnostic-card">
+          <h3 id="icmDetailCategory">—</h3>
+          <p id="icmDetailDiagnosis">—</p>
+        </article>
+
+        <article class="icm-policy-card">
+          <h3>Política e definição</h3>
+          <div id="icmPolicyList"></div>
+        </article>
+
+        <article class="icm-action-card">
+          <h3>O que fazer para resolver</h3>
+          <div id="icmRecommendation"></div>
+        </article>
+
+        <article class="icm-history-card">
+          <h3>Histórico local</h3>
+          <div id="icmHistory"></div>
+        </article>
+
+        <div class="icm-detail-actions">
+          <button class="icm-btn icm-btn-primary" id="icmCopyTicket">Copiar texto do ticket</button>
+          <button class="icm-btn icm-btn-light" id="icmOpenServiceNow">Abrir ServiceNow</button>
+          <button class="icm-btn icm-btn-light" id="icmOpenIntune">Abrir no Intune</button>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="icm-toast" id="icmToast"></div>
+
+  <!-- BEGIN SERVICENOW SEQUENTIAL TICKETS V1 -->
+  <div class="icm-ticket-queue-overlay" id="icmTicketQueueOverlay" aria-hidden="true">
+    <section class="icm-ticket-queue-modal" role="dialog" aria-modal="true" aria-labelledby="icmTicketQueueTitle">
+      <header class="icm-ticket-queue-head">
+        <div>
+          <span class="icm-eyebrow">SERVICENOW</span>
+          <h2 id="icmTicketQueueTitle">Abertura sequencial de pedidos</h2>
+        </div>
+        <button type="button" class="icm-ticket-queue-close" id="icmTicketQueueClose" aria-label="Fechar">×</button>
+      </header>
+      <div class="icm-ticket-queue-body">
+        <div class="icm-ticket-queue-progress">
+          <strong id="icmTicketQueueCounter">0 de 0</strong>
+          <span id="icmTicketQueueStatus">Aguardando início</span>
+        </div>
+        <div class="icm-ticket-queue-track"><div id="icmTicketQueueBar"></div></div>
+        <article class="icm-ticket-queue-current">
+          <span>Pedido atual</span>
+          <h3 id="icmTicketQueueDevice">—</h3>
+          <p id="icmTicketQueueUser">—</p>
+        </article>
+        <p class="icm-ticket-queue-help" id="icmTicketQueueHelp">
+          O texto foi copiado e o formulário do ServiceNow foi aberto numa nova aba. Depois de abrir o pedido, volte a esta página e confirme para avançar.
+        </p>
+        <div class="icm-ticket-queue-actions">
+          <button type="button" class="icm-btn icm-btn-primary" id="icmTicketQueueConfirm">Pedido aberto — próximo</button>
+          <button type="button" class="icm-btn icm-btn-light" id="icmTicketQueueReopen">Copiar e abrir novamente</button>
+          <button type="button" class="icm-btn icm-btn-light" id="icmTicketQueueSkip">Ignorar — próximo</button>
+          <button type="button" class="icm-btn icm-btn-light" id="icmTicketQueueFinish">Terminar</button>
+        </div>
+      </div>
+    </section>
+  </div>
+  <!-- END SERVICENOW SEQUENTIAL TICKETS V1 -->
+</div>
+<!-- BEGIN INTUNE MOBILE NOTIFICATIONS UI V1 -->
+<style id="intune-mobile-notification-styles">
+  .imn-toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:14px 0;padding:12px;border:1px solid #ddd;border-radius:10px;background:#fff}
+  .imn-toolbar button,.imn-modal button{border:0;border-radius:7px;padding:9px 14px;cursor:pointer;font-weight:600}
+  .imn-primary{background:#ec0000;color:#fff}
+  .imn-secondary{background:#eee;color:#222}
+  .imn-danger{background:#b00020;color:#fff}
+  .imn-count{font-size:13px;color:#555}
+  .imn-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.48);z-index:99990;align-items:center;justify-content:center;padding:18px}
+  .imn-overlay.open{display:flex}
+  .imn-modal{width:min(960px,96vw);max-height:92vh;overflow:auto;background:#fff;border-radius:14px;box-shadow:0 20px 70px rgba(0,0,0,.3)}
+  .imn-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid #eee}
+  .imn-body{padding:18px 20px}
+  .imn-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .imn-field label{display:block;font-size:12px;font-weight:700;margin-bottom:5px}
+  .imn-field input,.imn-field textarea,.imn-field select{width:100%;box-sizing:border-box;padding:9px;border:1px solid #ccc;border-radius:7px;font:inherit}
+  .imn-field textarea{min-height:100px;resize:vertical}
+  .imn-wide{grid-column:1/-1}
+  .imn-list{margin-top:16px;border:1px solid #ddd;border-radius:8px;max-height:260px;overflow:auto}
+  .imn-row{display:grid;grid-template-columns:34px 1.2fr 1fr 1fr 110px;gap:8px;align-items:center;padding:9px;border-bottom:1px solid #eee;font-size:13px}
+  .imn-row:last-child{border-bottom:0}
+  .imn-status{font-size:12px;font-weight:700}
+  .imn-status.sent{color:#137333}.imn-status.error{color:#b00020}.imn-status.pending{color:#7a5b00}
+  .imn-actions{display:flex;justify-content:flex-end;gap:9px;margin-top:16px;flex-wrap:wrap}
+  .imn-progress{height:10px;background:#eee;border-radius:999px;overflow:hidden;margin-top:14px;display:none}
+  .imn-progress>div{height:100%;width:0;background:#ec0000;transition:width .2s}
+  .imn-log{margin-top:10px;padding:10px;background:#f7f7f7;border-radius:7px;white-space:pre-wrap;font:12px Consolas,monospace;display:none}
+  @media(max-width:720px){.imn-grid{grid-template-columns:1fr}.imn-row{grid-template-columns:30px 1fr}.imn-row>*:nth-child(n+3){grid-column:2}.imn-wide{grid-column:auto}}
+</style>
+
+<!-- BEGIN INTUNE MOBILE LIFECYCLE UI V9 -->
+<style id="iml-v9-styles">
+  .iml-panel{margin:16px 0;border:1px solid #ddd;border-radius:10px;background:#fff;overflow:hidden}
+  .iml-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid #eee}
+  .iml-head h3{margin:0;font-size:16px}
+  .iml-actions{display:flex;gap:8px;flex-wrap:wrap}
+  .iml-actions button{border:0;border-radius:6px;padding:8px 12px;font-weight:600;cursor:pointer}
+  .iml-refresh{background:#eee;color:#222}
+  .iml-cards{display:grid;grid-template-columns:repeat(7,minmax(120px,1fr));gap:10px;padding:14px}
+  .iml-card{border:1px solid #e3e3e3;border-radius:8px;padding:12px;background:#fafafa}
+  .iml-card strong{display:block;font-size:22px;margin-top:3px}
+  .iml-table-wrap{overflow:auto;border-top:1px solid #eee}
+  .iml-table{width:100%;border-collapse:collapse;font-size:12px}
+  .iml-table th{background:#292929;color:#fff;text-align:left;padding:9px;white-space:nowrap}
+  .iml-table td{padding:9px;border-bottom:1px solid #eee;vertical-align:top}
+  .iml-badge{display:inline-flex;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+  .iml-notification-count{display:inline-flex;align-items:center;justify-content:center;min-width:24px;height:24px;padding:0 7px;border-radius:999px;background:#e8f2ff;color:#174ea6;font-weight:700}
+  .iml-waiting{background:#fff4ce;color:#7a5b00}
+  .iml-ready{background:#fde7e9;color:#a4262c}
+  .iml-regularized{background:#dff6dd;color:#0b6a0b}
+  .iml-removed{background:#e5e5e5;color:#444}
+  .iml-removed-user{background:#e8f2ff;color:#174ea6}
+  .iml-removed-team{background:#f3e8ff;color:#5b2c83}
+  .iml-missing{background:#eee8ff;color:#5b2c83}
+  .iml-notified{background:#e8f2ff;color:#174ea6}
+  .iml-remove-btn{border:0;border-radius:5px;padding:6px 9px;background:#b00020;color:#fff;cursor:pointer;font-weight:600}
+  .iml-empty{padding:20px;text-align:center;color:#666}
+  @media(max-width:900px){.iml-cards{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+</style>
+
+<section id="imlPanel" class="iml-panel">
+  <div class="iml-head">
+    <div>
+      <h3>Controlo de notificações e prazo de regularização</h3>
+      <div style="font-size:12px;color:#666;margin-top:3px">
+        A remoção do Intune é manual. O sistema apenas indica quando o prazo terminou.
+      </div>
+    </div>
+    <div class="iml-actions">
+      <button type="button" id="imlReconcile" class="iml-refresh">Reconciliar última pesquisa</button>
+      <button type="button" id="imlRefresh" class="iml-refresh">Atualizar controlo</button>
+    </div>
+  </div>
+
+  <div class="iml-cards">
+    <div class="iml-card"><span>Aguardando prazo</span><strong id="imlWaiting">0</strong></div>
+    <div class="iml-card"><span>Prontos para remover</span><strong id="imlReady">0</strong></div>
+    <div class="iml-card"><span>Regularizados</span><strong id="imlRegularized">0</strong></div>
+    <div class="iml-card"><span>A validar resolução</span><strong id="imlMissing">0</strong></div>
+    <div class="iml-card"><span>Removidos pelo utilizador</span><strong id="imlRemovedByUser">0</strong></div>
+    <div class="iml-card"><span>Removidos pela equipa</span><strong id="imlRemovedByTeam">0</strong></div>
+    <div class="iml-card"><span>Total acompanhados</span><strong id="imlTotal">0</strong></div>
+  </div>
+
+  <div class="iml-table-wrap">
+    <table class="iml-table">
+      <thead>
+        <tr>
+          <th>Utilizador</th>
+          <th>Equipamento</th>
+          <th>Identificador</th>
+          <th>Notificado em</th>
+          <th>Prazo</th>
+          <th>Última vez visto</th>
+          <th>Notificações</th>
+          <th>Tempo restante</th>
+          <th>Estado</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody id="imlRows">
+        <tr><td colspan="10" class="iml-empty">Nenhuma notificação registada.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- END INTUNE MOBILE LIFECYCLE UI V9 -->
+<!-- BEGIN PREVENTIVE LIFECYCLE UI V10.3.0 -->
+<style id="impl-v1030-styles">
+  .impl-panel{margin:16px 0;border:1px solid #ddd;border-radius:10px;background:#fff;overflow:hidden}
+  .impl-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid #eee}
+  .impl-head h3{margin:0;font-size:16px}
+  .impl-actions button{border:0;border-radius:6px;padding:8px 12px;font-weight:600;cursor:pointer;background:#eee}
+  .impl-cards{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:10px;padding:14px}
+  .impl-card{border:1px solid #e3e3e3;border-radius:8px;padding:12px;background:#fafafa}
+  .impl-card strong{display:block;font-size:22px;margin-top:3px}
+  .impl-table-wrap{overflow:auto;border-top:1px solid #eee}
+  .impl-table{width:100%;border-collapse:collapse;font-size:12px}
+  .impl-table th{background:#292929;color:#fff;text-align:left;padding:9px;white-space:nowrap}
+  .impl-table td{padding:9px;border-bottom:1px solid #eee;vertical-align:top}
+  .impl-badge{display:inline-flex;padding:3px 8px;border-radius:999px;font-size:11px;font-weight:700;white-space:nowrap}
+  .impl-prealert{background:#fff4ce;color:#7a5b00}
+  .impl-imminent{background:#fff0e5;color:#b54708}
+  .impl-ready{background:#fde7e9;color:#a4262c}
+  .impl-regularized{background:#dff6dd;color:#0b6a0b}
+  .impl-pending{background:#eee8ff;color:#5b2c83}
+  .impl-removed{background:#e5e5e5;color:#444}
+  .impl-empty{padding:20px;text-align:center;color:#666}
+  @media(max-width:900px){.impl-cards{grid-template-columns:repeat(2,minmax(120px,1fr))}}
+</style>
+
+<section id="implPanel" class="impl-panel">
+  <div class="impl-head">
+    <div>
+      <h3>Controlo Preventivo — equipamentos sem comunicação</h3>
+      <div style="font-size:12px;color:#666;margin-top:3px">
+        Os prazos são carregados da configuração preventiva.
+      </div>
+    </div>
+    <div class="impl-actions">
+      <button type="button" id="implRefresh">Atualizar controlo preventivo</button>
+    </div>
+  </div>
+
+  <div class="impl-cards">
+    <div class="impl-card"><span>Pré-alerta</span><strong id="implPreAlert">0</strong></div>
+    <div class="impl-card"><span>Remoção iminente</span><strong id="implImminent">0</strong></div>
+    <div class="impl-card"><span>Prontos para remover</span><strong id="implReady">0</strong></div>
+    <div class="impl-card"><span>Notificados hoje</span><strong id="implToday">0</strong></div>
+    <div class="impl-card"><span>Regularizados</span><strong id="implRegularized">0</strong></div>
+    <div class="impl-card"><span>Total acompanhados</span><strong id="implTotal">0</strong></div>
+  </div>
+
+  <div class="impl-table-wrap">
+    <table class="impl-table">
+      <thead>
+        <tr>
+          <th>Utilizador</th>
+          <th>Equipamento</th>
+          <th>Último sync</th>
+          <th>Dias sem sync</th>
+          <th>Data limite</th>
+          <th>Dias restantes</th>
+          <th>Notificações</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="implRows">
+        <tr><td colspan="8" class="impl-empty">Nenhum pré-alerta registado.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+<!-- END PREVENTIVE LIFECYCLE UI V10.3.0 -->
+<div id="imnToolbar" class="imn-toolbar">
+  <button type="button" id="imnOpen" class="imn-primary">Notificar utilizadores</button>
+  <span id="imnSummary" class="imn-count">Aguardando resultados da pesquisa.</span>
+</div>
+
+<div id="imnOverlay" class="imn-overlay" aria-hidden="true">
+  <div class="imn-modal" role="dialog" aria-modal="true" aria-labelledby="imnTitle">
+    <div class="imn-head">
+      <div>
+        <strong id="imnTitle">Notificação de pendências mobile</strong>
+        <div class="imn-count">Selecione os utilizadores, valide o conteúdo e prepare primeiro uma mensagem de teste no Outlook.</div>
+      </div>
+      <button type="button" id="imnClose" class="imn-secondary">Fechar</button>
+    </div>
+    <div class="imn-body">
+      <div class="imn-grid">
+        <div class="imn-field">
+          <label for="imnTestRecipient">Destinatário de teste</label>
+          <input id="imnTestRecipient" type="email" placeholder="seu.email@santander.pt">
+        </div>
+        <div class="imn-field">
+          <label for="imnSubject">Assunto</label>
+          <input id="imnSubject" value="Ação necessária - Regularização do equipamento móvel">
+        </div>
+        <div class="imn-field imn-wide">
+          <label for="imnInstructions">Instruções ao utilizador</label>
+          <textarea id="imnInstructions">Abra o Harmony no telemóvel e confirme que a aplicação está ativa, configurada e sem mensagens de erro. Em seguida, abra o Portal da Empresa e efetue uma sincronização do equipamento.</textarea>
+        </div>
+      </div>
+
+      <div class="imn-actions" style="justify-content:flex-start">
+        <button type="button" id="imnSelectAll" class="imn-secondary">Selecionar pendentes</button>
+        <button type="button" id="imnClearAll" class="imn-secondary">Limpar seleção</button>
+      </div>
+
+      <div id="imnOutlookInfo" style="margin-top:12px;padding:10px 12px;border:1px solid #d8d8d8;border-radius:8px;background:#fafafa;font-size:12px">
+  <strong>Envio pelo Outlook local</strong><br>
+  Remetente: <code>User.Action.Required@santander.pt</code><br>
+  As mensagens serão abertas no Outlook para revisão e envio manual.
+</div>
+      <div id="imnList" class="imn-list"></div>
+      <div id="imnProgress" class="imn-progress"><div></div></div>
+      <div id="imnLog" class="imn-log"></div>
+
+      <div class="imn-actions">
+        <button type="button" id="imnSendTest" class="imn-secondary">Preparar teste no Outlook</button>
+        <button type="button" id="imnSendSelected" class="imn-secondary">Preparar selecionados no Outlook</button>
+        <button type="button" id="imnSendDirect" class="imn-primary">Enviar selecionados pelo Outlook</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- END INTUNE MOBILE NOTIFICATIONS UI V1 -->
+<!-- BEGIN PREVENTIVE CONFIG BUTTON V11.2 -->
+<button type="button"
+        id="btnPreventiveConfigV112"
+        class="btn-preventive-config-v112"
+        onclick="window.openPreventiveConfigV112 && window.openPreventiveConfigV112()">
+    Configurar prazos
+</button>
+
+<div id="preventiveConfigModalV112"
+     class="preventive-modal-v112"
+     aria-hidden="true">
+  <div class="preventive-modal-card-v112">
+    <div class="preventive-modal-header-v112">
+      <div>
+        <strong>Configurar controlo preventivo</strong>
+        <small>Defina os prazos sem alterar o código.</small>
+      </div>
+      <button type="button"
+              class="preventive-modal-close-v112"
+              onclick="window.closePreventiveConfigV112 && window.closePreventiveConfigV112()">
+        ×
+      </button>
+    </div>
+
+    <div class="preventive-modal-body-v112">
+      <label>
+        Início das notificações
+        <input id="preventiveStartDaysV112"
+               type="number"
+               min="1"
+               max="365"
+               step="1">
+        <small>Quantidade de dias sem comunicação para iniciar o aviso.</small>
+      </label>
+
+      <label>
+        Dia previsto para remoção
+        <input id="preventiveRemovalDaysV112"
+               type="number"
+               min="2"
+               max="730"
+               step="1">
+        <small>Deve ser superior ao Início das notificações.</small>
+      </label>
+
+      <label>
+        Intervalo entre lembretes
+        <input id="preventiveIntervalDaysV112"
+               type="number"
+               min="1"
+               max="90"
+               step="1">
+        <small>Numero de dias entre as notificacoes preventivas.</small>
+      </label>
+
+      <div id="preventiveConfigMessageV112"
+           class="preventive-config-message-v112"></div>
+    </div>
+
+    <div class="preventive-modal-actions-v112">
+      <button type="button"
+              class="btn-secondary"
+              onclick="window.closePreventiveConfigV112 && window.closePreventiveConfigV112()">
+        Cancelar
+      </button>
+      <button type="button"
+              class="btn-primary"
+              onclick="window.savePreventiveConfigV112 && window.savePreventiveConfigV112()">
+        Guardar prazos
+      </button>
+    </div>
+  </div>
+</div>
+<!-- END PREVENTIVE CONFIG BUTTON V11.2 -->

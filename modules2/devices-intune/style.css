@@ -1,0 +1,18 @@
+.di-maa-workspace{padding:0!important;overflow:hidden;border:1px solid #e5e7eb!important;background:#f8fafc!important}
+.di-maa-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding:24px 26px 20px;background:#fff;border-bottom:1px solid #e5e7eb}
+.di-maa-heading h3{margin:4px 0 5px;font-size:22px;color:#171717}.di-maa-heading p{margin:0}
+.di-maa-eyebrow{font-size:11px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#b40000}
+.di-maa-cadence{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border:1px solid #d1fae5;border-radius:999px;background:#ecfdf5;color:#166534;font-size:12px;font-weight:700;white-space:nowrap}
+.di-maa-cadence span{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px #dcfce7}
+.di-maa-config-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:16px;padding:18px 20px 12px}
+.di-maa-card{padding:18px;border:1px solid #e5e7eb;border-radius:14px;background:#fff;box-shadow:0 2px 8px rgba(15,23,42,.04)}
+.di-maa-card-title{margin-bottom:12px;font-size:14px;font-weight:800;color:#1f2937}
+.di-maa-card textarea{box-sizing:border-box;width:100%;border:1px solid #d1d5db;border-radius:10px;padding:11px 12px;font:13px/1.45 Segoe UI,Arial,sans-serif;resize:vertical;background:#fbfdff}
+.di-maa-card textarea:focus{outline:0;border-color:#ec0000;box-shadow:0 0 0 3px rgba(236,0,0,.09)}
+.di-maa-quick-card{display:flex;flex-direction:column}.di-maa-quick-card p{margin:0 0 16px}
+.di-maa-button-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+.di-maa-toolbar{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;padding:12px 20px 18px}
+.di-maa-toolbar-group{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.di-maa-toolbar-group>span{width:100%;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#64748b}
+.di-maa-toolbar-end{justify-content:flex-end}.di-btn-alert{background:#111827!important;color:#fff!important;border-color:#111827!important}
+#devicesIntuneMaaUserResultado,#devicesIntuneMaaMonitorResultado{margin:0 20px 16px!important;background:#fff;border-radius:12px}
+@media(max-width:850px){.di-maa-heading,.di-maa-toolbar{align-items:stretch;flex-direction:column}.di-maa-cadence{align-self:flex-start}.di-maa-config-grid{grid-template-columns:1fr}.di-maa-toolbar-end{justify-content:flex-start}}
