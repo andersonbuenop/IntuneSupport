@@ -1,0 +1,8 @@
+{
+    "name": "relatorio-sam",
+    "title": "Relatório SAM",
+    "description": "Relatório SAM com consulta direta ao Intune via Microsoft Graph",
+    "category": "Relatórios",
+    "enabled": true,
+    "order": 2
+}

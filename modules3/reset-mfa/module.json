@@ -1,0 +1,17 @@
+{
+    "id": "reset-mfa",
+    "name": "reset-mfa",
+    "module": "reset-mfa",
+    "title": "Reset MFA",
+    "description": "Reset seguro de MFA com validação hierárquica, pré-aprovados e preparação automática dos dados para ServiceNow",
+    "category": "Ferramentas",
+    "icon": "shield",
+    "order": 7,
+    "version": "2.3.2",
+    "author": "Raphael Vieira",
+    "enabled": true,
+    "page": "page.html",
+    "script": "script.js",
+    "style": "style.css",
+    "api": "api.ps1"
+}

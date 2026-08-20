@@ -1,0 +1,2 @@
+"Timestamp","Ticket","OperatorWindows","OperatorName","TargetDisplayName","TargetUPN","TargetId","RequesterName","RequesterUPN","AuthorizationState","Status","RemovedCount","FailedCount","RemainingCount","Details"
+"2026-07-23 10:45:09","Teams","CENTRAL\E868019","Raphael Gomes Vieira","Ana Paula Correia Jardim","E807383@corp.santander.pt","db462898-9ec6-41f0-9be7-0775f5b089ab","Eduardo Jorge Costa Rodrigues Pinto","C605454@corp.santander.pt","Manager","Success","2","0","0","Reset MFA concluído e confirmado."

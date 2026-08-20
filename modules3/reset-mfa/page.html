@@ -1,0 +1,339 @@
+<div class="reset-mfa-module" id="resetMfaModuleRoot">
+    <div class="reset-mfa-header">
+        <div>
+            <h2>Reset MFA</h2>
+            <p>Pesquisa, validação por hierarquia ou lista de pré-aprovados e reset seguro de métodos MFA padrão via Microsoft Graph.</p>
+        </div>
+        <span class="reset-mfa-version">V2.3.2</span>
+    </div>
+
+    <div class="reset-mfa-warning" role="alert">
+        <strong>Atenção:</strong>
+        o reset padrão remove somente Microsoft Authenticator, telefone e Software OATH.
+        Password, FIDO2, Windows Hello for Business, Temporary Access Pass e email permanecem protegidos.
+    </div>
+
+    <div class="reset-mfa-grid">
+        <section class="reset-mfa-card reset-mfa-col-4">
+            <h3>Sessão Microsoft Graph</h3>
+
+            <div id="resetMfaGraphStatus" class="reset-mfa-status-box" aria-live="polite">
+                <span id="resetMfaGraphStatusDot" class="reset-mfa-graph-dot reset-mfa-graph-off"></span>
+                <span id="resetMfaGraphStatusText">Verificando sessão...</span>
+            </div>
+
+            <button id="resetMfaBtnConnect" type="button" class="reset-mfa-btn reset-mfa-btn-red reset-mfa-full" onclick="conectarGraphResetMFA()">
+                Conectar Graph
+            </button>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-8">
+            <h3>Pesquisa de utilizador</h3>
+
+            <label for="resetMfaUserInput">User, email, UPN ou Object ID</label>
+
+            <div class="reset-mfa-search-line">
+                <input
+                    type="text"
+                    id="resetMfaUserInput"
+                    class="reset-mfa-input"
+                    placeholder="Exemplo: e868019 ou utilizador@corp.santander.pt"
+                    autocomplete="off">
+
+                <button id="resetMfaBtnSearch" type="button" class="reset-mfa-btn reset-mfa-btn-blue" onclick="pesquisarUtilizadorResetMFA()">
+                    Pesquisar
+                </button>
+
+                <button type="button" class="reset-mfa-btn reset-mfa-btn-light" onclick="limparUtilizadorResetMFA()">
+                    Limpar
+                </button>
+            </div>
+
+            <div id="resetMfaSelectionNotice" class="reset-mfa-selection-notice reset-mfa-hidden" aria-live="polite"></div>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-8">
+            <div class="reset-mfa-title-row">
+                <h3>Dados do utilizador</h3>
+                <span id="resetMfaAccountBadge" class="reset-mfa-badge reset-mfa-badge-neutral">Sem pesquisa</span>
+            </div>
+
+            <div class="reset-mfa-info-grid">
+                <div>
+                    <label for="resetMfaNome">Nome</label>
+                    <input id="resetMfaNome" class="reset-mfa-input" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaUpn">UPN</label>
+                    <input id="resetMfaUpn" class="reset-mfa-input" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaEmail">Email</label>
+                    <input id="resetMfaEmail" class="reset-mfa-input" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaEmployeeId">Employee ID</label>
+                    <input id="resetMfaEmployeeId" class="reset-mfa-input" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaDepartamento">Departamento</label>
+                    <input id="resetMfaDepartamento" class="reset-mfa-input" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaCargo">Cargo</label>
+                    <input id="resetMfaCargo" class="reset-mfa-input" readonly>
+                </div>
+
+                <div class="reset-mfa-full-span">
+                    <label for="resetMfaObjectId">Object ID confirmado</label>
+                    <input id="resetMfaObjectId" class="reset-mfa-input reset-mfa-mono" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaManager">Manager direto</label>
+                    <input id="resetMfaManager" class="reset-mfa-input" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaManagerContact">Contacto do manager</label>
+                    <input id="resetMfaManagerContact" class="reset-mfa-input" readonly>
+                </div>
+
+                <div class="reset-mfa-full-span">
+                    <label for="resetMfaAddress">Address / Morada</label>
+                    <textarea id="resetMfaAddress" class="reset-mfa-input" rows="2" readonly></textarea>
+                </div>
+
+                <div class="reset-mfa-full-span">
+                    <label for="resetMfaManagerHierarchy">Árvore de managers</label>
+                    <textarea id="resetMfaManagerHierarchy" class="reset-mfa-input" rows="4" readonly></textarea>
+                </div>
+            </div>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-4">
+            <div class="reset-mfa-title-row">
+                <h3>Métodos de autenticação</h3>
+                <button type="button" class="reset-mfa-btn reset-mfa-btn-blue reset-mfa-btn-small" onclick="copiarMetodosMFA()">
+                    Copiar
+                </button>
+            </div>
+
+            <div id="resetMfaMethodsResult" class="reset-mfa-method-box" aria-live="polite">
+                Nenhum utilizador pesquisado.
+            </div>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-12">
+            <div class="reset-mfa-title-row">
+                <h3>Validação da solicitação</h3>
+                <button id="resetMfaBtnManageApproved" type="button" class="reset-mfa-btn reset-mfa-btn-service-now reset-mfa-btn-small" onclick="alternarPainelPreAprovadosResetMFA()">
+                    Gerir pré-aprovados
+                </button>
+            </div>
+
+            <div class="reset-mfa-info-grid">
+                <div>
+                    <label for="resetMfaRequestSource">Origem da solicitação</label>
+                    <select id="resetMfaRequestSource" class="reset-mfa-input">
+                        <option value="ServiceNow">ServiceNow</option>
+                        <option value="Teams">Microsoft Teams</option>
+                        <option value="Email">E-mail</option>
+                        <option value="Telefone">Telefone</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label id="resetMfaReferenceLabel" for="resetMfaRequestReference">Número do ticket / referência</label>
+                    <input id="resetMfaRequestReference" class="reset-mfa-input" placeholder="Exemplo: RITM012345678" autocomplete="off">
+                </div>
+
+                <div>
+                    <label for="resetMfaRequester">Pessoa que solicitou</label>
+                    <input id="resetMfaRequester" class="reset-mfa-input" placeholder="User, email ou UPN da pessoa que pediu" autocomplete="off">
+                </div>
+
+                <div class="reset-mfa-align-end">
+                    <button id="resetMfaBtnValidateRequester" type="button" class="reset-mfa-btn reset-mfa-btn-green reset-mfa-full" onclick="validarSolicitanteTicketResetMFA()">
+                        Validar autorização
+                    </button>
+                </div>
+
+                <div>
+                    <label for="resetMfaValidationState">Estado da validação</label>
+                    <input id="resetMfaValidationState" class="reset-mfa-input" readonly>
+                </div>
+
+                <div>
+                    <label for="resetMfaSignature">Assinatura da resposta</label>
+                    <input id="resetMfaSignature" class="reset-mfa-input" readonly>
+                    <div class="reset-mfa-signature-box">
+                        <strong>Utilizador Windows:</strong>
+                        <span id="resetMfaWindowsInfo">A identificar...</span>
+                    </div>
+                </div>
+
+                <div class="reset-mfa-full-span reset-mfa-align-end">
+                    <button type="button" class="reset-mfa-btn reset-mfa-btn-green reset-mfa-full" onclick="gerarRespostaTicketResetMFA()">
+                        Gerar resposta
+                    </button>
+                </div>
+            </div>
+
+            <div id="resetMfaApproverInfo" class="reset-mfa-approver-info reset-mfa-hidden"></div>
+
+            <div id="resetMfaNoManagerApprovalPanel" class="reset-mfa-no-manager-panel reset-mfa-hidden" aria-live="polite">
+                <div class="reset-mfa-title-row">
+                    <div>
+                        <h3>Pedido de aprovação por e-mail</h3>
+                        <p class="reset-mfa-muted">Este utilizador não possui manager ou responsável hierárquico. Solicite aprovação à equipa responsável antes de executar o reset.</p>
+                    </div>
+                    <span class="reset-mfa-badge reset-mfa-badge-danger">Aprovação necessária</span>
+                </div>
+
+                <div class="reset-mfa-info-grid">
+                    <div class="reset-mfa-full-span">
+                        <label for="resetMfaApprovalEmailTo">Destinatários</label>
+                        <input id="resetMfaApprovalEmailTo" class="reset-mfa-input" readonly value="s613220@corp.santander.pt; S613637@corp.santander.pt; S612160@corp.santander.pt">
+                    </div>
+                    <div class="reset-mfa-full-span">
+                        <label for="resetMfaApprovalEmailSubject">Assunto</label>
+                        <input id="resetMfaApprovalEmailSubject" class="reset-mfa-input" readonly>
+                    </div>
+                    <div class="reset-mfa-full-span">
+                        <label for="resetMfaApprovalEmailPreview">Resumo que será enviado</label>
+                        <textarea id="resetMfaApprovalEmailPreview" class="reset-mfa-input" rows="9" readonly></textarea>
+                    </div>
+                    <div class="reset-mfa-full-span reset-mfa-email-actions">
+                        <button id="resetMfaBtnPreviewApprovalEmail" type="button" class="reset-mfa-btn reset-mfa-btn-dark" onclick="previsualizarEmailAprovacaoResetMFA()">
+                            Pré-visualizar e-mail
+                        </button>
+                        <button id="resetMfaBtnSendApprovalEmail" type="button" class="reset-mfa-btn reset-mfa-btn-red reset-mfa-full" onclick="enviarEmailAprovacaoResetMFA()">
+                            Enviar pedido de aprovação pelo Outlook
+                        </button>
+                    </div>
+                </div>
+
+                <div id="resetMfaApprovalEmailStatus" class="reset-mfa-approval-email-status">
+                    Preencha a referência do pedido antes de enviar. Após receber a resposta, informe o aprovador em “Pessoa que solicitou” e valide a autorização.
+                </div>
+            </div>
+
+            <div id="resetMfaApprovedPanel" class="reset-mfa-approved-panel reset-mfa-hidden">
+                <div class="reset-mfa-title-row">
+                    <div>
+                        <h3>Pré-aprovados da equipa</h3>
+                        <p class="reset-mfa-muted">Pessoas ativas nesta lista também podem autorizar pedidos recebidos por Teams, ServiceNow, e-mail ou outras origens.</p>
+                    </div>
+                    <button type="button" class="reset-mfa-btn reset-mfa-btn-light reset-mfa-btn-small" onclick="alternarPainelPreAprovadosResetMFA(false)">
+                        Fechar
+                    </button>
+                </div>
+
+                <div class="reset-mfa-approved-form">
+                    <div>
+                        <label for="resetMfaApprovedIdentifier">User, email ou UPN</label>
+                        <input id="resetMfaApprovedIdentifier" class="reset-mfa-input" placeholder="Pessoa da equipa a pré-aprovar" autocomplete="off">
+                    </div>
+
+                    <div>
+                        <label for="resetMfaApprovedNote">Observação</label>
+                        <input id="resetMfaApprovedNote" class="reset-mfa-input" placeholder="Exemplo: Equipa M365 / Service Desk" autocomplete="off">
+                    </div>
+
+                    <div class="reset-mfa-align-end">
+                        <button id="resetMfaBtnAddApproved" type="button" class="reset-mfa-btn reset-mfa-btn-blue reset-mfa-full" onclick="adicionarPreAprovadoResetMFA()">
+                            Adicionar ou atualizar
+                        </button>
+                    </div>
+                </div>
+
+                <div id="resetMfaApprovedList" class="reset-mfa-approved-list" aria-live="polite">
+                    A carregar lista...
+                </div>
+            </div>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-12">
+            <div class="reset-mfa-title-row">
+                <h3>Progresso da operação</h3>
+                <span id="resetMfaProgressPercent">0%</span>
+            </div>
+
+            <div class="reset-mfa-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                <div id="resetMfaProgressBar" class="reset-mfa-progress-bar"></div>
+            </div>
+
+            <div id="resetMfaProgressText" class="reset-mfa-progress-text" aria-live="polite">
+                Aguardando operação.
+            </div>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-12">
+            <h3>Ações</h3>
+
+            <div class="reset-mfa-actions">
+                <button id="resetMfaBtnPrevalidate" type="button" class="reset-mfa-btn reset-mfa-btn-dark" onclick="testarResetMFA()" disabled>
+                    Pré-validar reset
+                </button>
+
+                <button id="resetMfaBtnReset" type="button" class="reset-mfa-btn reset-mfa-btn-red" onclick="resetarMFA()" disabled>
+                    Reset MFA
+                </button>
+
+                <button type="button" class="reset-mfa-btn reset-mfa-btn-blue" onclick="copiarRespostaResetMFA()">
+                    Copiar resposta
+                </button>
+
+                <button id="resetMfaBtnServiceNow" type="button" class="reset-mfa-btn reset-mfa-btn-service-now" onclick="abrirServiceNowResetMFA()" title="Copia o resumo completo para a área de transferência e abre o ServiceNow">
+                    Copiar dados e abrir ServiceNow
+                </button>
+
+                <button type="button" class="reset-mfa-btn reset-mfa-btn-light" onclick="limparResetMFA()">
+                    Limpar tudo
+                </button>
+
+                <button type="button" class="reset-mfa-btn reset-mfa-btn-light" onclick="if (typeof carregarFerramentas === 'function') carregarFerramentas();">
+                    Fechar
+                </button>
+            </div>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-6">
+            <h3>Resposta do ticket / fecho</h3>
+            <textarea id="resetMfaResponseText" class="reset-mfa-input" rows="14" placeholder="A resposta será gerada conforme a validação e o resultado da operação."></textarea>
+        </section>
+
+        <section class="reset-mfa-card reset-mfa-col-6">
+            <h3>Log da execução</h3>
+            <pre id="resetMfaLogs" class="reset-mfa-log-box" aria-live="polite">Aguardando operação...</pre>
+        </section>
+    </div>
+</div>
+
+<div id="resetMfaEmailPreviewModal" class="reset-mfa-module reset-mfa-email-preview-modal reset-mfa-hidden" role="dialog" aria-modal="true" aria-labelledby="resetMfaEmailPreviewTitle">
+    <div class="reset-mfa-email-preview-dialog">
+        <div class="reset-mfa-email-preview-header">
+            <div>
+                <h3 id="resetMfaEmailPreviewTitle">Pré-visualização do e-mail</h3>
+                <p>Esta é a mensagem exata que será enviada pelo Outlook.</p>
+            </div>
+            <button type="button" class="reset-mfa-btn reset-mfa-btn-light reset-mfa-btn-small" onclick="fecharPrevisualizacaoEmailResetMFA()" aria-label="Fechar pré-visualização">Fechar</button>
+        </div>
+        <div class="reset-mfa-email-preview-meta">
+            <div><strong>Para:</strong> <span id="resetMfaEmailPreviewTo"></span></div>
+            <div><strong>Assunto:</strong> <span id="resetMfaEmailPreviewSubject"></span></div>
+        </div>
+        <iframe id="resetMfaEmailPreviewFrame" class="reset-mfa-email-preview-frame" title="Corpo do e-mail de aprovação" sandbox="allow-same-origin"></iframe>
+        <div class="reset-mfa-email-preview-footer">
+            <button type="button" class="reset-mfa-btn reset-mfa-btn-light" onclick="fecharPrevisualizacaoEmailResetMFA()">Voltar e ajustar</button>
+            <button id="resetMfaBtnSendFromPreview" type="button" class="reset-mfa-btn reset-mfa-btn-red" onclick="enviarEmailAprovacaoResetMFA()">Confirmar e enviar</button>
+        </div>
+    </div>
+</div>

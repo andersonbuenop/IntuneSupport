@@ -1,0 +1,29 @@
+<div class="rld-page">
+  <section class="rld-hero">
+    <div><span>Exchange Online • Auditoria</span><h1>Limites de destinatários</h1><p>Verifique o valor de <strong>RecipientLimits</strong> em todas as caixas dos domínios selecionados.</p></div>
+    <div class="rld-actions"><button class="rld-btn rld-btn-light" type="button" onclick="rldConnect()">Conectar Exchange</button><button class="rld-btn rld-btn-dark" id="rldRunButton" type="button" onclick="rldRun()">Gerar relatório</button></div>
+  </section>
+  <section class="rld-status"><div><i></i><strong>Estado</strong></div><p id="rldStatus">Selecione os domínios e execute a consulta.</p></section>
+  <div class="rld-live-progress" id="rldLiveProgress" hidden><div><span id="rldProgressBar"></span></div><p id="rldProgressText">A preparar consulta...</p></div>
+  <section class="rld-panel">
+    <div class="rld-filter-head"><div><h2>Domínios</h2><p>Pode consultar cada domínio separadamente ou selecionar ambos.</p></div><div class="rld-domain-actions"><button type="button" onclick="rldSelectAll(true)">Selecionar todos</button><button type="button" onclick="rldSelectAll(false)">Limpar</button></div></div>
+    <div class="rld-domain-grid">
+      <label><input class="rld-domain" type="checkbox" value="santander.pt" checked><span><strong>@santander.pt</strong><small>Caixas internas</small></span></label>
+      <label><input class="rld-domain" type="checkbox" value="servexternos.santander.pt" checked><span><strong>@servexternos.santander.pt</strong><small>Serviços externos</small></span></label>
+    </div>
+  </section>
+  <section class="rld-kpis">
+    <article><span>Caixas encontradas</span><strong id="rldTotal">0</strong></article><article><span>Limite 50</span><strong id="rld50">0</strong></article><article><span>Outros limites</span><strong id="rldOther">0</strong></article><article><span>Sem limite</span><strong id="rldUnlimited">0</strong></article>
+  </section>
+  <section class="rld-panel rld-change-panel">
+    <div><h2>Alterar limite de destinatários</h2><p>Selecione uma ou várias caixas na tabela. A alteração é aplicada diretamente no Exchange Online.</p></div>
+    <div class="rld-change-actions"><label class="rld-limit-filter"><span>Novo limite</span><input id="rldNewLimit" type="number" min="1" max="1000" step="1" value="50"></label><button class="rld-btn rld-btn-dark" type="button" onclick="rldApplyLimit()">Aplicar aos selecionados</button><button class="rld-btn rld-btn-approval" type="button" onclick="rldOpenApproval()">Solicitar aprovação por email</button></div>
+    <p class="rld-selection-info" id="rldSelectionInfo">Nenhuma caixa selecionada.</p>
+  </section>
+  <section class="rld-panel">
+    <div class="rld-table-head"><div><h2>Resultado</h2><p id="rldResultInfo">Nenhuma consulta executada.</p></div><div class="rld-tools"><label class="rld-limit-filter"><span>Tipo de caixa</span><select id="rldMailboxType" onchange="rldRender()"><option value="all">Todas</option><option value="UserMailbox">UserMailbox</option><option value="SharedMailbox">SharedMailbox</option></select></label><label class="rld-limit-filter"><span>Limite de envio</span><select id="rldLimitMode" onchange="rldLimitModeChanged()"><option value="all">Todos</option><option value="exact">Quantidade exata</option><option value="unlimited">Sem limite</option></select></label><label class="rld-limit-filter" id="rldLimitValueWrap" hidden><span>Quantidade</span><input id="rldLimitValue" type="number" min="1" step="1" value="1000" placeholder="Ex.: 1000" oninput="rldRender()"></label><input id="rldSearch" type="search" placeholder="Pesquisar caixa ou utilizador..." oninput="rldRender()"><button class="rld-btn rld-btn-export" type="button" onclick="rldExportCsv()">Exportar CSV</button></div></div>
+    <div class="rld-table-wrap"><table><thead><tr><th><input id="rldSelectAll" type="checkbox" onchange="rldToggleVisible(this.checked)" aria-label="Selecionar resultados visíveis"></th><th>Nome</th><th>Endereço principal</th><th>Domínio</th><th>Tipo de caixa</th><th>Limite</th><th>Estado</th><th>Ações</th></tr></thead><tbody id="rldTable"><tr><td colspan="8" class="rld-empty">Nenhum dado carregado.</td></tr></tbody></table></div>
+  </section>
+  <div class="rld-overlay" id="rldOverlay"><div><span class="rld-spinner"></span><h3>A consultar Exchange Online</h3><p>Este processo pode demorar conforme o número de caixas.</p></div></div>
+  <div class="rld-modal-overlay" id="rldApprovalModal" hidden><section class="rld-modal" role="dialog" aria-modal="true" aria-labelledby="rldApprovalTitle"><header><div><span>Pedido de aprovação</span><h2 id="rldApprovalTitle">Preparar email Santander</h2></div><button type="button" onclick="rldCloseApproval()" aria-label="Fechar">×</button></header><div class="rld-modal-body"><label>Para<input id="rldApprovalTo" type="text" placeholder="destinatario@santander.pt"></label><label>CC<input id="rldApprovalCc" type="text" placeholder="cc@santander.pt"></label><label>Assunto<input id="rldApprovalSubject" type="text"></label><div class="rld-approval-summary" id="rldApprovalSummary"></div></div><footer><button class="rld-btn" type="button" onclick="rldCloseApproval()">Cancelar</button><button class="rld-btn rld-btn-approval" type="button" onclick="rldPrepareApprovalEmail()">Preparar no Outlook</button></footer></section></div>
+</div>

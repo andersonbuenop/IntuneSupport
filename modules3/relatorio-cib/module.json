@@ -1,0 +1,18 @@
+﻿{
+  "id": "relatorio-cib",
+  "module": "relatorio-cib",
+  "name": "relatorio-cib",
+  "title": "Relatório CIB",
+  "label": "Relatório CIB",
+  "slug": "relatorio-cib",
+  "path": "relatorio-cib",
+  "description": "Consulta utilizadores no Entra ID e apresenta os equipamentos móveis associados no Microsoft Intune.",
+  "category": "Relatórios",
+  "icon": "mobile",
+  "order": 39,
+  "enabled": true,
+  "page": "page.html",
+  "script": "script.js",
+  "style": "style.css",
+  "api": "api.ps1"
+}

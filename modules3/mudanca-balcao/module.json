@@ -1,0 +1,8 @@
+﻿{
+    "name": "mudanca-balcao",
+    "title": "Mudança de Balcão",
+    "description": "Gestão modular de permissões Exchange Online",
+    "category": "Ferramentas",
+    "enabled": true,
+    "order": 1
+}

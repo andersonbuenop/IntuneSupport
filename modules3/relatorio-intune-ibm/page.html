@@ -1,0 +1,757 @@
+<div class="ibm2-page">
+    <div class="ibm2-hero">
+        <div>
+            <span class="ibm2-eyebrow">MICROSOFT INTUNE · IBM TLS</span>
+            <h1>Visão global do parque</h1>
+            <p>Consulte o Intune, acompanhe a conformidade e trate incidências num único espaço.</p>
+        </div>
+
+        <div class="ibm2-actions">
+            <button class="ibm2-btn secondary" onclick="ibm2Connect()"><span>↗</span> Conectar ao Intune</button>
+            <button class="ibm2-btn primary" onclick="ibm2Load()"><span>↻</span> Atualizar dados</button>
+        </div>
+    </div>
+
+    <div id="ibm2Status" class="ibm2-status"></div>
+
+    <div id="ibm2Loading" class="ibm2-loading" style="display:none;">
+        <div class="ibm2-loader"></div>
+        <span id="ibm2LoadingText">A processar...</span>
+    </div>
+
+    <div class="ibm2-filters">
+        <div class="ibm2-section-heading ibm2-filters-heading">
+            <div><span class="ibm2-section-icon">⌕</span><div><h3>Pesquisa e filtros</h3><p>Refine os equipamentos apresentados no painel e no relatório.</p></div></div>
+            <span class="ibm2-live-hint">Filtros aplicados em tempo real</span>
+        </div>
+        <div class="ibm2-field search">
+            <label>Pesquisar</label>
+            <input id="ibm2Search" type="text" placeholder="UPN, nome, device, modelo, serial, IMEI..." oninput="ibm2ApplyFilters()">
+        </div>
+
+        <div class="ibm2-field">
+            <label>Dias sem sync ≥</label>
+            <input id="ibm2DiasSync" type="number" value="" placeholder="ex: 30" oninput="ibm2ApplyFilters()">
+        </div>
+
+        <div class="ibm2-field">
+            <label>Tipo de equipamento</label>
+            <div class="ibm2-checks">
+                <label><input type="checkbox" name="ibm2Tipo" value="Android" onchange="ibm2ApplyFilters()"> Android</label>
+                <label><input type="checkbox" name="ibm2Tipo" value="iPhone" onchange="ibm2ApplyFilters()"> iPhone</label>
+                <label><input type="checkbox" name="ibm2Tipo" value="iPad" onchange="ibm2ApplyFilters()"> iPad</label>
+                <label><input type="checkbox" name="ibm2Tipo" value="Mac" onchange="ibm2ApplyFilters()"> Mac</label>
+                <label><input type="checkbox" name="ibm2Tipo" value="Tablet" onchange="ibm2ApplyFilters()"> Tablet</label>
+                <label><input type="checkbox" name="ibm2Tipo" value="Windows" onchange="ibm2ApplyFilters()"> Windows</label>
+            </div>
+        </div>
+
+        <div class="ibm2-field">
+            <label>Status</label>
+            <div class="ibm2-checks">
+                <label><input type="checkbox" name="ibm2StatusFilter" value="compliant" onchange="ibm2ApplyFilters()"> Compliant</label>
+                <label><input type="checkbox" name="ibm2StatusFilter" value="noncompliant" onchange="ibm2ApplyFilters()"> NonCompliant</label>
+                <label><input type="checkbox" name="ibm2StatusFilter" value="inGracePeriod" onchange="ibm2ApplyFilters()"> In Grace Period</label>
+                <label><input type="checkbox" name="ibm2StatusFilter" value="configManager" onchange="ibm2ApplyFilters()"> ConfigManager</label>
+                <label><input type="checkbox" name="ibm2StatusCalcFilter" value="Sem Sync" onchange="ibm2ApplyFilters()"> Sem Sync</label>
+                <label><input type="checkbox" name="ibm2StatusCalcFilter" value="Active" onchange="ibm2ApplyFilters()"> Active</label>
+            </div>
+        </div>
+
+        <div class="ibm2-field">
+            <label>Owner</label>
+            <div class="ibm2-checks">
+                <label><input type="checkbox" name="ibm2Owner" value="company" onchange="ibm2ApplyFilters()"> Corporate</label>
+                <label><input type="checkbox" name="ibm2Owner" value="personal" onchange="ibm2ApplyFilters()"> Personal</label>
+            </div>
+        </div>
+    </div>
+
+<div class="ibm2-mailbox">
+    <div class="ibm2-section-heading">
+        <div><span class="ibm2-section-icon">✉</span><div><h3>Enviar relatório</h3><p>Prepare a visão executiva diretamente no Outlook.</p></div></div>
+    </div>
+
+    <div class="ibm2-mailgrid">
+        <div>
+            <label>Para</label>
+            <input id="ibm2MailTo" type="text" placeholder="destinatario@santander.pt; outro@santander.pt">
+        </div>
+
+        <div>
+            <label>CC</label>
+            <input id="ibm2MailCc" type="text" placeholder="cc@santander.pt">
+        </div>
+
+        <div>
+            <label>Assunto</label>
+            <input id="ibm2MailSubject" type="text">
+        </div>
+
+        <div class="ibm2-mail-actions">
+            <button class="ibm2-btn primary" onclick="ibm2PrepararEmailOutlook()">Preparar Email Outlook</button>
+        </div>
+    </div>
+</div>
+
+<div class="ibm2-treatment">
+    <div class="ibm2-section-heading">
+        <div><span class="ibm2-section-icon">!</span><div><h3>Tratamento de incidências</h3><p>Comunique, acompanhe e abra pedidos para equipamentos afetados.</p></div></div>
+    </div>
+
+    <div class="ibm2-treatment-grid">
+        <div>
+            <label>Assunto do email ao utilizador</label>
+            <input id="ibm2NcSubject" type="text" value="Ação necessária - Equipamento não compliant no Intune">
+        </div>
+
+        <div>
+            <label>Texto padrão do email</label>
+            <textarea id="ibm2NcTemplate" rows="5">Olá,
+
+Identificámos que o seu equipamento encontra-se não compliant no Intune.
+
+Por favor valide a configuração do equipamento, ligação à internet, sincronização da aplicação Portal da Empresa/Intune e estado de compliance.
+
+Dados do equipamento:
+{DEVICE}
+{TIPO}
+{MODELO}
+{STATUS}
+{ULTIMOSYNC}
+
+Obrigado,
+IT Santander Portugal</textarea>
+        </div>
+    </div>
+
+    <div class="ibm2-treatment-actions">
+        <button class="ibm2-btn secondary" onclick="ibm2FiltrarNaoCompliant()">Mostrar apenas Não Compliant / Sem Sync</button>
+        <button class="ibm2-btn primary" onclick="ibm2AbrirTicketGeral()">Abrir ticket ServiceNow</button>
+    </div>
+</div>
+
+<div class="ibm2-testmail">
+    <div class="ibm2-section-heading">
+        <div><span class="ibm2-section-icon">✓</span><div><h3>Validar antes de enviar</h3><p>Pré-visualize ou prepare um email de teste.</p></div></div>
+    </div>
+
+    <div class="ibm2-testmail-grid">
+        <div>
+            <label>Destinatário de teste</label>
+            <input id="ibm2TestMailTo" type="text" placeholder="ex: raphael.vieira@santander.pt">
+        </div>
+
+        <div class="ibm2-testmail-actions">
+            <button class="ibm2-btn secondary" onclick="ibm2PrepararEmailTeste()">Enviar Email de Teste</button>
+            <button class="ibm2-btn secondary" onclick="ibm2PreviewRelatorioEmail()">Pré-visualizar HTML</button>
+        </div>
+    </div>
+</div>
+
+<div id="ibm2Dashboard" class="ibm2-dashboard"></div>
+
+    <div class="ibm2-tablebar">
+        <div class="ibm2-results-title">
+            <span>Equipamentos</span>
+            <strong><b id="ibm2Count">0</b> resultados</strong>
+        </div>
+
+        <div>
+            <select id="ibm2PageSize" onchange="ibm2ChangePageSize()">
+                <option value="50">50 linhas</option>
+                <option value="100">100 linhas</option>
+                <option value="250">250 linhas</option>
+                <option value="500">500 linhas</option>
+            </select>
+
+            <button class="ibm2-btn secondary" onclick="ibm2ExportCsv()">⇩ Exportar CSV</button>
+            <button class="ibm2-btn primary" onclick="ibm2GerarRelatorioHtml()">▤ Gerar relatório</button>
+        </div>
+    </div>
+
+    <div id="ibm2Table" class="ibm2-table-wrap"></div>
+
+    <div class="ibm2-pager">
+        <button class="ibm2-btn secondary" onclick="ibm2PrevPage()">Anterior</button>
+        <span id="ibm2PageInfo">Página 1</span>
+        <button class="ibm2-btn secondary" onclick="ibm2NextPage()">Seguinte</button>
+    </div>
+</div>
+
+<style>
+.ibm2-page {
+    padding: 22px;
+    font-family: Segoe UI, Arial, sans-serif;
+    color: #111827;
+}
+
+.ibm2-hero {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: flex-start;
+    margin-bottom: 18px;
+}
+
+.ibm2-hero h1 {
+    margin: 0;
+    font-size: 28px;
+}
+
+.ibm2-hero p {
+    margin: 6px 0 0 0;
+    color: #6b7280;
+}
+
+.ibm2-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.ibm2-btn {
+    border: 0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.ibm2-btn.primary {
+    background: #e40000;
+    color: #fff;
+}
+
+.ibm2-btn.secondary {
+    background: #f3f4f6;
+    border: 1px solid #d1d5db;
+    color: #111827;
+}
+
+.ibm2-status {
+    margin: 10px 0;
+    font-size: 13px;
+}
+
+.ibm2-status.ok {
+    color: #047857;
+}
+
+.ibm2-status.error {
+    color: #b91c1c;
+}
+
+.ibm2-loading {
+    position: relative;
+    height: 34px;
+    border-radius: 999px;
+    background: #f3f4f6;
+    border: 1px solid #e5e7eb;
+    overflow: hidden;
+    margin: 12px 0;
+}
+
+.ibm2-loader {
+    height: 100%;
+    width: 35%;
+    background: linear-gradient(90deg, #e40000, #ff7676);
+    animation: ibm2move 1.2s infinite;
+}
+
+.ibm2-loading span {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+}
+
+@keyframes ibm2move {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+}
+
+.ibm2-filters {
+    display: grid;
+    grid-template-columns: 2fr 0.7fr 1.6fr 1.8fr 1fr;
+    gap: 14px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: 0 8px 24px rgba(15,23,42,.08);
+}
+
+.ibm2-field label {
+    display: block;
+    font-size: 12px;
+    color: #6b7280;
+    margin-bottom: 6px;
+}
+
+.ibm2-field input,
+.ibm2-field select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+}
+
+.ibm2-checks {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+}
+
+.ibm2-checks label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #374151;
+    font-size: 12px;
+    margin: 0;
+}
+
+.ibm2-dashboard {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(110px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.ibm2-kpi {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 8px 20px rgba(15,23,42,.06);
+}
+
+.ibm2-kpi span {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+.ibm2-kpi strong {
+    display: block;
+    font-size: 24px;
+    margin-top: 4px;
+}
+
+.ibm2-tablebar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+}
+
+.ibm2-tablebar div:last-child {
+    display: flex;
+    gap: 10px;
+}
+
+.ibm2-table-wrap {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    overflow: auto;
+    max-height: 65vh;
+}
+
+.ibm2-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.ibm2-table th {
+    position: sticky;
+    top: 0;
+    background: #f9fafb;
+    z-index: 2;
+    padding: 10px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid #d1d5db;
+    cursor: pointer;
+}
+
+.ibm2-table td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+}
+
+.ibm2-table tr:hover {
+    background: #f9fafb;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 11px;
+}
+
+.badge-ok {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.badge-warn {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.ibm2-pager {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin: 14px 0;
+}
+
+@media (max-width: 1300px) {
+    .ibm2-filters {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ibm2-dashboard {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .ibm2-hero {
+        flex-direction: column;
+    }
+}
+.ibm2-row-actions {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.ibm2-action-btn {
+    border: 0;
+    border-radius: 999px;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.ibm2-action-email {
+    background: #e40000;
+    color: #ffffff;
+}
+
+.ibm2-action-email:hover {
+    background: #b90000;
+}
+
+.ibm2-action-snow {
+    background: #111827;
+    color: #ffffff;
+}
+
+.ibm2-action-snow:hover {
+    background: #374151;
+}
+
+.ibm2-action-copy {
+    background: #f3f4f6;
+    color: #111827;
+    border: 1px solid #d1d5db;
+}
+
+.ibm2-comunicado {
+    font-size: 11px;
+    font-weight: 700;
+    color: #047857;
+}
+
+.ibm2-remover {
+    font-size: 11px;
+    font-weight: 800;
+    color: #b91c1c;
+}
+.ibm2-state-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    border-radius: 999px;
+    padding: 5px 9px;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.ibm2-state-wait {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.ibm2-state-remove {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.ibm2-state-ok {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.ibm2-state-removed {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.ibm2-action-btn {
+    border: 0;
+    border-radius: 999px;
+    padding: 7px 12px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 800;
+    white-space: nowrap;
+}
+
+.ibm2-action-email {
+    background: #e40000;
+    color: #ffffff;
+}
+
+.ibm2-action-snow {
+    background: #111827;
+    color: #ffffff;
+}
+
+.ibm2-action-ok {
+    background: #047857;
+    color: #ffffff;
+}
+
+.ibm2-action-removed {
+    background: #6b7280;
+    color: #ffffff;
+}
+
+.ibm2-row-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    min-width: 270px;
+}
+
+/* Professional workspace V4 */
+.ibm2-page {
+    --ibm-red: #ec0000;
+    --ibm-red-dark: #b80000;
+    --ibm-ink: #101828;
+    --ibm-muted: #667085;
+    --ibm-border: #e4e7ec;
+    --ibm-soft: #f8fafc;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(360px, .85fr);
+    grid-template-areas:
+        "hero hero"
+        "status status"
+        "loading loading"
+        "filters filters"
+        "mail treatment"
+        "test treatment"
+        "dashboard dashboard"
+        "tablebar tablebar"
+        "table table"
+        "pager pager";
+    gap: 18px;
+    padding: 4px 2px 28px;
+    color: var(--ibm-ink);
+}
+
+.ibm2-hero {
+    grid-area: hero;
+    position: relative;
+    overflow: hidden;
+    min-height: 164px;
+    margin: 0;
+    padding: 30px 34px;
+    align-items: center;
+    border: 1px solid #fecaca;
+    border-radius: 24px;
+    background: linear-gradient(125deg, #ffffff 0%, #fff8f8 56%, #ffe9e9 100%);
+    box-shadow: 0 14px 34px rgba(16, 24, 40, .07);
+}
+
+.ibm2-hero::after {
+    content: "";
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    right: -90px;
+    bottom: -150px;
+    border: 42px solid rgba(236, 0, 0, .07);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.ibm2-eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--ibm-red);
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .14em;
+}
+
+.ibm2-hero h1 { font-size: clamp(28px, 3vw, 40px); letter-spacing: -.035em; color: #07152f; }
+.ibm2-hero p { max-width: 680px; margin-top: 10px; font-size: 15px; line-height: 1.55; }
+.ibm2-actions { position: relative; z-index: 1; justify-content: flex-end; }
+
+.ibm2-btn {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 17px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 800;
+    transition: transform .16s ease, box-shadow .16s ease, background .16s ease;
+}
+
+.ibm2-btn:hover { transform: translateY(-1px); }
+.ibm2-btn.primary { background: linear-gradient(135deg, var(--ibm-red), var(--ibm-red-dark)); box-shadow: 0 8px 16px rgba(236, 0, 0, .18); }
+.ibm2-btn.primary:hover { box-shadow: 0 11px 22px rgba(236, 0, 0, .24); }
+.ibm2-btn.secondary { background: #fff; border-color: #d0d5dd; color: #344054; }
+.ibm2-btn.secondary:hover { background: #f9fafb; border-color: #98a2b3; }
+
+.ibm2-status { grid-area: status; min-height: 0; margin: -8px 2px; padding: 0; font-weight: 700; }
+.ibm2-status:not(:empty) { min-height: 44px; margin: 0; padding: 12px 16px; border: 1px solid #d0d5dd; border-radius: 12px; background: #fff; }
+.ibm2-status.ok { border-color: #abefc6; background: #ecfdf3; color: #067647; }
+.ibm2-status.error { border-color: #fecdca; background: #fef3f2; color: #b42318; }
+.ibm2-loading { grid-area: loading; margin: -8px 0 0; height: 40px; }
+
+.ibm2-filters,
+.ibm2-mailbox,
+.ibm2-treatment,
+.ibm2-testmail {
+    border: 1px solid var(--ibm-border);
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 8px 24px rgba(16, 24, 40, .055);
+}
+
+.ibm2-filters { grid-area: filters; grid-template-columns: 1.7fr .55fr 1.3fr 1.45fr .8fr; gap: 18px; padding: 22px; }
+.ibm2-filters-heading { grid-column: 1 / -1; margin-bottom: 2px; }
+.ibm2-mailbox { grid-area: mail; }
+.ibm2-treatment { grid-area: treatment; }
+.ibm2-testmail { grid-area: test; }
+
+.ibm2-mailbox,
+.ibm2-treatment,
+.ibm2-testmail { padding: 22px !important; margin: 0 !important; }
+
+.ibm2-section-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.ibm2-section-heading > div { display: flex; align-items: center; gap: 12px; }
+.ibm2-section-heading h3 { margin: 0; color: #101828; font-size: 16px; letter-spacing: -.01em; }
+.ibm2-section-heading p { margin: 3px 0 0; color: var(--ibm-muted); font-size: 12px; line-height: 1.4; }
+.ibm2-section-icon { width: 38px; height: 38px; display: grid; place-items: center; flex: 0 0 38px; border-radius: 12px; background: #fff1f1; color: var(--ibm-red); font-size: 18px; font-weight: 900; }
+.ibm2-live-hint { padding: 6px 10px; border-radius: 999px; background: #ecfdf3; color: #067647; font-size: 11px; font-weight: 800; white-space: nowrap; }
+
+.ibm2-field > label,
+.ibm2-mailgrid label,
+.ibm2-treatment-grid label,
+.ibm2-testmail-grid label { display: block; margin-bottom: 7px; color: #344054; font-size: 12px; font-weight: 800; }
+
+.ibm2-field input,
+.ibm2-mailgrid input,
+.ibm2-treatment-grid input,
+.ibm2-treatment-grid textarea,
+.ibm2-testmail-grid input,
+.ibm2-tablebar select {
+    width: 100%;
+    min-height: 42px;
+    padding: 10px 12px;
+    border: 1px solid #d0d5dd;
+    border-radius: 11px;
+    background: #fff;
+    color: #101828;
+    transition: border-color .16s ease, box-shadow .16s ease;
+}
+
+.ibm2-treatment-grid textarea { min-height: 142px; resize: vertical; line-height: 1.5; }
+.ibm2-field input:focus, .ibm2-mailgrid input:focus, .ibm2-treatment-grid input:focus, .ibm2-treatment-grid textarea:focus, .ibm2-testmail-grid input:focus { border-color: var(--ibm-red); box-shadow: 0 0 0 3px rgba(236, 0, 0, .1); outline: none; }
+.ibm2-checks { gap: 7px; }
+.ibm2-checks label { padding: 7px 9px; border: 1px solid #eaecf0; border-radius: 9px; background: var(--ibm-soft); color: #475467; cursor: pointer; transition: all .14s ease; }
+.ibm2-checks label:hover { border-color: #fca5a5; background: #fff5f5; color: #b42318; }
+.ibm2-checks input { width: 14px; height: 14px; min-height: auto; accent-color: var(--ibm-red); }
+
+.ibm2-mailgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ibm2-mailgrid > div:nth-child(3), .ibm2-mail-actions { grid-column: 1 / -1; }
+.ibm2-mail-actions, .ibm2-treatment-actions, .ibm2-testmail-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.ibm2-treatment-grid, .ibm2-testmail-grid { display: grid; gap: 14px; }
+.ibm2-testmail-grid { grid-template-columns: minmax(220px, 1fr) auto; align-items: end; }
+
+.ibm2-dashboard { grid-area: dashboard; grid-template-columns: repeat(8, minmax(120px, 1fr)); gap: 12px; margin: 0; }
+.ibm2-kpi { position: relative; overflow: hidden; min-height: 104px; padding: 17px; border-color: var(--ibm-border); border-radius: 16px; box-shadow: 0 6px 18px rgba(16, 24, 40, .05); }
+.ibm2-kpi::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--ibm-red); }
+.ibm2-kpi span { color: var(--ibm-muted); font-weight: 700; }
+.ibm2-kpi strong { margin-top: 9px; color: #101828; font-size: 27px; letter-spacing: -.03em; }
+
+.ibm2-tablebar { grid-area: tablebar; margin: 2px 0 -4px; padding: 16px 18px; border: 1px solid var(--ibm-border); border-radius: 16px; background: #fff; box-shadow: 0 6px 18px rgba(16, 24, 40, .045); }
+.ibm2-results-title { display: grid; gap: 2px; }
+.ibm2-results-title > span { color: #101828; font-size: 16px; font-weight: 800; }
+.ibm2-results-title > strong { color: var(--ibm-muted); font-size: 12px; font-weight: 600; }
+.ibm2-results-title b { color: var(--ibm-red); font-size: 14px; }
+.ibm2-tablebar > div:last-child { align-items: center; flex-wrap: wrap; }
+.ibm2-tablebar select { width: auto; min-width: 120px; }
+
+.ibm2-table-wrap { grid-area: table; max-height: 68vh; border-color: #d0d5dd; border-radius: 18px; box-shadow: 0 10px 28px rgba(16, 24, 40, .06); }
+.ibm2-table { font-size: 12px; }
+.ibm2-table th { padding: 13px 12px; background: #f2f4f7; color: #344054; border-bottom: 1px solid #d0d5dd; font-size: 11px; text-transform: uppercase; letter-spacing: .035em; }
+.ibm2-table td { padding: 11px 12px; color: #344054; }
+.ibm2-table tbody tr:nth-child(even) { background: #fcfcfd; }
+.ibm2-table tr:hover { background: #fff5f5 !important; }
+.ibm2-action-btn { min-height: 32px; padding: 7px 11px; transition: transform .14s ease, filter .14s ease; }
+.ibm2-action-btn:hover { transform: translateY(-1px); filter: brightness(.94); }
+.ibm2-pager { grid-area: pager; margin: 0; padding: 4px 0; }
+.ibm2-pager span { min-width: 110px; text-align: center; color: #475467; font-size: 13px; font-weight: 800; }
+
+@media (max-width: 1450px) {
+    .ibm2-dashboard { grid-template-columns: repeat(4, 1fr); }
+    .ibm2-filters { grid-template-columns: 1.4fr .6fr 1fr 1fr; }
+    .ibm2-field:last-child { grid-column: span 2; }
+}
+
+@media (max-width: 1050px) {
+    .ibm2-page { grid-template-columns: 1fr; grid-template-areas: "hero" "status" "loading" "filters" "mail" "treatment" "test" "dashboard" "tablebar" "table" "pager"; }
+    .ibm2-filters { grid-template-columns: 1fr 1fr; }
+    .ibm2-field:last-child { grid-column: auto; }
+    .ibm2-hero { align-items: flex-start; }
+    .ibm2-actions { justify-content: flex-start; }
+}
+
+@media (max-width: 680px) {
+    .ibm2-page { gap: 13px; }
+    .ibm2-hero { padding: 24px 20px; border-radius: 18px; }
+    .ibm2-actions, .ibm2-actions .ibm2-btn { width: 100%; }
+    .ibm2-filters, .ibm2-dashboard, .ibm2-mailgrid, .ibm2-testmail-grid { grid-template-columns: 1fr; }
+    .ibm2-filters-heading, .ibm2-field:last-child, .ibm2-mailgrid > div:nth-child(3), .ibm2-mail-actions { grid-column: auto; }
+    .ibm2-live-hint { display: none; }
+    .ibm2-dashboard { grid-template-columns: 1fr 1fr; }
+    .ibm2-tablebar { align-items: flex-start; flex-direction: column; }
+    .ibm2-tablebar > div:last-child, .ibm2-tablebar .ibm2-btn, .ibm2-tablebar select { width: 100%; }
+    .ibm2-treatment-actions .ibm2-btn, .ibm2-testmail-actions .ibm2-btn, .ibm2-mail-actions .ibm2-btn { width: 100%; }
+}
+</style>

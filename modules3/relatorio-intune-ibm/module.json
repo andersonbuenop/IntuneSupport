@@ -1,0 +1,8 @@
+{
+    "name": "relatorio-intune-ibm",
+    "title": "Relatório Intune IBM",
+    "description": "Relatório de devices móveis no Intune para IBM",
+    "category": "Relatórios",
+    "enabled": true,
+    "order": 1
+}

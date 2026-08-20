@@ -1,0 +1,16 @@
+﻿{
+    "moduleId":  "relatorio-cib",
+    "name":  "Relatório CIB",
+    "version":  "1.2.2",
+    "category":  "Relatórios",
+    "description":  "Relatório consolidado de utilizadores e equipamentos móveis registados no Microsoft Intune.",
+    "defaultSubject":  "Relatório CIB - Equipamentos móveis",
+    "defaultCc":  "",
+    "signature":  "IT Santander Portugal",
+    "staleDeviceDays":  30,
+    "graphScopes":  [
+                        "User.Read.All",
+                        "Directory.Read.All",
+                        "DeviceManagementManagedDevices.Read.All"
+                    ]
+}

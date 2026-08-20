@@ -1,0 +1,43 @@
+<div id="exchangeConnectionBox"></div>
+
+<section class="card mb-card" aria-labelledby="mbTitle">
+    <h2 id="mbTitle">Mudança de Balcão</h2>
+    <p>Valida os dados e transfere as permissões FullAccess e SendAs entre balcões.</p>
+
+    <div class="mb-form-grid">
+        <div class="mb-field">
+            <label for="mbUser">Utilizador</label>
+            <input id="mbUser" autocomplete="off" maxlength="160" placeholder="ex: e868019 ou utilizador@santander.pt">
+            <div id="mbUserInfo" class="field-info" aria-live="polite">Aguardando utilizador...</div>
+        </div>
+
+        <div class="mb-field">
+            <label for="mbOrigem">Balcão de origem</label>
+            <input id="mbOrigem" inputmode="numeric" maxlength="4" placeholder="ex: 3200">
+            <div id="mbOrigemInfo" class="field-info" aria-live="polite">Aguardando balcão de origem...</div>
+        </div>
+
+        <div class="mb-field">
+            <label for="mbDestino">Balcão de destino</label>
+            <input id="mbDestino" inputmode="numeric" maxlength="4" placeholder="ex: 5141">
+            <div id="mbDestinoInfo" class="field-info" aria-live="polite">Aguardando balcão de destino...</div>
+        </div>
+    </div>
+
+    <div class="mb-actions">
+        <button id="mbExecuteButton" class="btn-primary" type="button">Validar e executar</button>
+        <button id="mbClearButton" class="mb-clear-button" type="button">Limpar tudo</button>
+    </div>
+    <div id="mbProgressGlobal"></div>
+</section>
+
+<section class="card mb-card" aria-labelledby="mbTicketTitle">
+    <h3 id="mbTicketTitle">Resposta para Ticket</h3>
+    <textarea id="mbResposta" rows="10" readonly></textarea>
+    <button id="mbCopyButton" class="btn-primary" type="button">Copiar resposta</button>
+</section>
+
+<section class="card mb-card" aria-labelledby="mbResultTitle">
+    <h3 id="mbResultTitle">Resultado</h3>
+    <div id="mbResultado" aria-live="polite">Aguardando execução...</div>
+</section>

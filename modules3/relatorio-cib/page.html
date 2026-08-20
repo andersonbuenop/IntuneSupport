@@ -1,0 +1,199 @@
+﻿<div class="cib-module" id="cibRoot">
+  <section class="cib-hero">
+    <div>
+      <div class="cib-eyebrow">MICROSOFT ENTRA ID • INTUNE</div>
+      <h1>Relatório CIB</h1>
+      <p>Consulta em lote dos dados dos utilizadores e dos equipamentos móveis associados.</p>
+    </div>
+    <div class="cib-connection" id="cibConnection">
+      <span class="cib-dot" id="cibConnectionDot"></span>
+      <span id="cibConnectionText">Graph desligado</span>
+    </div>
+  </section>
+
+  <section class="cib-input-card">
+    <div class="cib-input-main">
+      <label for="cibUsersInput">Utilizadores a consultar</label>
+      <textarea id="cibUsersInput" rows="6" placeholder="Informe um utilizador por linha. Aceita UPN, e-mail, employee ID ou login.&#10;&#10;Exemplo:&#10;e868019&#10;utilizador@santander.pt"></textarea>
+      <div class="cib-input-meta">
+        <div class="cib-input-help">
+          Também pode colar valores separados por vírgula ou ponto e vírgula. Os duplicados serão removidos automaticamente.
+        </div>
+        <div class="cib-save-state" id="cibUsersSaveState">A carregar lista guardada...</div>
+      </div>
+    </div>
+
+    <div class="cib-actions">
+      <button type="button" class="cib-btn cib-btn-light" id="cibConnectBtn">Conectar Graph/Intune</button>
+      <button type="button" class="cib-btn cib-btn-primary" id="cibConsultBtn">Consultar utilizadores</button>
+      <button type="button" class="cib-btn cib-btn-light" id="cibSaveUsersBtn">Guardar lista</button>
+      <button type="button" class="cib-btn cib-btn-light" id="cibExportBtn" disabled>Exportar CSV</button>
+      <button type="button" class="cib-btn cib-btn-light" id="cibEmailBtn" disabled>Preparar e-mail</button>
+      <button type="button" class="cib-btn cib-btn-ghost" id="cibClearBtn">Limpar resultados</button>
+    </div>
+  </section>
+
+  <section class="cib-progress cib-hidden" id="cibProgress">
+    <div class="cib-progress-head">
+      <span id="cibProgressText">A preparar consulta...</span>
+      <strong id="cibProgressPercent">0%</strong>
+    </div>
+    <div class="cib-progress-track"><div id="cibProgressBar"></div></div>
+  </section>
+
+  <section class="cib-summary">
+    <article class="cib-stat"><span>Informados</span><strong id="cibCountRequested">0</strong></article>
+    <article class="cib-stat"><span>Encontrados</span><strong id="cibCountFound">0</strong></article>
+    <article class="cib-stat cib-stat-warning"><span>Não encontrados</span><strong id="cibCountNotFound">0</strong></article>
+    <article class="cib-stat cib-stat-warning"><span>Sem equipamento</span><strong id="cibCountNoDevice">0</strong></article>
+    <article class="cib-stat"><span>Equipamentos</span><strong id="cibCountDevices">0</strong></article>
+    <article class="cib-stat"><span>Android</span><strong id="cibCountAndroid">0</strong></article>
+    <article class="cib-stat"><span>iOS/iPadOS</span><strong id="cibCountIos">0</strong></article>
+    <article class="cib-stat cib-stat-success"><span>Conformes</span><strong id="cibCountCompliant">0</strong></article>
+    <article class="cib-stat cib-stat-warning"><span>Em carência</span><strong id="cibCountGrace">0</strong></article>
+    <article class="cib-stat cib-stat-danger"><span>Não conformes</span><strong id="cibCountNoncompliant">0</strong></article>
+  </section>
+
+  <section class="cib-filter-card">
+    <div class="cib-filter-field cib-filter-search">
+      <label for="cibFilterText">Filtrar resultados</label>
+      <input id="cibFilterText" type="search" placeholder="Nome, UPN, dispositivo, modelo, número de série...">
+    </div>
+    <div class="cib-filter-field cib-multi-filter" data-cib-filter-group="os">
+      <label>Sistema</label>
+      <button type="button" class="cib-multi-toggle" id="cibFilterOsButton" aria-expanded="false">Todos</button>
+      <div class="cib-multi-menu cib-hidden" id="cibFilterOsMenu">
+        <label class="cib-multi-all"><input type="checkbox" data-cib-filter-all="os" checked> Todos</label>
+        <label><input type="checkbox" data-cib-filter-option="os" value="windows"> Windows</label>
+        <label><input type="checkbox" data-cib-filter-option="os" value="android"> Android</label>
+        <label><input type="checkbox" data-cib-filter-option="os" value="ios"> iOS/iPadOS</label>
+        <label><input type="checkbox" data-cib-filter-option="os" value="other"> Outros sistemas</label>
+        <label><input type="checkbox" data-cib-filter-option="os" value="none"> Sem equipamento</label>
+      </div>
+    </div>
+    <div class="cib-filter-field cib-multi-filter" data-cib-filter-group="compliance">
+      <label>Conformidade</label>
+      <button type="button" class="cib-multi-toggle" id="cibFilterComplianceButton" aria-expanded="false">Todos</button>
+      <div class="cib-multi-menu cib-hidden" id="cibFilterComplianceMenu">
+        <label class="cib-multi-all"><input type="checkbox" data-cib-filter-all="compliance" checked> Todos</label>
+        <label><input type="checkbox" data-cib-filter-option="compliance" value="compliant"> Conforme</label>
+        <label><input type="checkbox" data-cib-filter-option="compliance" value="ingraceperiod"> Em carência</label>
+        <label><input type="checkbox" data-cib-filter-option="compliance" value="noncompliant"> Não conforme</label>
+        <label><input type="checkbox" data-cib-filter-option="compliance" value="unknown"> Desconhecido</label>
+      </div>
+    </div>
+    <div class="cib-filter-field cib-multi-filter" data-cib-filter-group="owner">
+      <label>Propriedade</label>
+      <button type="button" class="cib-multi-toggle" id="cibFilterOwnerButton" aria-expanded="false">Todos</button>
+      <div class="cib-multi-menu cib-hidden" id="cibFilterOwnerMenu">
+        <label class="cib-multi-all"><input type="checkbox" data-cib-filter-all="owner" checked> Todos</label>
+        <label><input type="checkbox" data-cib-filter-option="owner" value="company"> Corporativo</label>
+        <label><input type="checkbox" data-cib-filter-option="owner" value="personal"> Pessoal</label>
+        <label><input type="checkbox" data-cib-filter-option="owner" value="none"> Não informado</label>
+      </div>
+    </div>
+    <div class="cib-filter-result" id="cibFilterResult">0 registo(s)</div>
+  </section>
+
+  <section class="cib-content-grid">
+    <div class="cib-table-card">
+      <div class="cib-card-head">
+        <div>
+          <h2>Utilizadores e equipamentos</h2>
+          <span>Clique numa linha para consultar todos os detalhes.</span>
+        </div>
+      </div>
+      <div class="cib-table-scroll">
+        <table class="cib-table">
+          <thead>
+            <tr>
+              <th>Estado</th>
+              <th>Utilizador</th>
+              <th>UPN</th>
+              <th>Equipamento</th>
+              <th>SO</th>
+              <th>Modelo</th>
+              <th>Conformidade</th>
+              <th>Propriedade</th>
+              <th>Última sincronização</th>
+              <th>Dias sem sync</th>
+            </tr>
+          </thead>
+          <tbody id="cibTableBody">
+            <tr><td colspan="10" class="cib-empty-row">Informe os utilizadores e execute a consulta.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <aside class="cib-detail-card">
+      <div class="cib-detail-empty" id="cibDetailEmpty">
+        Selecione uma linha para visualizar os dados completos do utilizador e do equipamento.
+      </div>
+      <div class="cib-hidden" id="cibDetailContent">
+        <div class="cib-detail-title">
+          <div>
+            <div class="cib-eyebrow">DETALHE DO RELATÓRIO</div>
+            <h2 id="cibDetailName">—</h2>
+            <span id="cibDetailUpn">—</span>
+          </div>
+          <span class="cib-badge" id="cibDetailBadge">—</span>
+        </div>
+
+        <h3>Dados do utilizador</h3>
+        <div class="cib-detail-grid" id="cibUserDetailGrid"></div>
+
+        <h3>Dados do equipamento</h3>
+        <div class="cib-detail-grid" id="cibDeviceDetailGrid"></div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="cib-modal cib-hidden" id="cibEmailModal" role="dialog" aria-modal="true" aria-labelledby="cibEmailTitle">
+    <div class="cib-modal-backdrop" data-cib-close-modal="true"></div>
+    <div class="cib-modal-panel">
+      <div class="cib-modal-head">
+        <div>
+          <div class="cib-eyebrow">OUTLOOK LOCAL</div>
+          <h2 id="cibEmailTitle">Preparar e-mail do Relatório CIB</h2>
+        </div>
+        <button type="button" class="cib-modal-close" data-cib-close-modal="true" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="cib-modal-body">
+        <div class="cib-form-grid">
+          <label>Para
+            <input id="cibEmailTo" type="text" placeholder="destinatario1@santander.pt; destinatario2@santander.pt">
+          </label>
+          <label>CC
+            <input id="cibEmailCc" type="text" placeholder="Opcional — separe vários endereços por ponto e vírgula">
+          </label>
+        </div>
+        <div class="cib-email-recipient-meta">
+          <div class="cib-input-help">Pode informar vários destinatários nos campos Para e CC, separados por ponto e vírgula (;).</div>
+          <div class="cib-save-state" id="cibEmailSaveState">A carregar destinatários guardados...</div>
+        </div>
+        <label>Assunto
+          <input id="cibEmailSubject" type="text">
+        </label>
+        <label>Mensagem inicial
+          <textarea id="cibEmailIntro" rows="5">Boa tarde,
+
+Segue o Relatório CIB com os dados dos utilizadores e respetivos equipamentos móveis.</textarea>
+        </label>
+        <div class="cib-check-row">
+          <label><input id="cibEmailFiltered" type="checkbox" checked> Enviar apenas os resultados atualmente filtrados</label>
+          <label><input id="cibAttachCsv" type="checkbox" checked> Anexar CSV completo</label>
+          <label><input id="cibAttachHtml" type="checkbox" checked> Anexar relatório HTML</label>
+        </div>
+      </div>
+
+      <div class="cib-modal-actions">
+        <button type="button" class="cib-btn cib-btn-light" data-cib-close-modal="true">Cancelar</button>
+        <button type="button" class="cib-btn cib-btn-primary" id="cibPrepareEmailBtn">Abrir no Outlook</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cib-toast" id="cibToast"></div>
+</div>

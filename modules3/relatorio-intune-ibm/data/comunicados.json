@@ -1,0 +1,21 @@
+{
+  "ManagedDeviceId": "f6aeb0fe-934f-4760-b6c2-318cb03a8e80",
+  "Utilizador": "E809579@corp.santander.pt",
+  "Email": "nuno.pimenta@servexternos.santander.pt",
+  "Device": "BST-MACOS-MBA-J763TK46V5",
+  "Tipo": "Mac",
+  "StatusIntune": "noncompliant",
+  "StatusCalculado": "Sem Sync",
+  "PrimeiraComunicacao": "2026-07-01T12:18:36",
+  "UltimaComunicacao": "2026-07-01T15:41:15",
+  "RemoverApos": "2026-07-02T15:41:15",
+  "TotalComunicacoes": 12,
+  "Status": "Aguardar 24h",
+  "Removido": false,
+  "Regularizado": false,
+  "DataRemocao": null,
+  "DataRegularizacao": null,
+  "QuemRemoveu": null,
+  "QuemRegularizou": null,
+  "QuemEnviou": "au_86246723@santandernet.onmicrosoft.com"
+}

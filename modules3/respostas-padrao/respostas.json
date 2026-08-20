@@ -1,0 +1,234 @@
+﻿{
+    "settings": {
+        "androidMinimum": "12",
+        "iosMinimum": "18.6.2",
+        "defaultSignature": "Raphael Vieira"
+    },
+    "responses": [
+        {
+            "id": "alteracao-48-horas",
+            "title": "Alteração de acesso — 48 horas",
+            "category": "Exchange / Acessos",
+            "keywords": [
+                "48 horas",
+                "mailbox",
+                "LD",
+                "lista de distribuição",
+                "sincronização"
+            ],
+            "icon": "48",
+            "template": "{{saudacao}}, colega,\n\nAgradecemos a sua solicitação.\n\nInformamos que foram realizadas as alterações de acesso à Mailbox/LD (Lista de Distribuição), conforme solicitado.\n\nO processo de sincronização pode levar até 48 horas para ser concluído.\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [],
+            "reminder": "Prazo comunicado ao utilizador: até 48 horas."
+        },
+        {
+            "id": "arquivo-online",
+            "title": "Ativação do Arquivo Online",
+            "category": "Exchange",
+            "keywords": [
+                "arquivo online",
+                "archive",
+                "capacidade",
+                "caixa de e-mail",
+                "24 horas"
+            ],
+            "icon": "AO",
+            "template": "{{saudacao}}, colega,\n\nAgradecemos a sua solicitação.\n\nFoi ativada na sua caixa de e-mail a funcionalidade de Arquivo Online, aumentando assim a capacidade disponível para armazenamento de mensagens.\n\nO processo de sincronização desta configuração pode demorar até 24 horas. Após esse período, surgirá no Outlook uma nova pasta de Arquivo Online, onde poderá armazenar os e-mails mais antigos.\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [],
+            "reminder": "Prazo comunicado ao utilizador: até 24 horas."
+        },
+        {
+            "id": "autorizacao-mfa",
+            "title": "Autorização obrigatória para Reset MFA",
+            "category": "MFA / Segurança",
+            "keywords": [
+                "MFA",
+                "reset",
+                "autorização",
+                "responsável",
+                "segurança",
+                "multifator"
+            ],
+            "icon": "MF",
+            "template": "{{saudacao}}, colega,\n\nAgradecemos a sua solicitação.\n\nEm conformidade com as Normas de Segurança da Informação e de Proteção de Dados implementadas pelo Banco Santander, informamos que, para procedermos ao reset das configurações de autenticação multifator (MFA), é obrigatória a anexação de um e-mail formal de autorização emitido pelo responsável do solicitante.\n\nA autorização deverá:\n\n• identificar claramente o solicitante do ticket;\n• autorizar expressamente a execução do reset de MFA;\n• declarar a assunção de responsabilidade por eventuais consequências, impactos ou incidentes decorrentes desta ação.\n\nNa ausência da autorização devidamente formalizada, o ticket será encerrado por incumprimento dos requisitos de segurança aplicáveis.\n\nLink direto para abertura de ticket de Reset de MFA:\n\n{{link}}\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [],
+            "link": "https://santander.service-now.com/now/nav/ui/classic/params/target/com.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1%26sysparm_id%3D3af50b342b06be102a08f35fee91bf23",
+            "linkLabel": "Abrir formulário de Reset MFA",
+            "reminder": "É obrigatória uma autorização formal emitida pelo responsável do solicitante."
+        },
+        {
+            "id": "configuracao-intune",
+            "title": "Configuração do Intune concluída",
+            "category": "Intune",
+            "keywords": [
+                "Intune",
+                "telemóvel",
+                "Android",
+                "iOS",
+                "Harmony",
+                "24 horas"
+            ],
+            "icon": "IN",
+            "template": "{{saudacao}}, colega,\n\nAgradecemos a sua solicitação.\n\nA configuração foi realizada. No entanto, deverá aguardar até 24 horas para que seja concluída a sincronização entre os servidores em Portugal e Espanha.\n\nApós esse período, poderá proceder à configuração do seu telemóvel, utilizando os manuais fornecidos em anexo e selecionando as instruções correspondentes ao seu sistema operativo Android ou iOS.\n\nCaso tenha alguma dúvida ou dificuldade durante a configuração, deverá criar um novo pedido no ServiceNow, descrevendo o problema encontrado.\n\nRelativamente ao sistema operativo do dispositivo, deverá ter em conta que são permitidas apenas as seguintes versões mínimas:\n\n• Android {{android_minimo}}, inclusive, ou superior;\n• iOS {{ios_minimo}}, inclusive, ou superior.\n\nInformações importantes:\n\n• após a configuração do telemóvel, deverá também configurar a aplicação Harmony;\n• em equipamentos Apple, o PIN/password deverá possuir, no mínimo, 6 caracteres;\n• em equipamentos Android, o PIN/password deverá possuir, no mínimo, 8 caracteres.\n\nLink para abertura do pedido:\n\n{{link}}\n\nAtentamente,\n\n{{assinatura}}",
+            "fields": [],
+            "link": "https://santander.service-now.com/sp?id=sc_cat_item&sys_id=3bc65c23db79c0d4f1024dc2ba9619a7",
+            "linkLabel": "Abrir pedido Intune no ServiceNow",
+            "reminder": "Confirme que os manuais Android/iOS foram anexados ao ticket."
+        },
+        {
+            "id": "erro-552-size-limit",
+            "title": "Erro 552 — limite de tamanho",
+            "category": "Exchange / Entrega",
+            "keywords": [
+                "552",
+                "5.3.4",
+                "550 5.0.350",
+                "size limit",
+                "anexos",
+                "mensagem grande"
+            ],
+            "icon": "552",
+            "template": "{{saudacao}},\n\nO pedido será encerrado, uma vez que o erro apresentado indica que a mensagem ultrapassou o limite de tamanho permitido pelo servidor de destino.\n\nErros identificados:\n\n• 5.1.0 — Unknown address error: 552 5.3.4 Message size exceeds fixed limit;\n• 550 5.0.350 — Remote server returned an error: 552 size limit.\n\nPara evitar este problema, recomendamos:\n\n• reduzir o número ou o tamanho dos anexos;\n• disponibilizar os ficheiros através de uma ligação do OneDrive ou SharePoint, em vez de os enviar diretamente por e-mail;\n• compactar os ficheiros antes de os anexar, quando aplicável;\n• dividir o conteúdo por várias mensagens, caso seja necessário.\n\nQuando for necessário partilhar grandes volumes de informação, deverá ser utilizado um canal alternativo adequado ao tamanho dos ficheiros.\n\nPermanecemos disponíveis para qualquer apoio adicional.\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [],
+            "reminder": "Causa: mensagem rejeitada pelo servidor de destino devido ao tamanho."
+        },
+        {
+            "id": "pedido-acesso-caixa-ld",
+            "title": "Pedido de acesso a caixa ou LD",
+            "category": "Exchange / Acessos",
+            "keywords": [
+                "caixa de grupo",
+                "mailbox",
+                "LD",
+                "lista de distribuição",
+                "autorização",
+                "acesso"
+            ],
+            "icon": "LD",
+            "template": "{{saudacao}}, colega,\n\nAgradecemos a sua solicitação.\n\nPara realizar qualquer criação, alteração ou remoção relacionada com Listas de Distribuição ou caixas de e-mail de grupo, é necessário anexar uma autorização formal emitida pelo responsável da área onde a alteração será implementada.\n\nSolicitamos que abra um novo pedido no ServiceNow através do link abaixo e anexe o e-mail de autorização ao pedido:\n\n{{link}}\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [],
+            "link": "https://santander.service-now.com/itsm?id=sc_cat_item&sys_id=3bb85467db79c0d4f1024dc2ba961997&sysparm_category=93d369bedbf1a700ec3fa5305b96190a",
+            "linkLabel": "Abrir pedido de acesso no ServiceNow",
+            "reminder": "É necessário anexar uma autorização formal do responsável da área."
+        },
+        {
+            "id": "reativacao-caixa-email",
+            "title": "Caixa de e-mail reativada",
+            "category": "Exchange / Caixas",
+            "keywords": [
+                "reativação",
+                "mailbox",
+                "caixa de e-mail",
+                "Outlook",
+                "Webmail",
+                "Office 365"
+            ],
+            "icon": "RE",
+            "template": "{{saudacao}}, colega,\n\nAgradecemos a sua solicitação.\n\nInformamos que a caixa de e-mail solicitada se encontra ativa e totalmente operacional. Já poderá utilizá-la para enviar e receber mensagens.\n\nPara aceder à caixa de e-mail, siga uma das opções abaixo.\n\nWEBMAIL\n\n1. Aceda a https://portal.office.com.\n2. Introduza as suas credenciais de acesso — as mesmas utilizadas no arranque do Windows.\n3. Selecione a aplicação Outlook.\n\nOUTLOOK\n\n1. Abra o Outlook no computador.\n2. Clique em “Ficheiro”, no canto superior esquerdo.\n3. Selecione “Definições de Conta” e, novamente, “Definições de Conta”.\n4. No separador “E-mail”, selecione a sua conta e clique em “Alterar”.\n5. Clique em “Mais Definições”.\n6. Aceda ao separador “Avançadas”.\n7. Na área de caixas de correio adicionais, clique em “Adicionar”.\n8. {{caixa_instrucao}}\n9. Clique em “Aplicar” e depois em “OK”.\n10. Clique em “Seguinte” e, por fim, em “Concluir”.\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [
+                {
+                    "id": "caixa_email",
+                    "label": "Endereço da caixa de e-mail",
+                    "type": "email",
+                    "placeholder": "caixa@santander.pt",
+                    "optional": true
+                }
+            ],
+            "link": "https://portal.office.com",
+            "linkLabel": "Abrir portal Microsoft 365"
+        },
+        {
+            "id": "remetente-menos-30-dias",
+            "title": "Remetente com menos de 30 dias",
+            "category": "Cibersegurança",
+            "keywords": [
+                "30 dias",
+                "domínio novo",
+                "remetente recente",
+                "quarentena",
+                "SOC",
+                "Cibersegurança"
+            ],
+            "icon": "30",
+            "template": "{{saudacao}}, colega,\n\n{{remetente_intro}}\n\nDe acordo com a política de segurança definida pela equipa de Cibersegurança do Banco Santander, remetentes ou domínios recentemente criados não estão autorizados a entregar mensagens até atingirem o período mínimo de maturidade estabelecido.\n\nSeguem em anexo as evidências que sustentam esta análise.\n\nCaso seja necessário solicitar a libertação de mensagens retidas em quarentena, deverá abrir um pedido no ServiceNow através do seguinte caminho:\n\nCatálogo Técnico > Cibersegurança > Plataformas Cibernéticas e SOC Global > SOC – Operações e Monitorização\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [
+                {
+                    "id": "dominio_remetente",
+                    "label": "Domínio ou remetente analisado",
+                    "type": "text",
+                    "placeholder": "exemplo.com ou utilizador@exemplo.com",
+                    "optional": true
+                }
+            ],
+            "reminder": "Confirme que as evidências da análise estão anexadas ao ticket."
+        },
+        {
+            "id": "reset-mfa-concluido",
+            "title": "Reset de MFA concluído",
+            "category": "MFA",
+            "keywords": [
+                "reset MFA",
+                "Microsoft Authenticator",
+                "autenticação multifator",
+                "Android",
+                "iOS"
+            ],
+            "icon": "MF",
+            "template": "{{saudacao}}, colega,\n\nAgradecemos o seu contacto.\n\nInformamos que o reset das configurações de autenticação multifator (MFA) foi concluído com sucesso.\n\nA partir deste momento, será necessário configurar novamente o método de autenticação para garantir o acesso seguro às plataformas corporativas.\n\nPara apoiar este processo, foi anexado ao pedido o manual com as instruções detalhadas para configuração do Microsoft Authenticator.\n\nRequisitos mínimos:\n\n• Android: versão {{android_minimo}} ou superior;\n• iOS: versão {{ios_minimo}} ou superior.\n\nSem a instalação e configuração do Microsoft Authenticator, não será possível concluir a autenticação multifator, o que poderá impedir o acesso aos sistemas da organização.\n\nCaso necessite de apoio adicional, poderá abrir um novo pedido através do link abaixo:\n\n{{link}}\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [],
+            "link": "https://santander.service-now.com/now/nav/ui/classic/params/target/com.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1%26sysparm_id%3D3af50b342b06be102a08f35fee91bf23",
+            "linkLabel": "Abrir pedido de Reset MFA",
+            "reminder": "Confirme que o manual do Microsoft Authenticator foi anexado ao ticket."
+        },
+        {
+            "id": "tentativa-contacto",
+            "title": "Tentativa de contacto sem sucesso",
+            "category": "Atendimento",
+            "keywords": [
+                "contacto",
+                "tentativa",
+                "indisponível",
+                "reabrir pedido",
+                "atendimento"
+            ],
+            "icon": "TC",
+            "template": "{{saudacao}}, colega,\n\n{{tentativa_intro}}\n\nQuando estiver disponível, por favor, reabra o pedido para que possamos dar continuidade ao atendimento.\n\nPermanecemos ao dispor.\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": [
+                {
+                    "id": "meio_contacto",
+                    "label": "Meio de contacto",
+                    "type": "select",
+                    "options": [
+                        "",
+                        "Teams",
+                        "Telefone",
+                        "E-mail"
+                    ],
+                    "optional": true
+                },
+                {
+                    "id": "data_tentativa",
+                    "label": "Data e hora da tentativa",
+                    "type": "datetime-local",
+                    "optional": true
+                }
+            ]
+        },
+        {
+            "id": "tracking-sem-registo",
+            "title": "Tracking sem registo de entrada",
+            "category": "Exchange / Tracking",
+            "keywords": [
+                "tracking",
+                "mensagem não recebida",
+                "remetente",
+                "destinatário",
+                "anexos",
+                "links"
+            ],
+            "icon": "TR",
+            "template": "{{saudacao}}, colega,\n\nNão identificámos registos de entrada de mensagens deste remetente nos nossos servidores. Isto não significa necessariamente que a mensagem não tenha sido enviada.\n\nDe acordo com as políticas de Segurança e Cibersegurança, as mensagens podem ser bloqueadas quando contêm, entre outros elementos:\n\n• anexos encriptados ou protegidos por palavra-passe;\n• ficheiros compactados, como .zip ou .rar;\n• ligações no corpo da mensagem;\n• imagens com ligações incorporadas.\n\nRecomendamos que solicite ao remetente um novo envio da mensagem sem estes elementos.\n\nCaso a mensagem continue sem ser recebida, envie-nos as seguintes informações para uma análise mais detalhada:\n\n• endereço de e-mail do remetente;\n• endereço de e-mail do destinatário;\n• data e hora aproximada do envio;\n• assunto da mensagem.\n\nMantemo-nos ao dispor para qualquer esclarecimento adicional.\n\nAtenciosamente,\n\n{{assinatura}}",
+            "fields": []
+        }
+    ]
+}

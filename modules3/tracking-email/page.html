@@ -1,0 +1,144 @@
+<div class="module-page tracking-email-page">
+  <div class="module-header">
+    <div>
+      <h1>Tracking Email V5.4</h1>
+      <p>Rastreio de entrega com validação do endereço principal, aliases e endereço técnico híbrido da mailbox.</p>
+    </div>
+  </div>
+
+  <div id="trackingNotice" class="trk-notice" role="status" aria-live="polite" style="display:none;"></div>
+
+  <div class="card">
+    <h2>Conexão Exchange Online</h2>
+    <div class="grid-3">
+      <div>
+        <label>Conta administrativa EXO</label>
+        <input id="trackingAdminUpn" class="form-control" value="au_86246723@santandernet.onmicrosoft.com">
+      </div>
+      <div>
+        <label>Status EXO</label>
+        <input id="trackingExoStatus" class="form-control" value="A verificar..." readonly>
+      </div>
+      <div class="trk-button-cell">
+        <button class="btn btn-primary trk-action-btn" onclick="trackingEmailConectarEXO()">Conectar Exchange Online</button>
+        <button class="btn btn-secondary trk-action-btn" onclick="trackingEmailCheckEXO()">Verificar</button>
+      </div>
+    </div>
+    <div class="trk-progress-wrap">
+      <div id="trackingProgressText">Aguardando...</div>
+      <div class="trk-progress"><div id="trackingProgressBar" class="trk-bar"></div></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Texto do ticket</h2>
+    <textarea id="trackingTicketText" class="form-control" rows="5" placeholder="Cole aqui o texto do ticket..."></textarea>
+    <div class="trk-actions">
+      <button class="btn btn-primary trk-action-btn" onclick="trackingEmailExtrairDados()">Extrair dados do texto</button>
+      <button class="btn btn-secondary trk-action-btn" onclick="trackingEmailLimpar()">Limpar</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Anexo do email</h2>
+    <p>Para ficheiros .MSG, informe o caminho local completo. Exemplo: C:\Temp\email.msg</p>
+    <div class="grid-3">
+      <div>
+        <label>Caminho local do .MSG</label>
+        <input id="trackingMsgPath" class="form-control" placeholder="C:\Temp\email.msg">
+      </div>
+      <div>
+        <label>Ficheiro .EML ou .TXT</label>
+        <input id="trackingEmailFile" class="form-control" type="file" accept=".eml,.txt">
+      </div>
+      <div class="trk-button-cell">
+        <button class="btn btn-primary trk-action-btn" onclick="trackingEmailLerMSGOutlook()">Ler .MSG via Outlook</button>
+        <button class="btn btn-secondary trk-action-btn" onclick="trackingEmailLerFicheiroEmail()">Ler .EML/.TXT</button>
+      </div>
+    </div>
+    <textarea id="trackingEmailFileResumo" class="form-control trk-mono" rows="9" placeholder="Resumo extraído do anexo..."></textarea>
+  </div>
+
+  <div class="card">
+    <h2>Dados para análise</h2>
+    <div class="grid-3">
+      <div>
+        <label>Mailbox / Caixa</label>
+        <input id="trackingMailbox" class="form-control" placeholder="mailbox@santander.pt">
+      </div>
+      <div>
+        <label>Data inicial</label>
+        <input id="trackingStart" class="form-control" type="datetime-local">
+      </div>
+      <div>
+        <label>Data final</label>
+        <input id="trackingEnd" class="form-control" type="datetime-local">
+      </div>
+    </div>
+    <div class="grid-3">
+      <div>
+        <label>From visível / Remetente informado</label>
+        <input id="trackingSender" class="form-control" placeholder="ex.: branch-alertas@santander.pt">
+        <small>O MAIL FROM registado no transporte pode ser diferente.</small>
+      </div>
+      <div>
+        <label>Destinatário</label>
+        <input id="trackingRecipient" class="form-control" placeholder="ex.: queluz@santander.pt">
+      </div>
+      <div>
+        <label>Assunto contém</label>
+        <input id="trackingSubject" class="form-control" placeholder="ex.: Monitorização Queluz - 5437">
+      </div>
+    </div>
+    <div class="grid-3">
+      <div class="trk-span-2">
+        <label>Message-ID do cabeçalho</label>
+        <input id="trackingMessageId" class="form-control" placeholder="opcional — preenchido automaticamente ao ler .MSG/.EML">
+      </div>
+      <div class="trk-small-help">O rastreio começa pelo destinatário e período, depois compara assunto, MAIL FROM e Message-ID para evitar falsos resultados zero.</div>
+    </div>
+    <div class="trk-actions">
+      <button class="btn btn-primary trk-action-btn" onclick="trackingEmailExecutarAnalise()">Executar análise completa</button>
+      <button class="btn btn-secondary trk-action-btn" onclick="trackingEmailMessageTrace()">Rastrear entrega</button>
+      <button class="btn btn-secondary trk-action-btn" onclick="trackingEmailRegras()">Regras</button>
+      <button class="btn btn-secondary trk-action-btn" onclick="trackingEmailAuditoria()">Auditoria</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Texto para fecho do ticket</h2>
+    <div class="grid-3">
+      <div>
+        <label>Solicitante</label>
+        <input id="trackingSolicitante" class="form-control" placeholder="Utilizador, email ou UPN">
+      </div>
+      <div>
+        <label>DisplayName resolvido</label>
+        <input id="trackingSolicitanteDisplay" class="form-control" readonly>
+      </div>
+      <div class="trk-button-cell trk-small-help">O nome será resolvido automaticamente.</div>
+    </div>
+    <div class="trk-actions">
+      <button class="btn btn-primary trk-action-btn" onclick="trackingEmailGerarFecho()">Gerar texto de fecho</button>
+      <button class="btn btn-secondary trk-action-btn" onclick="trackingEmailCopiarFecho()">Copiar texto</button>
+    </div>
+    <textarea id="trackingFechoTicket" class="form-control trk-mono" rows="14"></textarea>
+  </div>
+
+  <div id="trackingDashboard" class="card" style="display:none;">
+    <h2>Resumo Executivo</h2>
+    <div id="trackingCards" class="trk-grid"></div>
+    <div class="trk-tabs">
+      <button class="trk-tab active" onclick="trackingEmailTab('diag')">Diagnóstico</button>
+      <button class="trk-tab" onclick="trackingEmailTab('trace')">Entrega / Message Trace</button>
+      <button class="trk-tab" onclick="trackingEmailTab('rules')">Regras</button>
+      <button class="trk-tab" onclick="trackingEmailTab('audit')">Auditoria</button>
+      <button class="trk-tab" onclick="trackingEmailTab('raw')">Técnico</button>
+    </div>
+    <div id="panel-diag" class="trk-panel active"></div>
+    <div id="panel-trace" class="trk-panel"></div>
+    <div id="panel-rules" class="trk-panel"></div>
+    <div id="panel-audit" class="trk-panel"></div>
+    <div id="panel-raw" class="trk-panel"><pre id="trackingResultado" class="trk-box">Aguardando análise...</pre></div>
+  </div>
+</div>

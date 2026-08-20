@@ -1,0 +1,9 @@
+﻿{
+    "id": "respostas-padrao",
+    "name": "respostas-padrao",
+    "title": "Respostas Padrão",
+    "description": "Biblioteca de respostas operacionais para ServiceNow, Exchange, Intune, MFA e Cibersegurança.",
+    "category": "Respostas Padrão",
+    "order": 5,
+    "enabled": true
+}

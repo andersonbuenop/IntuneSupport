@@ -1,0 +1,8 @@
+{
+  "name": "relatorio-limite-destinatarios",
+  "title": "Limites de Destinatários",
+  "description": "Consulta o limite de destinatários das caixas no Exchange Online por domínio",
+  "category": "Relatórios",
+  "enabled": true,
+  "order": 3
+}

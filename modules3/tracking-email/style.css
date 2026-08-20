@@ -1,0 +1,227 @@
+.tracking-email-page .trk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.tracking-email-page .trk-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+}
+
+.tracking-email-page .trk-card h3 {
+  font-size: 14px;
+  margin: 0 0 6px;
+  color: #374151;
+}
+
+.tracking-email-page .trk-card .v {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.tracking-email-page .trk-ok { border-left: 6px solid #198754; }
+.tracking-email-page .trk-warn { border-left: 6px solid #ffc107; }
+.tracking-email-page .trk-danger { border-left: 6px solid #dc3545; }
+.tracking-email-page .trk-info { border-left: 6px solid #0d6efd; }
+
+.tracking-email-page .trk-progress-wrap {
+  margin-top: 15px;
+}
+
+.tracking-email-page .trk-progress {
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 20px;
+  margin-top: 6px;
+}
+
+.tracking-email-page .trk-bar {
+  height: 20px;
+  width: 0;
+  background: #0d6efd;
+  transition: width .3s ease;
+}
+
+.tracking-email-page .trk-tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+}
+
+.tracking-email-page .trk-tab {
+  padding: 9px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #f9fafb;
+  cursor: pointer;
+}
+
+.tracking-email-page .trk-tab.active {
+  background: #0d6efd;
+  color: #fff;
+}
+
+.tracking-email-page .trk-panel { display: none; }
+.tracking-email-page .trk-panel.active { display: block; }
+
+.tracking-email-page .trk-box {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 14px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-family: Consolas, monospace;
+  font-size: 13px;
+  max-height: 520px;
+  overflow: auto;
+}
+
+.tracking-email-page .trk-alert,
+.tracking-email-page .trk-notice {
+  padding: 12px 14px;
+  border-radius: 12px;
+  margin: 10px 0;
+}
+
+.tracking-email-page .trk-alert-danger,
+.tracking-email-page .trk-notice-danger {
+  background: #f8d7da;
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+
+.tracking-email-page .trk-alert-warning,
+.tracking-email-page .trk-notice-warning {
+  background: #fff3cd;
+  color: #664d03;
+  border: 1px solid #ffecb5;
+}
+
+.tracking-email-page .trk-alert-success,
+.tracking-email-page .trk-notice-success {
+  background: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+.tracking-email-page .trk-notice-info {
+  background: #cff4fc;
+  color: #055160;
+  border: 1px solid #b6effb;
+}
+
+.tracking-email-page .trk-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tracking-email-page .trk-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.tracking-email-page .trk-table th,
+.tracking-email-page .trk-table td {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px;
+  text-align: left;
+  font-size: 13px;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.tracking-email-page .trk-table th {
+  background: #f3f4f6;
+  position: sticky;
+  top: 0;
+}
+
+.tracking-email-page .trk-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.tracking-email-page .trk-button-cell {
+  padding-top: 24px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.tracking-email-page .trk-small-help {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.tracking-email-page .trk-mono {
+  font-family: Consolas, monospace;
+}
+
+.tracking-email-page .trk-action-btn:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
+@media (max-width: 720px) {
+  .tracking-email-page .trk-button-cell {
+    padding-top: 4px;
+  }
+}
+
+
+.tracking-email-page .trk-span-2{grid-column:span 2}
+.tracking-email-page .trk-alert-info{background:#cff4fc;color:#055160;border:1px solid #b6effb}
+.tracking-email-page .trk-detail-card{border:1px solid #dbe3ea;border-radius:12px;padding:14px;margin:12px 0;background:#fff}
+.tracking-email-page .trk-detail-title{font-weight:700;font-size:14px;color:#1f2937}
+.tracking-email-page .trk-detail-meta{font-size:12px;color:#6b7280;margin:4px 0 10px}
+@media(max-width:760px){.tracking-email-page .trk-span-2{grid-column:span 1}}
+
+
+.tracking-email-page .trk-address-list {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 16px;
+}
+
+.tracking-email-page .trk-address-badge {
+  display: inline-block;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: #f3f4f6;
+  border: 1px solid #d1d5db;
+  font-size: 12px;
+  overflow-wrap: anywhere;
+}
+
+.tracking-email-page .trk-address-badge.matched {
+  background: #d1e7dd;
+  border-color: #75b798;
+  color: #0f5132;
+}
+
+.tracking-email-page .trk-related-box {
+  margin: 16px 0;
+  padding: 12px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.tracking-email-page .trk-related-box summary {
+  cursor: pointer;
+  font-weight: 700;
+}

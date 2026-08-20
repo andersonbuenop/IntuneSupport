@@ -1,0 +1,184 @@
+<style>
+.sam-page{padding:24px;background:#f4f6f8;color:#1f2937;font-family:Segoe UI,Arial,sans-serif}
+.sam-hero{background:linear-gradient(135deg,#b00020,#e4002b);color:white;border-radius:22px;padding:28px;display:flex;justify-content:space-between;gap:20px;align-items:center;box-shadow:0 14px 34px rgba(176,0,32,.22);margin-bottom:18px}
+.sam-hero h1{margin:0;font-size:34px;font-weight:800}
+.sam-hero p{margin:8px 0 0;opacity:.92}
+.sam-eyebrow{font-size:12px;text-transform:uppercase;letter-spacing:.12em;opacity:.85;margin-bottom:8px}
+.sam-hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+.sam-status-card,.sam-panel,.sam-kpi-card{background:white;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 8px 22px rgba(15,23,42,.06)}
+.sam-status-card{padding:14px 18px;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.sam-status-card p{margin:0;color:#4b5563}
+.sam-status-dot{display:inline-block;width:10px;height:10px;background:#16a34a;border-radius:999px;margin-right:8px}
+.sam-kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(140px,1fr));gap:14px;margin-bottom:18px}
+.sam-kpi-card{padding:18px;position:relative;overflow:hidden}
+.sam-kpi-card:before{content:"";position:absolute;left:0;top:0;width:5px;height:100%;background:#e4002b}
+.sam-kpi-card span{color:#6b7280;font-size:13px;font-weight:700}
+.sam-kpi-card strong{display:block;color:#111827;font-size:32px;margin-top:6px}
+.sam-layout{display:grid;grid-template-columns:320px 1fr;gap:18px}
+.sam-panel{padding:18px;margin-bottom:18px}
+.sam-panel h3{margin:0;font-size:18px;color:#111827}
+.sam-panel p{margin:5px 0 14px;color:#6b7280;font-size:13px}
+.sam-textarea{width:100%;border:1px solid #d1d5db;border-radius:14px;padding:12px;font-family:Consolas,monospace;font-size:13px;resize:vertical;box-sizing:border-box;background:#fbfdff}
+.sam-users{min-height:250px}.sam-report{min-height:260px}
+.sam-btn{border:none;border-radius:12px;padding:11px 15px;font-weight:800;cursor:pointer}
+.sam-btn:hover{filter:brightness(.96)}
+.sam-btn-primary{background:white;color:#b00020}
+.sam-btn-dark{background:#111827;color:white}
+.sam-btn-light{background:#f3f4f6;color:#111827}
+.sam-btn-success{background:#047857;color:white}
+.sam-actions-vertical{display:grid;gap:10px;margin-top:12px}
+.sam-select{width:100%;max-width:460px;padding:11px 13px;border:1px solid #d1d5db;border-radius:12px;font-size:14px;background:white}
+.sam-table-wrap{overflow:auto;border:1px solid #e5e7eb;border-radius:14px}
+.sam-table{width:100%;border-collapse:collapse;font-size:13px;min-width:980px}
+.sam-table th{background:#f9fafb;color:#374151;text-align:left;padding:12px;border-bottom:1px solid #e5e7eb;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+.sam-table td{padding:12px;border-bottom:1px solid #f1f5f9;color:#1f2937}
+.sam-table tbody tr:hover{background:#fff7f7}
+.sam-empty{text-align:center;color:#6b7280!important;padding:24px!important}
+@media(max-width:1100px){.sam-layout{grid-template-columns:1fr}.sam-kpi-grid{grid-template-columns:repeat(2,1fr)}.sam-hero{flex-direction:column;align-items:flex-start}}
+.sam-progress-wrap{display:none;margin-top:14px;background:#f3f4f6;border-radius:999px;height:12px;overflow:hidden;border:1px solid #e5e7eb}
+.sam-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,#b00020,#e4002b);border-radius:999px;transition:width .3s ease}
+.sam-progress-text{display:none;margin-top:6px;font-size:12px;color:#6b7280;font-weight:600}
+.sam-loading-overlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(15,23,42,.45);
+  z-index:99999;
+  align-items:center;
+  justify-content:center;
+}
+.sam-loading-box{
+  background:#fff;
+  width:420px;
+  max-width:90vw;
+  border-radius:22px;
+  padding:28px;
+  box-shadow:0 24px 60px rgba(0,0,0,.25);
+  text-align:center;
+  font-family:Segoe UI,Arial,sans-serif;
+}
+.sam-spinner{
+  width:44px;
+  height:44px;
+  border-radius:50%;
+  border:5px solid #fee2e2;
+  border-top-color:#e4002b;
+  margin:0 auto 16px;
+  animation:samSpin 1s linear infinite;
+}
+@keyframes samSpin{to{transform:rotate(360deg)}}
+.sam-loading-box h3{margin:0;color:#111827;font-size:20px}
+.sam-loading-box p{margin:10px 0 0;color:#6b7280;font-size:14px}
+.sam-action-btn{
+  border:none;
+  border-radius:10px;
+  padding:8px 10px;
+  background:#e4002b;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.sam-action-btn:hover{filter:brightness(.95)}
+</style>
+
+<div class="sam-page">
+  <section class="sam-hero">
+    <div>
+      <div class="sam-eyebrow">Microsoft Intune • SAM</div>
+      <h1>Relatório SAM</h1>
+      <p>Consulta direta ao Microsoft Graph / Intune com leitura rápida dos dispositivos por utilizador.</p>
+    </div>
+    <div class="sam-hero-actions">
+      <button class="sam-btn sam-btn-primary" onclick="samConnectGraph()">Conectar Graph</button>
+      <button class="sam-btn sam-btn-dark" onclick="samConsultarIntune()">Consultar Intune</button>
+    </div>
+  </section>
+
+  <section class="sam-status-card">
+    <div><span class="sam-status-dot"></span><strong>Estado</strong></div>
+    <p id="samStatus">A carregar configuração...</p>
+  </section>
+
+  <div class="sam-progress-wrap" id="samProgressWrap" aria-hidden="true">
+    <div class="sam-progress-bar" id="samProgressBar"></div>
+  </div>
+  <p class="sam-progress-text" id="samProgressText" role="status" aria-live="polite"></p>
+
+  <section class="sam-kpi-grid">
+    <div class="sam-kpi-card"><span>Utilizadores</span><strong id="samKpiUsers">0</strong></div>
+    <div class="sam-kpi-card"><span>Dispositivos</span><strong id="samKpiDevices">0</strong></div>
+    <div class="sam-kpi-card"><span>Mobile</span><strong id="samKpiMobile">0</strong></div>
+    <div class="sam-kpi-card"><span>Estações</span><strong id="samKpiWorkstations">0</strong></div>
+  </section>
+
+  <section class="sam-layout">
+    <aside class="sam-panel">
+      <h3>Utilizadores SAM</h3>
+      <p>Um utilizador por linha.</p>
+      <textarea id="samUsuarios" class="sam-textarea sam-users"></textarea>
+
+      <div class="sam-actions-vertical">
+        <button class="sam-btn sam-btn-light" onclick="samSaveUsers()">Guardar Lista SAM</button>
+        <button class="sam-btn sam-btn-dark" onclick="samCopyHtmlReport()">Copiar para Email</button>
+        <button class="sam-btn sam-btn-light" onclick="samCopyReport()">Copiar Texto Simples</button>
+        <button class="sam-btn sam-btn-success" onclick="samExportCsv()">Exportar CSV</button>
+      </div>
+    </aside>
+
+    <main>
+      <div class="sam-panel">
+        <h3>Filtros</h3>
+        <p>Refina rapidamente os resultados encontrados no Intune.</p>
+        <select id="samFiltroTipo" class="sam-select" onchange="samAplicarFiltro()">
+          <option value="todos">Todos os dispositivos</option>
+          <option value="sam">Só Telemóveis / Tablets / iPad / Mac</option>
+          <option value="mobile">Só Mobile: iPhone / iPad / Android</option>
+          <option value="apple">Só Apple: iPhone / iPad / Mac</option>
+          <option value="windows">Só Windows</option>
+          <option value="mac">Só Mac</option>
+          <option value="android">Só Android</option>
+          <option value="ios">Só iPhone / iPad</option>
+        </select>
+      </div>
+
+      <div class="sam-panel">
+        <h3>Dispositivos encontrados</h3>
+        <p>Resultado da consulta direta ao Intune.</p>
+        <div class="sam-table-wrap">
+          <table class="sam-table">
+            <thead>
+              <tr>
+                <th>User</th><th>Nome</th><th>Email</th><th>S.O</th><th>Modelo</th><th>Versão</th><th>Compliance</th><th>Último Sync</th><th>Ações</th>
+              </tr>
+            </thead>
+            <tbody id="samTableBody">
+              <tr><td colspan="9" class="sam-empty">Nenhum dado carregado.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="sam-panel">
+        <h3>Pré-visualização do email</h3>
+        <p>Relatório HTML pronto para copiar e colar diretamente numa resposta do Outlook.</p>
+        <div id="samReportHtml" class="sam-email-preview">
+          <div class="sam-email-empty">Execute uma consulta para gerar o relatório.</div>
+        </div>
+        <details class="sam-text-version">
+          <summary>Ver versão em texto simples</summary>
+          <textarea id="samReport" class="sam-textarea sam-report" readonly></textarea>
+        </details>
+      </div>
+    </main>
+  </section>
+</div>
+
+
+<div class="sam-loading-overlay" id="samLoadingOverlay">
+  <div class="sam-loading-box">
+    <div class="sam-spinner"></div>
+    <h3 id="samLoadingTitle">A processar...</h3>
+    <p id="samLoadingText">Aguarde um momento.</p>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+{
+  "id": "tracking-email",
+  "name": "tracking-email",
+  "module": "tracking-email",
+  "title": "Tracking Email",
+  "description": "Rastreio de entrega por endereço principal, aliases e routing híbrido, com separação de outros destinatários do mesmo envio.",
+  "category": "Exchange",
+  "icon": "mail",
+  "enabled": true,
+  "order": 90,
+  "page": "page.html",
+  "script": "script.js",
+  "style": "style.css",
+  "api": "api.ps1"
+}

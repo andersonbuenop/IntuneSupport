@@ -1,0 +1,98 @@
+﻿<div class="rp-page" id="rpPage">
+    <section class="rp-hero">
+        <div>
+            <span class="rp-kicker">BIBLIOTECA OPERACIONAL</span>
+            <h2>Respostas Padrão</h2>
+            <p>
+                Pesquise, personalize e copie respostas para tickets com assinatura,
+                saudação e campos variáveis preenchidos automaticamente.
+            </p>
+        </div>
+
+        <div class="rp-hero-stats" aria-label="Resumo das respostas">
+            <div>
+                <strong id="rpTotalResponses">0</strong>
+                <span>respostas</span>
+            </div>
+            <div>
+                <strong id="rpFavoriteCount">0</strong>
+                <span>favoritas</span>
+            </div>
+            <div>
+                <strong id="rpCopyCount">0</strong>
+                <span>cópias</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="rp-toolbar-panel">
+        <div class="rp-search-field">
+            <span aria-hidden="true">⌕</span>
+            <input
+                id="rpSearch"
+                type="search"
+                placeholder="Pesquisar por título, categoria ou conteúdo..."
+                autocomplete="off">
+        </div>
+
+        <button class="rp-button rp-button-light" id="rpClearFilters" type="button">
+            Limpar
+        </button>
+    </section>
+
+    <section class="rp-global-settings">
+        <div class="rp-field">
+            <label for="rpSignature">Nome para assinatura</label>
+            <input id="rpSignature" type="text" value="Raphael Vieira" maxlength="120">
+        </div>
+
+        <div class="rp-field">
+            <label for="rpGreeting">Saudação</label>
+            <select id="rpGreeting">
+                <option value="auto">Automática conforme a hora</option>
+                <option value="Bom dia">Bom dia</option>
+                <option value="Boa tarde">Boa tarde</option>
+            </select>
+        </div>
+
+        <div class="rp-policy-note">
+            <span aria-hidden="true">ⓘ</span>
+            <div>
+                <strong>Política móvel aplicada</strong>
+                <small>Android 12 ou superior · iOS 18.6.2 ou superior</small>
+            </div>
+        </div>
+    </section>
+
+    <div class="rp-category-chips" id="rpCategoryChips"></div>
+
+    <section class="rp-workspace">
+        <aside class="rp-library-panel">
+            <div class="rp-panel-heading">
+                <div>
+                    <h3>Biblioteca</h3>
+                    <p id="rpResultCount">A carregar...</p>
+                </div>
+
+                <select id="rpSort" aria-label="Ordenar respostas">
+                    <option value="title">Ordenar por título</option>
+                    <option value="used">Mais utilizadas</option>
+                    <option value="recent">Utilizadas recentemente</option>
+                </select>
+            </div>
+
+            <div class="rp-response-list" id="rpResponseList">
+                <div class="rp-loading">A carregar respostas...</div>
+            </div>
+        </aside>
+
+        <article class="rp-editor-panel" id="rpEditorPanel">
+            <div class="rp-empty-detail">
+                <strong>Selecione uma resposta</strong>
+                <span>A pré-visualização e os campos de personalização aparecerão aqui.</span>
+            </div>
+        </article>
+    </section>
+
+    <div class="rp-toast" id="rpToast" role="status" aria-live="polite"></div>
+</div>
