@@ -1,0 +1,126 @@
+﻿let todosModulos = [];
+
+async function carregarDashboard() {
+    document.getElementById("pageTitle").innerText = "Dashboard";
+    document.getElementById("pageSubtitle").innerText = "Sistema modular em homologação";
+
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Bem-vindo</h2>
+            <p>Esta é a base V2 do Santander Support Web.</p>
+            <p>O sistema foi preparado para trabalhar com módulos independentes, evitando que uma ferramenta nova quebre uma já existente.</p>
+        </div>
+
+        <div class="card">
+            <h2>Ambiente atual</h2>
+            <p><strong>Modo:</strong> Homologação / Mock</p>
+            <p><strong>Objetivo:</strong> testar telas e fluxo sem depender de Exchange Online, Azure ou Graph.</p>
+        </div>
+    `;
+}
+
+async function carregarModulos() {
+    const response = await fetch("/api/modules");
+    const data = await response.json();
+
+    if (data.success) {
+        todosModulos = Array.isArray(data.modules) ? data.modules : [data.modules];
+    }
+}
+
+async function carregarFerramentas() {
+    document.getElementById("pageTitle").innerText = "Ferramentas";
+    document.getElementById("pageSubtitle").innerText = "Módulos operacionais disponíveis";
+
+    await carregarModulos();
+
+    let html = `
+        <div class="card">
+            <h2>Ferramentas</h2>
+            <p>Selecione abaixo a ferramenta que deseja utilizar.</p>
+
+            <div class="module-grid">
+    `;
+
+    todosModulos.forEach(modulo => {
+        html += `
+            <div class="module-card" onclick="abrirModulo('${modulo.name}', '${modulo.title}', '${modulo.description}')">
+                <div class="module-icon">S</div>
+
+                <h3>${modulo.title}</h3>
+
+                <p>${modulo.description}</p>
+
+                <div class="module-footer">
+                    <span class="module-tag">${modulo.category}</span>
+                    <span class="module-open">Abrir →</span>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+    `;
+
+    document.getElementById("content").innerHTML = html;
+}
+
+async function abrirModulo(moduleName, title, description) {
+    document.getElementById("pageTitle").innerText = title;
+    document.getElementById("pageSubtitle").innerText = description;
+
+    const pageResponse = await fetch(`/module/${moduleName}/page`);
+    const html = await pageResponse.text();
+
+    document.getElementById("content").innerHTML = html;
+
+    await carregarScriptModulo(moduleName);
+}
+
+async function carregarScriptModulo(moduleName) {
+    const oldScript = document.getElementById("module-script");
+
+    if (oldScript) {
+        oldScript.remove();
+    }
+
+    const script = document.createElement("script");
+    script.id = "module-script";
+    script.src = `/module/${moduleName}/script?v=${Date.now()}`;
+
+    document.body.appendChild(script);
+}
+
+async function abrirDebug() {
+    document.getElementById("pageTitle").innerText = "Debug";
+    document.getElementById("pageSubtitle").innerText = "Logs do servidor";
+
+    const response = await fetch("/api/debug");
+    const data = await response.json();
+
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Debug da aplicação</h2>
+            <p><strong>Ambiente:</strong> ${data.environment}</p>
+            <p><strong>UseMock:</strong> ${data.useMock}</p>
+            <p><strong>AppRoot:</strong> ${data.appRoot}</p>
+        </div>
+
+        <div class="card">
+            <h2>Últimos logs</h2>
+            <pre>${data.logs.join("\n")}</pre>
+        </div>
+    `;
+}
+
+function mostrarAmbiente() {
+    document.getElementById("environmentBadge").innerHTML = `
+        <span class="badge badge-homolog">HOMOLOG / MOCK</span>
+    `;
+}
+
+mostrarAmbiente();
+carregarDashboard();
+carregarModulos();

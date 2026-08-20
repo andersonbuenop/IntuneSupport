@@ -1,0 +1,14 @@
+{
+  "id": "verificacao-utilizadores",
+  "module": "verificacao-utilizadores",
+  "name": "verificacao-utilizadores",
+  "title": "Verificação de Utilizadores",
+  "description": "Verifica utilizadores no AD local, Azure, EXO, licença E3 e arquivo online.",
+  "category": "Ferramentas",
+  "order": 31,
+  "enabled": true,
+  "page": "page.html",
+  "script": "script.js",
+  "style": "style.css",
+  "api": "api.ps1"
+}

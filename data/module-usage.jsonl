@@ -1,0 +1,550 @@
+{"timestamp":"2026-07-21T17:36:14.9769290+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-21T17:39:06.6821316+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-21T17:39:21.7262689+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-21T17:51:50.6325783+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-21T18:15:58.7550603+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-21T18:16:04.0900138+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-21T18:21:22.1649427+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-21T20:21:06.7446539+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-22T08:56:23.1768604+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-22T08:58:19.8248121+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T09:13:47.7395209+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-22T09:22:26.5168005+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T09:47:46.0217899+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-22T09:49:25.9179743+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T09:50:27.1436602+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-22T10:03:59.7963041+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-22T10:04:34.8782877+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T10:10:15.9948369+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-22T10:13:06.0285378+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-22T10:38:43.4289476+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-22T10:44:42.4794612+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T10:52:29.8938265+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-22T11:13:40.9892655+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-22T11:34:19.6049769+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-22T11:48:33.8780921+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-22T12:23:18.0824382+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-22T12:54:05.0154150+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-22T13:00:07.5127471+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-22T13:15:36.2235024+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-22T14:00:59.9741177+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-22T14:16:14.1688164+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T14:17:39.0942702+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-22T14:26:23.4187003+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-22T14:32:39.7143419+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-22T14:39:37.3219587+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T15:17:13.3063136+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-22T15:32:40.5318652+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-22T15:37:07.7523931+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-22T15:50:33.0091883+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T15:52:32.5222081+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T16:17:05.2477374+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T16:27:16.0807650+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T16:28:03.8947227+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T16:33:24.5492969+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T16:44:49.4508619+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T16:46:49.8070011+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T17:07:00.7522521+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T17:07:28.9183669+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T17:27:14.3383988+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T17:27:58.6577365+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-22T17:37:21.2891664+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-22T17:51:13.4520107+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-23T09:03:22.4916037+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-23T09:32:29.8003386+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-23T09:35:43.3766190+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-23T10:00:49.5850296+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-23T10:03:41.9159862+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-23T10:33:11.2331466+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-23T10:41:02.5162244+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-23T10:56:39.5880028+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-23T11:24:58.9365097+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-23T11:28:16.2764962+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-23T11:31:08.6880649+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-23T11:49:35.5313050+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-23T12:04:53.6466081+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-23T12:38:04.4259460+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-23T12:41:07.5662893+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-23T12:45:46.4121341+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-23T13:31:10.9313226+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-23T14:37:02.7456825+01:00","moduleId":"relatorio-cib","moduleTitle":"Relatório CIB","category":"Relatórios"}
+{"timestamp":"2026-07-23T15:01:51.1166969+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-23T15:08:42.1365225+01:00","moduleId":"relatorio-cib","moduleTitle":"Relatório CIB","category":"Relatórios"}
+{"timestamp":"2026-07-23T15:20:10.3782317+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-23T15:28:47.9247359+01:00","moduleId":"relatorio-cib","moduleTitle":"Relatório CIB","category":"Relatórios"}
+{"timestamp":"2026-07-23T15:46:21.1711860+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-23T15:46:23.9016561+01:00","moduleId":"relatorio-cib","moduleTitle":"Relatório CIB","category":"Relatórios"}
+{"timestamp":"2026-07-23T15:59:44.6403067+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-23T16:03:06.0201870+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-23T16:07:31.3655186+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-23T16:10:16.4293228+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-23T16:28:02.7259325+01:00","moduleId":"relatorio-cib","moduleTitle":"Relatório CIB","category":"Relatórios"}
+{"timestamp":"2026-07-23T16:28:24.9243699+01:00","moduleId":"relatorio-cib","moduleTitle":"Relatório CIB","category":"Relatórios"}
+{"timestamp":"2026-07-23T16:41:53.7987718+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-23T17:08:27.1948171+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-23T17:36:31.2933158+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-23T17:45:12.3009174+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-23T17:55:28.8618515+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-24T09:06:49.9127477+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-24T09:11:44.0431051+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-24T09:17:43.7643862+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T09:23:47.2587076+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-24T09:27:08.1138425+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T09:30:39.9621280+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-24T09:51:47.4745274+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-24T10:17:56.7592135+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T10:57:34.0465545+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-24T10:59:18.6188031+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T11:03:16.2165661+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-24T11:03:33.9837052+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-24T11:04:45.0440787+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-24T11:13:35.8901098+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-24T11:23:05.3681581+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-24T11:30:38.4023945+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-24T12:00:11.9426651+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-24T12:05:01.2925368+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T12:13:42.9805411+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-24T12:15:38.5178704+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-24T12:21:14.2949079+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-24T13:14:29.9992080+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-24T13:59:34.3642448+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-24T14:54:51.1706860+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-24T14:59:06.2567572+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:12:57.7158719+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:18:44.1308449+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:21:44.9298139+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:23:17.5828276+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:32:38.0645608+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:37:58.0889142+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:41:46.1219258+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-24T15:42:58.5180054+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-24T16:10:35.1188452+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T16:18:58.0268691+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T16:31:30.7968065+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-24T16:36:38.1855508+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-24T16:41:23.4855594+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-24T17:16:22.8903545+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-24T17:26:54.7829367+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-24T17:37:43.7510287+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T17:40:11.7345132+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T17:43:41.7765886+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T17:44:18.3955053+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T17:55:19.3687879+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T18:06:37.7631632+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T18:13:04.1903671+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T18:31:39.9127534+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-24T18:40:59.2380113+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-27T09:57:16.2706183+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T09:58:50.3123375+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:00:41.9613427+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T10:01:50.7299270+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T10:02:56.0839307+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:06:40.0593001+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T10:14:05.3280119+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:19:14.9799688+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:21:37.4662291+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:25:47.8160504+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:28:45.6085746+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:31:43.6425592+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T10:35:23.2626891+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:37:58.6760098+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:40:15.0909811+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T10:41:54.7529094+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:47:06.9623419+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:49:45.0374041+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:52:57.0470043+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:54:45.2724571+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-27T10:59:12.3682792+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T11:03:09.3348766+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T11:05:10.2772854+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-27T11:18:07.1091050+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T11:22:44.5894940+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T11:33:38.7877817+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:28:21.2562728+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:31:49.7594021+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:34:45.8660092+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:36:35.9904106+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:42:31.5268251+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:46:51.2695269+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:49:05.6658369+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T12:51:39.9872580+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T14:08:32.5602547+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T14:14:41.4686446+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-27T14:32:04.3693838+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T14:46:36.2413106+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T15:05:28.5414891+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T15:27:44.8969885+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T15:29:14.7868715+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T16:00:07.9285585+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-27T16:00:14.8104330+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-27T16:08:26.8771649+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-27T16:09:44.4303947+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-27T16:09:50.1839037+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-27T16:10:08.4661987+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-27T16:22:26.7344263+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-27T16:31:27.3506082+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-27T17:03:22.7515989+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-27T17:05:47.1509555+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T17:16:11.2485537+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-27T17:39:13.9965853+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-27T17:43:24.3951846+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-27T17:48:15.2679708+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T09:10:39.4344164+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T09:12:09.7972861+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T09:14:58.5211281+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-28T09:28:21.6291050+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-28T09:35:25.1990998+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-28T10:03:08.9475422+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T10:16:59.3437384+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-28T10:54:56.5848622+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T10:58:15.6563715+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-28T10:59:16.5250172+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-28T11:01:51.6071503+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-28T11:31:23.1895639+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T11:32:19.7165580+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T11:34:02.5207353+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T15:07:43.1633248+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-28T15:09:58.5736940+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T15:18:53.2509249+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-28T15:20:58.0358272+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T15:25:06.6749424+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-28T15:32:47.9421593+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-28T15:50:05.7482762+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T16:11:00.3287866+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T16:18:06.2907360+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T16:29:13.6320366+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T16:44:18.1716852+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T16:45:30.5137237+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T16:52:17.0213611+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T16:57:00.0119631+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T18:20:45.7581447+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-28T18:34:57.1143739+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-29T09:10:52.0265913+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-29T09:26:16.1402619+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-29T09:31:03.1235835+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-29T09:34:18.6238787+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-29T09:39:44.8424210+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-29T09:43:35.7030369+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-29T09:59:03.0253544+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-29T10:16:30.1760463+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-29T10:21:07.8285376+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-07-29T10:53:46.3536390+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-29T11:07:12.2176058+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-29T11:53:51.5432292+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-29T11:58:24.7528334+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-07-29T14:38:39.5734277+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:16:24.0894253+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:21:02.6811185+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-07-29T15:23:03.5391166+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:28:04.4993341+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:29:59.0356504+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:35:38.1328883+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:41:05.2253508+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:46:02.9352539+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-29T15:52:59.6608553+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-29T16:15:42.6794493+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-29T16:32:34.4403851+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-29T17:10:23.2251391+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-07-29T17:16:55.6052053+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-29T17:40:18.4952581+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-29T18:08:22.3186472+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-29T18:21:14.7261290+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-29T18:23:55.0140676+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-29T21:24:29.9605324+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-29T21:25:59.7559132+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-29T21:28:55.4689460+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-29T21:34:00.5949876+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-29T21:40:07.6999099+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-29T21:44:55.4680523+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T09:38:57.4040064+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T09:55:00.1028927+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-30T09:59:15.8890414+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T10:12:14.3221700+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T10:18:48.6051767+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T10:47:49.8682096+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T10:49:57.5215088+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T11:01:04.6810151+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-30T11:05:57.3643246+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-30T11:08:16.3120962+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T12:31:29.5625399+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T12:43:43.5947944+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T13:17:23.2946468+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T13:25:19.3237745+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T13:25:23.6618825+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T13:37:40.1206317+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T13:50:44.3045734+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T13:59:21.7710704+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T14:24:22.1684786+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T14:30:17.9185440+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T15:09:54.1616846+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-30T15:12:34.3374834+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-30T15:22:45.4343428+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-30T15:42:46.0686061+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-30T15:54:58.1166479+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T16:01:40.4373715+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-30T16:27:07.2829324+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-30T16:37:35.4039123+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-30T17:50:27.8419495+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-30T18:02:38.2070700+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-30T18:36:51.3773169+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-30T18:42:56.3139417+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-30T18:52:03.7802964+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T09:48:04.5527538+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-31T10:07:24.6241312+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-31T10:16:05.3540874+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T10:20:14.2940108+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-07-31T10:44:32.2309899+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T11:20:43.7374286+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T12:10:19.8602879+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-31T12:16:09.8571630+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T12:27:13.1169575+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T12:44:11.8383730+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T13:02:29.9976541+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-31T13:03:20.6601497+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T13:54:32.6703128+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T14:02:11.2280661+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T14:09:04.5035442+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T14:58:30.2358686+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T15:18:59.6675908+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T15:20:56.3883547+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-31T15:24:14.2469762+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T15:36:57.3510733+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T15:41:58.6202320+01:00","moduleId":"verificacao-utilizadores-reativados","moduleTitle":"verificacao-utilizadores-reativados","category":"Exchange"}
+{"timestamp":"2026-07-31T15:42:13.6297224+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T15:43:36.9807143+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T15:52:43.8430012+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-07-31T16:13:42.4445511+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T16:18:03.2810250+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-31T16:20:16.5310401+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T16:27:49.9478798+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-07-31T16:31:24.6530054+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:00:55.4747152+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:02:32.1285918+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:04:24.2803551+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:08:35.6751991+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:21:41.0355098+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:34:31.0207045+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:47:25.4724450+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T17:56:53.9763036+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T18:08:19.8921665+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T18:23:19.6763249+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T18:38:16.8447874+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T18:54:43.6970032+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T19:08:48.2128908+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T23:34:00.6182477+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-07-31T23:43:53.1049571+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-07-31T23:50:40.5139220+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-07-31T23:54:28.7524028+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:02:34.6686276+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:03:37.7222869+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:07:20.4673405+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:17:00.7359369+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:33:21.8889377+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:35:04.1589940+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:36:59.8244466+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:42:59.9567003+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:46:46.8988161+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:49:59.6857811+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-03T09:55:46.8235029+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T10:11:51.1679033+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-03T10:48:03.1262868+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T11:12:59.0529567+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-03T11:21:20.7691623+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T11:24:46.7287118+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-03T11:45:28.7126109+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T11:53:45.6777472+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T12:02:24.6936270+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T14:05:51.1189668+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-03T14:15:07.8574866+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T14:16:23.4089132+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-03T14:20:40.6898110+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T14:46:32.9389238+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T14:58:55.3076949+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T15:13:33.8891533+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T15:23:58.3992155+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T15:26:35.2985694+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T15:44:05.8797407+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-03T15:45:50.9220505+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T16:22:32.2787306+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T16:32:27.6647619+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T16:40:34.6248550+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T16:48:35.8276583+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T16:49:58.7597520+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T17:23:45.3689136+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T17:31:12.9657471+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T17:35:49.2986405+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T17:36:04.4404662+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T17:40:21.6231439+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T17:48:27.9069668+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T17:51:43.6996154+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-03T17:59:02.1001407+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T18:03:51.5602182+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-03T18:37:18.8587611+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T18:54:30.4513244+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-03T18:56:24.7439017+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-03T19:01:31.8124949+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T19:12:22.0756334+01:00","moduleId":"relatorio-intune-ibm","moduleTitle":"Relatório Intune IBM","category":"Relatórios"}
+{"timestamp":"2026-08-03T19:19:58.8001364+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-03T19:20:19.4849109+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-03T19:25:30.2551202+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-04T08:52:26.7157129+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:08:37.1826078+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:11:15.9978671+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:18:22.2568166+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:19:34.5153568+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:23:55.0844324+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:26:14.9970845+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:36:50.8654954+01:00","moduleId":"acesso-em-massa","moduleTitle":"Acesso em Massa","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:41:35.7200001+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:48:03.0925641+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:53:08.8205901+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-04T09:59:06.6871913+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-04T10:47:52.0369710+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-04T11:04:31.3140479+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-04T11:20:30.2137969+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-04T11:40:03.9793608+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-08-04T11:43:53.6497003+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-04T12:00:47.0466511+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-08-04T12:03:52.8871378+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-04T12:32:37.7906881+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-08-04T12:36:05.6802925+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-04T12:38:46.2234504+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-08-04T13:18:42.0929515+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-04T14:01:00.3732666+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-04T15:02:23.4926706+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T15:15:42.0278156+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T15:18:37.4721811+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-04T15:20:36.0855682+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-08-04T15:22:07.6447783+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-04T15:43:46.7247339+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T15:54:42.6847900+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-04T15:59:40.3860519+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-08-04T16:36:28.2361388+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-04T16:52:40.0774702+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-04T17:03:16.3378617+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T17:30:45.4225757+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T17:41:29.5937247+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T17:48:11.9608305+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T17:48:25.3309239+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T17:53:42.7766719+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-04T18:03:47.4556588+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-05T09:46:19.2207815+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-05T09:53:15.8469526+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-05T10:03:18.8683123+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-05T10:12:45.2195155+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-05T10:18:12.5835815+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-05T10:24:18.3103061+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-05T10:32:06.5496371+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-05T10:34:26.8186309+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-05T10:37:35.7603596+01:00","moduleId":"relatorio-sam","moduleTitle":"Relatório SAM","category":"Relatórios"}
+{"timestamp":"2026-08-05T11:10:56.0090708+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-08-05T11:10:58.4732829+01:00","moduleId":"relatorio-sam","moduleTitle":"Relatório SAM","category":"Relatórios"}
+{"timestamp":"2026-08-05T11:21:16.1873166+01:00","moduleId":"relatorio-sam","moduleTitle":"Relatório SAM","category":"Relatórios"}
+{"timestamp":"2026-08-05T11:31:16.5422435+01:00","moduleId":"relatorio-sam","moduleTitle":"Relatório SAM","category":"Relatórios"}
+{"timestamp":"2026-08-05T11:37:19.7049956+01:00","moduleId":"relatorio-sam","moduleTitle":"Relatório SAM","category":"Relatórios"}
+{"timestamp":"2026-08-05T11:44:10.8142106+01:00","moduleId":"relatorio-sam","moduleTitle":"Relatório SAM","category":"Relatórios"}
+{"timestamp":"2026-08-05T11:53:05.4387007+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-05T12:13:20.7442991+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-05T12:33:43.9691422+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-05T12:51:27.6142571+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-05T12:55:09.8226615+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-05T12:57:06.4443322+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-05T13:00:26.6950258+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-05T13:05:17.7682746+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-08-05T14:14:27.7030480+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-05T14:52:18.7759766+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-05T15:41:06.6955159+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-05T16:08:15.0844472+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-05T16:14:20.3309408+01:00","moduleId":"respostas-padrao","moduleTitle":"Respostas Padrão","category":"Respostas Padrão"}
+{"timestamp":"2026-08-05T22:39:24.4350332+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-05T22:42:51.0508073+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-06T09:09:07.4226695+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-06T09:12:13.9073820+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-06T09:16:04.5732894+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-06T09:17:39.5665812+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-06T09:38:03.1071368+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-06T09:50:19.7144719+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-06T10:10:35.2760585+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-06T10:17:59.7367292+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-06T10:29:37.4778077+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-06T11:00:43.1253613+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-06T11:02:21.8524008+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-06T11:35:43.6166233+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-06T14:33:41.8402930+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-06T14:33:51.0571002+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-06T14:58:10.2221185+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-06T15:35:47.6248637+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-06T16:20:02.2814265+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-06T17:27:42.9275242+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-06T17:29:15.2576328+01:00","moduleId":"tracking-email","moduleTitle":"Tracking Email","category":"Exchange"}
+{"timestamp":"2026-08-06T17:29:34.4954645+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-06T17:29:42.6666794+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-06T17:32:46.0844664+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T09:07:05.2088842+01:00","moduleId":"consulta-permissoes-mailbox","moduleTitle":"Consulta de Permissões","category":"Ferramentas"}
+{"timestamp":"2026-08-07T09:35:46.8966336+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T09:41:22.1575871+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-07T09:54:36.0566826+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-07T09:54:56.9673570+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T10:19:56.6048444+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-07T10:25:29.1548147+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T11:10:33.0655189+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-07T11:26:14.2746177+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-07T11:39:01.4760676+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T12:18:07.8859424+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-07T12:52:32.5758571+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-07T14:23:13.7582104+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T14:46:57.0776764+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T16:03:13.8162584+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-07T16:34:09.5239674+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-07T16:35:31.4749196+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-07T16:42:00.1525486+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-07T16:42:09.7435728+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-07T16:43:06.2939633+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-07T16:59:53.1735941+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-07T17:03:26.7216636+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-07T17:13:05.2614149+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-07T17:38:01.3366712+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-07T17:44:08.5621805+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-10T08:55:53.3419153+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-10T08:58:58.3654487+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-10T09:01:04.2466333+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-10T09:29:06.2294781+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T09:31:11.2599194+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T09:41:21.6441122+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-10T09:43:43.7433959+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-10T09:51:52.5491349+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-10T09:57:59.1550466+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-10T10:07:55.5262383+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T10:41:01.5540256+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-10T10:55:07.0743673+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T11:39:40.5503501+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-10T11:44:44.1520168+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-10T11:51:06.1207449+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-10T13:25:45.2450406+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-10T13:38:54.8275721+01:00","moduleId":"criacao-user-meu","moduleTitle":"Criação de User (MEU)","category":"Ferramentas"}
+{"timestamp":"2026-08-10T13:39:06.0437782+01:00","moduleId":"mudanca-balcao","moduleTitle":"Mudança de Balcão","category":"Ferramentas"}
+{"timestamp":"2026-08-10T13:42:00.7007936+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-10T13:51:56.0500516+01:00","moduleId":"intune-install","moduleTitle":"Instalação Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T13:52:08.4873018+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T14:12:00.2427872+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-10T14:26:09.2475962+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T14:52:10.5224379+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T15:00:39.2386019+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-10T15:12:27.9622134+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T15:19:32.0763285+01:00","moduleId":"intune-conformidade-mobile","moduleTitle":"Intune - Conformidade Mobile","category":"Ferramentas"}
+{"timestamp":"2026-08-10T15:36:20.2012747+01:00","moduleId":"devices-intune","moduleTitle":"Devices Intune","category":"Ferramentas"}
+{"timestamp":"2026-08-10T16:20:18.2541822+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-10T16:39:34.3775283+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-10T16:51:15.5390148+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-10T17:13:16.6884017+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-10T17:31:18.4772715+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-10T17:44:52.6833093+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-10T17:53:25.4133098+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-10T18:00:14.9250383+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-10T18:11:57.5067379+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-10T18:22:21.3475696+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-11T09:27:01.9570317+01:00","moduleId":"reset-mfa","moduleTitle":"Reset MFA","category":"Ferramentas"}
+{"timestamp":"2026-08-11T10:07:53.8621021+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-11T10:19:56.9771172+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}
+{"timestamp":"2026-08-11T10:21:25.0395486+01:00","moduleId":"verificacao-utilizadores","moduleTitle":"Verificação de Utilizadores","category":"Ferramentas"}
+{"timestamp":"2026-08-11T10:28:18.9379532+01:00","moduleId":"relatorio-limite-destinatarios","moduleTitle":"Limites de Destinatários","category":"Relatórios"}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light">
+    <title>Santander Support Web V2</title>
+    <link rel="stylesheet" href="/css/style.css?v=20260721-dashboard-v3">
+</head>
+<body>
+    <button id="mobileMenuButton" class="mobile-menu-button" type="button" aria-label="Abrir menu" aria-controls="sidebar" aria-expanded="false">
+        ☰
+    </button>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="brand">
+            <div class="brand-mark" aria-hidden="true">S</div>
+            <div>
+                <strong>SANTANDER</strong>
+                <span>Support Web V2</span>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav" aria-label="Navegação principal">
+            <button id="navDashboard" class="menu-main active" type="button" data-view="dashboard">
+                <span class="menu-icon" aria-hidden="true">⌂</span>
+                <span>Dashboard</span>
+            </button>
+
+            <button id="navFerramentas" class="menu-main" type="button" data-view="ferramentas">
+                <span class="menu-icon" aria-hidden="true">◇</span>
+                <span>Ferramentas</span>
+            </button>
+
+            <button id="navRelatorios" class="menu-main" type="button" data-view="relatorios">
+                <span class="menu-icon" aria-hidden="true">▤</span>
+                <span>Relatórios</span>
+            </button>
+            <button id="navRespostasPadrao" class="menu-main" type="button" data-view="respostas">
+                <span class="menu-icon" aria-hidden="true">✦</span>
+                <span>Respostas padrão</span>
+            </button>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="environment-mini">
+                <span class="environment-dot"></span>
+                <div>
+                    <strong>Produção</strong>
+                    <small>Serviços reais</small>
+                </div>
+            </div>
+
+            <button class="menu-main debug-button" type="button">
+                <span class="menu-icon" aria-hidden="true">⌘</span>
+                <span class="debug-button-label">Debug</span>
+                <span id="debugErrorCount" class="debug-count" hidden>0</span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <header class="topbar">
+            <div class="topbar-title">
+                <h1 id="pageTitle">Dashboard</h1>
+                <p id="pageSubtitle">Visão operacional do Santander Support Web</p>
+            </div>
+
+            <div class="topbar-actions">
+                <div class="last-update" id="lastUpdate">A carregar...</div>
+                <div id="environmentBadge"></div>
+            </div>
+        </header>
+
+        <section id="content" class="content" aria-live="polite">
+            <div class="page-loading">
+                <div class="loading-spinner" aria-hidden="true"></div>
+                <strong>A carregar o dashboard...</strong>
+            </div>
+        </section>
+    </main>
+
+    <div id="toastRegion" class="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <script src="/js/app.js?v=20260804-estabilidade-graph-v1" defer></script>
+</body>
+</html>

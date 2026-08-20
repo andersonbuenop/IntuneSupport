@@ -1,0 +1,143 @@
+﻿<div class="icm-shell" id="icmRoot">
+  <section class="icm-hero">
+    <div>
+      <div class="icm-eyebrow">INTUNE • MOBILE COMPLIANCE</div>
+      <h1>Conformidade de equipamentos móveis</h1>
+      <p>Diagnóstico de dispositivos em período de carência e não conformes, com foco em Harmony Mobile.</p>
+    </div>
+    <div class="icm-connection">
+      <span class="icm-dot" id="icmConnDot"></span>
+      <span id="icmConnText">Graph desligado</span>
+    </div>
+  </section>
+
+  <section class="icm-toolbar">
+    <div class="icm-search-wrap">
+      <label for="icmSearch">Utilizador ou dispositivo</label>
+      <input id="icmSearch" type="text" placeholder="UPN, email, nome ou device name">
+    </div>
+
+    <button class="icm-btn icm-btn-light" id="icmConnect">Conectar Graph</button>
+    <button class="icm-btn icm-btn-primary" id="icmSearchUser">Pesquisar utilizador</button>
+    <button class="icm-btn icm-btn-primary" id="icmScan">Procurar móveis com problema</button>
+    <button class="icm-btn icm-btn-light" id="icmExport">Exportar CSV</button>
+    <button class="icm-btn icm-btn-light" id="icmClear">Limpar</button>
+  </section>
+
+  <section class="icm-filters">
+    <button class="icm-chip active" data-filter="all">Todos</button>
+    <button class="icm-chip" data-filter="inGracePeriod">Em carência</button>
+    <button class="icm-chip" data-filter="noncompliant">Não conformes</button>
+    <button class="icm-chip" data-filter="Harmony">Harmony</button>
+    <button class="icm-chip" data-filter="Android">Android</button>
+    <button class="icm-chip" data-filter="iOS">iPhone/iPad</button>
+    <button class="icm-chip" data-filter="high">Risco alto</button>
+  </section>
+
+  <section class="icm-dashboard">
+    <article class="icm-card">
+      <span>Móveis analisados</span><strong id="icmCountTotal">0</strong>
+    </article>
+    <article class="icm-card warning">
+      <span>Em período de carência</span><strong id="icmCountGrace">0</strong>
+    </article>
+    <article class="icm-card danger">
+      <span>Não conformes</span><strong id="icmCountNoncompliant">0</strong>
+    </article>
+    <article class="icm-card danger">
+      <span>Risco alto</span><strong id="icmCountHigh">0</strong>
+    </article>
+    <article class="icm-card">
+      <span>Problemas Harmony</span><strong id="icmCountHarmony">0</strong>
+    </article>
+    <article class="icm-card">
+      <span>Expiram em 48 horas</span><strong id="icmCount48h">0</strong>
+    </article>
+  </section>
+
+  <section class="icm-progress hidden" id="icmProgressWrap">
+    <div class="icm-progress-head">
+      <span id="icmProgressText">A processar...</span>
+      <strong id="icmProgressPercent">0%</strong>
+    </div>
+    <div class="icm-progress-track"><div id="icmProgressBar"></div></div>
+  </section>
+
+  <section class="icm-main">
+    <div class="icm-table-panel">
+      <div class="icm-panel-head">
+        <div>
+          <h2>Dispositivos</h2>
+          <span id="icmResultInfo">Nenhum resultado</span>
+        </div>
+      </div>
+
+      <div class="icm-table-scroll">
+        <table class="icm-table">
+          <thead>
+            <tr>
+              <th>Risco</th>
+              <th>Dispositivo</th>
+              <th>Utilizador</th>
+              <th>SO</th>
+              <th>Modelo</th>
+              <th>Conformidade</th>
+              <th>Fim da carência</th>
+              <th>Último check-in</th>
+              <th>Diagnóstico</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="icmTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <aside class="icm-detail-panel">
+      <div class="icm-empty" id="icmEmptyDetail">
+        Selecione um dispositivo para visualizar o diagnóstico.
+      </div>
+
+      <div id="icmDetail" class="hidden">
+        <div class="icm-detail-title">
+          <div>
+            <div class="icm-eyebrow">DIAGNÓSTICO</div>
+            <h2 id="icmDetailDevice">—</h2>
+            <span id="icmDetailUser">—</span>
+          </div>
+          <span class="icm-risk" id="icmDetailRisk">—</span>
+        </div>
+
+        <div class="icm-info-grid" id="icmInfoGrid"></div>
+
+        <article class="icm-diagnostic-card">
+          <h3 id="icmDetailCategory">—</h3>
+          <p id="icmDetailDiagnosis">—</p>
+        </article>
+
+        <article class="icm-policy-card">
+          <h3>Política e definição</h3>
+          <div id="icmPolicyList"></div>
+        </article>
+
+        <article class="icm-action-card">
+          <h3>O que fazer para resolver</h3>
+          <div id="icmRecommendation"></div>
+        </article>
+
+        <article class="icm-history-card">
+          <h3>Histórico local</h3>
+          <div id="icmHistory"></div>
+        </article>
+
+        <div class="icm-detail-actions">
+          <button class="icm-btn icm-btn-primary" id="icmCopyTicket">Copiar texto do ticket</button>
+          <button class="icm-btn icm-btn-light" id="icmOpenServiceNow">Abrir ServiceNow</button>
+          <button class="icm-btn icm-btn-light" id="icmOpenIntune">Abrir no Intune</button>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <div class="icm-toast" id="icmToast"></div>
+</div>

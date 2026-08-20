@@ -1,0 +1,540 @@
+﻿let todosModulos = [];
+
+async function carregarDashboard() {
+    document.getElementById("pageTitle").innerText = "Dashboard";
+    document.getElementById("pageSubtitle").innerText = "Visão geral do ambiente Santander Support Web";
+
+    await carregarModulos();
+
+    const totalModulos = Array.isArray(todosModulos) ? todosModulos.length : 0;
+
+    document.getElementById("content").innerHTML = `
+        <div class="dashboard-hero-final">
+            <div class="hero-red-line"></div>
+
+            <div>
+                <span class="dashboard-label-red">PLATAFORMA OPERACIONAL</span>
+                <h2>Santander Support Web V2</h2>
+                <p>
+                    Sistema modular preparado para centralizar ferramentas de suporte,
+                    com separação por módulos e ambiente seguro de Produção.
+                </p>
+            </div>
+
+                    <img src="data:image/png;base64,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" class="dashboard-logo-real" alt="Santander PT">
+        </div>
+
+        <div class="dashboard-status-grid">
+            <div class="status-card-final">
+                <div class="status-icon red">♢</div>
+                <div>
+                    <span>AMBIENTE</span>
+                    <h3 class="red-text">Produção</h3>
+                    <p>Ambiente real com ligação aos serviços corporativos.</p>
+                    <strong class="pill-yellow">● SERVIÇOS REAIS</strong>
+                </div>
+            </div>
+
+            <div class="status-card-final">
+                <div class="status-icon green">🧩</div>
+                <div>
+                    <span>VERSÃO</span>
+                    <h3 class="green-text">2.0.0-PROD</h3>
+                    <p>Base Modular V2</p>
+                    <strong class="pill-green">● BUILD 2026.05.22</strong>
+                </div>
+            </div>
+
+            <div class="status-card-final">
+                <div class="status-icon blue">□</div>
+                <div>
+                    <span>FERRAMENTAS</span>
+                    <h3 class="blue-text">${totalModulos} módulo(s)</h3>
+                    <p>Módulos disponíveis no sistema.</p>
+                    <button class="btn-red-dashboard" onclick="carregarFerramentas()">
+                        Abrir ferramentas →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card-icon red">
+                    ◎
+                </div>
+
+                <div>
+                    <small>EXCHANGE ONLINE</small>
+
+                    <h3>Conexão Exchange</h3>
+
+                    <p>
+                        Conectar sessão real ao Exchange Online.
+                    </p>
+
+                    <button class="btn-primary" onclick="conectarExchangeOnline()">
+                        Conectar Exchange →
+                    </button>
+
+                    <div id="exchangeStatus" style="margin-top:12px;font-weight:700;color:#6b7280;">
+<div id="windowsSession" style="margin-top:10px;"></div>
+<div id="exchangeSession" style="margin-top:10px;"></div>
+                        Não conectado
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="resumo-card-final">
+            <div class="resumo-title">
+                <div class="resumo-icon">▤</div>
+                
+<h3>RESUMO TÉCNICO</h3>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">▣</div>
+                <strong>Modo atual</strong>
+                <span>Produção</span>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">◎</div>
+                <strong>Objetivo</strong>
+                <span>Executar ferramentas reais em ambiente de produção.</span>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">□</div>
+                <strong>Manutenção</strong>
+                <span>Novas ferramentas devem ser criadas dentro da pasta modules.</span>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">ⓘ</div>
+                <strong>Versão</strong>
+                <span>2.0.0-PROD — Base Modular V2 — Build 2026.05.22</span>
+            </div>
+        </div>
+    `;
+
+    setTimeout(() => verificarExchangeOnline(), 500);
+}
+
+async function carregarModulos() {
+    try {
+        const response = await fetch("/api/modules");
+        const data = await response.json();
+
+        if (data.success) {
+            todosModulos = Array.isArray(data.modules) ? data.modules : [data.modules];
+        }
+    } catch {
+        todosModulos = [];
+    }
+}
+
+async function carregarFerramentas() {
+    document.getElementById("pageTitle").innerText = "Ferramentas";
+    document.getElementById("pageSubtitle").innerText = "Módulos operacionais disponíveis";
+
+    await carregarModulos();
+
+    let html = `
+        <div class="card">
+            <h2>Ferramentas</h2>
+            <p>Selecione abaixo a ferramenta que deseja utilizar.</p>
+            <div class="module-grid">
+    `;
+
+    todosModulos.forEach(modulo => {
+        html += `
+            <div class="module-card" onclick="abrirModulo('${modulo.name}', '${modulo.title}', '${modulo.description}')">
+                <div class="module-icon module-title-badge">${modulo.title}</div>
+                <p>${modulo.description}</p>
+                <div class="module-footer">
+                    <span class="module-tag">${modulo.category}</span>
+                    <span class="module-open">Abrir →</span>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+    `;
+
+    document.getElementById("content").innerHTML = html;
+}
+
+async function abrirModulo(moduleName, title, description) {
+    document.getElementById("pageTitle").innerText = title;
+    document.getElementById("pageSubtitle").innerText = description;
+
+    const pageResponse = await fetch(`/module/${moduleName}/page`);
+    const html = await pageResponse.text();
+
+    document.getElementById("content").innerHTML = html;
+
+    await carregarScriptModulo(moduleName);
+}
+
+async function carregarScriptModulo(moduleName) {
+    const oldScript = document.getElementById("module-script");
+
+    if (oldScript) {
+        oldScript.remove();
+    }
+
+    const script = document.createElement("script");
+    script.id = "module-script";
+    script.src = `/module/${moduleName}/script?v=${Date.now()}`;
+
+    document.body.appendChild(script);
+}
+
+async function abrirDebug() {
+    document.getElementById("pageTitle").innerText = "Debug";
+    document.getElementById("pageSubtitle").innerText = "Logs do servidor";
+
+    const response = await fetch("/api/debug");
+    const data = await response.json();
+
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Debug da aplicação</h2>
+            <p><strong>Ambiente:</strong> ${data.environment}</p>
+            <p><strong>UseMock:</strong> ${data.useMock}</p>
+            <p><strong>AppRoot:</strong> ${data.appRoot}</p>
+        </div>
+
+        <div class="card">
+            <h2>Últimos logs</h2>
+            <pre>${data.logs.join("\n")}</pre>
+        </div>
+    `;
+
+    setTimeout(() => verificarExchangeOnline(), 500);
+}
+
+function mostrarAmbiente() {
+    document.getElementById("environmentBadge").innerHTML = `
+        <span class="badge badge-PROD">PRODUÇÃO</span>
+    `;
+
+    setTimeout(() => verificarExchangeOnline(), 500);
+}
+
+mostrarAmbiente();
+carregarDashboard();
+setTimeout(() => atualizarStatusExchange(), 500);
+
+
+
+
+
+
+
+
+async function conectarExchangeOnline() {
+    const status = document.getElementById("exchangeStatus");
+
+    if (status) {
+        status.innerText = "A conectar ao Exchange Online...";
+        status.style.color = "#111827";
+    }
+
+    try {
+        const response = await fetch("/api/exchange/connect", {
+            method: "POST"
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+            status.innerText = "Exchange Online conectado com sucesso";
+            status.style.color = "green";
+        } else {
+            status.innerText = data.message || "Erro ao conectar Exchange Online";
+            status.style.color = "red";
+        }
+    } catch (error) {
+        status.innerText = "Erro ao chamar API /api/exchange/connect";
+        status.style.color = "red";
+    }
+}
+
+
+
+
+function copiarRespostaMudancaBalcao() {
+    const campo = document.getElementById("respostaTicketMudancaBalcao");
+
+    if (!campo) {
+        alert("Campo de resposta não encontrado.");
+        return;
+    }
+
+    const texto = campo.value || campo.innerText || campo.textContent || "";
+
+    if (!texto.trim()) {
+        alert("Não existe resposta para copiar.");
+        return;
+    }
+
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(texto).then(function () {
+            alert("Resposta copiada com sucesso.");
+        }).catch(function () {
+            copiarRespostaFallback(texto);
+        });
+    } else {
+        copiarRespostaFallback(texto);
+    }
+}
+
+function copiarRespostaFallback(texto) {
+    const temp = document.createElement("textarea");
+    temp.value = texto;
+    temp.style.position = "fixed";
+    temp.style.left = "-9999px";
+    document.body.appendChild(temp);
+    temp.focus();
+    temp.select();
+
+    try {
+        document.execCommand("copy");
+        alert("Resposta copiada com sucesso.");
+    } catch (e) {
+        alert("Não foi possível copiar automaticamente. Selecione o texto e copie manualmente.");
+    }
+
+    document.body.removeChild(temp);
+}
+
+
+
+function copiarRespostaMudancaBalcao() {
+
+    const campo = document.getElementById("ticketResponse");
+
+    if (!campo) {
+        alert("Campo resposta não encontrado.");
+        return;
+    }
+
+    const texto = campo.value || campo.innerText || campo.textContent;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => {
+            alert("Resposta copiada.");
+        })
+        .catch(() => {
+
+            const temp = document.createElement("textarea");
+
+            temp.value = texto;
+
+            document.body.appendChild(temp);
+
+            temp.select();
+
+            document.execCommand("copy");
+
+            document.body.removeChild(temp);
+
+            alert("Resposta copiada.");
+        });
+}
+
+
+
+
+
+
+
+
+
+
+async function atualizarStatusExchange() {
+
+    const exchangeStatus = document.getElementById("exchangeStatus");
+    const windowsSession = document.getElementById("windowsSession");
+    const exchangeSession = document.getElementById("exchangeSession");
+
+    try {
+
+        const response = await fetch("/api/exchange/status");
+
+        const data = await response.json();
+
+        if (!data.success) {
+
+            exchangeStatus.innerText = "Erro ao obter status Exchange";
+            exchangeStatus.style.color = "red";
+
+            return;
+        }
+
+        if (data.connected) {
+
+            exchangeStatus.innerText = "🟢 Exchange Online conectado";
+            exchangeStatus.style.color = "green";
+
+        } else {
+
+            exchangeStatus.innerText = "🔴 Exchange Online não conectado";
+            exchangeStatus.style.color = "red";
+        }
+
+        if (windowsSession) {
+
+            windowsSession.innerHTML =
+                `<strong>Windows:</strong><br>
+                 ${data.windowsUser || "-"}<br>
+                 ${data.windowsDisplayName || ""}`;
+        }
+
+        if (exchangeSession) {
+
+            exchangeSession.innerHTML =
+                `<strong>Exchange:</strong><br>
+                 ${data.exchangeUser || "Não conectado"}`;
+        }
+
+    } catch (e) {
+
+        exchangeStatus.innerText = "Erro ao consultar API Exchange";
+        exchangeStatus.style.color = "red";
+    }
+}
+
+
+
+// ============================================================
+// PATCH STATUS DASHBOARD - EXCHANGE + WINDOWS
+// ============================================================
+
+async function atualizarStatusExchange() {
+
+    const status = document.getElementById("exchangeStatus");
+
+    if (!status) {
+        return;
+    }
+
+    try {
+
+        const response = await fetch("/api/exchange/status");
+        const data = await response.json();
+
+        if (!data.success) {
+            status.innerHTML = `<span style="color:red;">Erro ao consultar status</span>`;
+            return;
+        }
+
+        if (data.connected) {
+
+            status.innerHTML = `
+                <div style="color:green;font-weight:700;">🟢 Exchange Online conectado</div>
+                <div style="margin-top:8px;color:#111827;">
+                    <strong>Exchange:</strong><br>
+                    ${data.exchangeUser || ""}
+                </div>
+                <div style="margin-top:8px;color:#111827;">
+                    <strong>Windows:</strong><br>
+                    ${data.windowsUser || ""}<br>
+                    ${data.windowsDisplayName || ""}
+                </div>
+            `;
+
+        } else {
+
+            status.innerHTML = `
+                <div style="color:red;font-weight:700;">🔴 Exchange Online não conectado</div>
+                <div style="margin-top:8px;color:#111827;">
+                    <strong>Windows:</strong><br>
+                    ${data.windowsUser || ""}<br>
+                    ${data.windowsDisplayName || ""}
+                </div>
+            `;
+        }
+
+    } catch (e) {
+
+        status.innerHTML = `<span style="color:red;">Erro ao consultar /api/exchange/status</span>`;
+    }
+}
+
+// Reexecuta status sempre que voltar ao Dashboard
+if (typeof carregarDashboard === "function" && !window.__dashboardStatusWrapped) {
+
+    window.__dashboardStatusWrapped = true;
+
+    const carregarDashboardOriginal = carregarDashboard;
+
+    carregarDashboard = function () {
+
+        carregarDashboardOriginal();
+
+        setTimeout(function () {
+            atualizarStatusExchange();
+        }, 500);
+    };
+}
+
+// Reexecuta status depois de conectar Exchange
+if (typeof conectarExchange === "function" && !window.__connectExchangeWrapped) {
+
+    window.__connectExchangeWrapped = true;
+
+    const conectarExchangeOriginal = conectarExchange;
+
+    conectarExchange = async function () {
+
+        await conectarExchangeOriginal();
+
+        setTimeout(function () {
+            atualizarStatusExchange();
+        }, 1000);
+    };
+}
+
+
+function carregarResetMFA() {
+
+    fetch("modules/reset-mfa/index.html")
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("contentArea").innerHTML = html;
+
+            const scriptAntigo = document.getElementById("resetMfaScript");
+            if (scriptAntigo) {
+                scriptAntigo.remove();
+            }
+
+            const script = document.createElement("script");
+            script.id = "resetMfaScript";
+            script.src = "modules/reset-mfa/reset-mfa.js?v=" + new Date().getTime();
+
+            script.onload = function () {
+                if (typeof iniciarResetMFA === "function") {
+                    iniciarResetMFA();
+                }
+            };
+
+            document.body.appendChild(script);
+        })
+        .catch(error => {
+            document.getElementById("contentArea").innerHTML = `
+                <div class="alert alert-danger">
+                    Erro ao carregar o módulo Reset MFA.
+                </div>
+            `;
+            console.error("Erro Reset MFA:", error);
+        });
+}
+

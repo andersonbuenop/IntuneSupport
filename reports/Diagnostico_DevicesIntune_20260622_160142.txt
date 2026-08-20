@@ -1,0 +1,89 @@
+
+==================================================
+DEVICES INTUNE DIAGNOSTICO
+==================================================
+
+[OK] C:\Temp\SantanderSupportWebV2_PROD\modules\devices-intune\api.ps1
+[OK] C:\Temp\SantanderSupportWebV2_PROD\modules\devices-intune\script.js
+[OK] C:\Temp\SantanderSupportWebV2_PROD\modules\devices-intune\page.html
+
+------------ API.PS1 ------------
+[OK] switch($action) encontrado
+[OK] action listDevices encontrada
+[INFO] listDevices aparece depois do switch
+[OK] Consulta Intune encontrada
+[ERRO] Sintaxe PowerShell inválida
+Exception calling "Create" with "1" argument(s): "At line:655 char:15
++ "listDevices" {
++               ~
+Unexpected token '{' in expression or statement."
+
+------------ PAGE.HTML ------------
+[OK] HTML contém devicesIntuneTipoFiltro
+[OK] HTML contém devicesIntuneComplianceFiltro
+[OK] HTML contém devicesIntuneQuery
+[OK] HTML contém devicesIntuneResumo
+[OK] HTML contém devicesIntuneResultado
+
+------------ SCRIPT.JS ------------
+[OK] Função encontrada: devicesIntunePesquisarTodos
+[OK] Função encontrada: devicesIntunePesquisar
+[OK] Função encontrada: devicesIntuneRender
+[OK] Função encontrada: devicesIntuneApi
+
+Elementos HTML usados pelo JS
+[OK] devicesIntuneProgress
+[OK] devicesIntuneProgressBar
+[OK] devicesIntuneProgressText
+[OK] devicesIntuneProgressPercent
+[OK] devicesIntuneProgress
+[OK] devicesIntuneStatus
+[OK] devicesIntuneQuery
+[OK] devicesIntuneResumo
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResumo
+[OK] devicesIntuneResultado
+[OK] devicesIntuneQuery
+[OK] devicesIntuneStatus
+[OK] devicesIntuneResumo
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResultado
+[OK] devicesIntuneStatus
+[OK] devicesIntuneCsvFile
+[OK] devicesIntuneCsvInfo
+[OK] devicesIntuneCsvPreview
+[OK] devicesIntuneResumo
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResumo
+[OK] devicesIntuneResultado
+[OK] devicesIntuneCsvFile
+[OK] devicesIntuneCsvInfo
+[OK] devicesIntuneCsvPreview
+[OK] devicesIntuneFiltrosPanel
+[OK] devicesIntuneSelecionadosInfo
+[OK] devicesIntuneFiltroSO
+[OK] devicesIntuneFiltroTipoEquipamento
+[OK] devicesIntuneFiltroSync
+[OK] devicesIntuneFiltroTipoEquipamento
+[OK] devicesIntuneFiltroSO
+[OK] devicesIntuneFiltroSync
+[OK] devicesIntuneResumo
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResumo
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResultado
+[OK] devicesIntuneResultado
+[OK] devicesIntuneApprovalResultado
+[OK] devicesIntuneResultado
+[OK] devicesIntuneMaaMonitorResultado
+
+------------ GRAPH ------------
+[OK] Scope encontrada: Device.Read.All
+[OK] Scope encontrada: DeviceManagementManagedDevices.Read.All
+[OK] Scope encontrada: Directory.Read.All
+
+==================================================
+FIM DO DIAGNOSTICO
+==================================================

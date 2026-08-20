@@ -1,0 +1,8 @@
+{
+  "name": "Conformidade Mobile",
+  "description": "Análise de dispositivos móveis em carência e não conformes, com diagnóstico Harmony.",
+  "icon": "mobile",
+  "category": "Intune",
+  "version": "2.3.0",
+  "serviceNowUrl": "https://santander.service-now.com/itsm?id=sc_cat_item&sys_id=3bc65c23db79c0d4f1024dc2ba9619a7&sysparm_category=6f044c7c1b1945505ae05532604bcb04"
+}

@@ -1,0 +1,7 @@
+{
+  "id": "devices-intune",
+  "name": "Devices Intune",
+  "icon": "💻",
+  "category": "Ferramentas",
+  "description": "Consulta de dispositivos vinculados no Intune por utilizador, UPN, email, nome do device ou número de série."
+}

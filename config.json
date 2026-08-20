@@ -1,0 +1,16 @@
+{
+    "appName":  "Santander Support Web V2",
+    "environment":  "production",
+    "useMock":  false,
+    "port":  8080,
+    "version":  "2.3.0-PROD",
+    "build":  "2026.08.03",
+    "releaseName":  "Auditoria de Segurança e Estabilidade V1",
+    "moduleSettings": {
+        "criacaoUserMeu": {
+            "manualMfaPath": "C:\\Temp\\SantanderSupportWebV2_PROD\\files\\Manual_MFA.pdf",
+            "defaultCc": "pessoasecultura.contratacao@santander.pt",
+            "e3Group": "GR_PT_M365_E3"
+        }
+    }
+}

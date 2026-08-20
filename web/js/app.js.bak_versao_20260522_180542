@@ -1,0 +1,179 @@
+﻿let todosModulos = [];
+
+async function carregarDashboard() {
+    document.getElementById("pageTitle").innerText = "Dashboard";
+    document.getElementById("pageSubtitle").innerText = "Visão geral do ambiente Santander Support Web";
+
+    document.getElementById("content").innerHTML = `
+        <div class="dashboard-grid">
+
+            <div class="dashboard-card dashboard-hero">
+                <div>
+                    <span class="dashboard-label">Plataforma operacional</span>
+                    <h2>Santander Support Web V2</h2>
+                    <p>
+                        Sistema modular preparado para centralizar ferramentas de suporte,
+                        com separação por módulos e ambiente seguro de homologação.
+                    </p>
+                </div>
+
+                <div class="dashboard-logo-box">
+                    S
+                </div>
+            </div>
+
+            <div class="dashboard-card status-card">
+                <span class="dashboard-label">Ambiente</span>
+                <h3>Homologação</h3>
+                <p>Testes locais sem ligação real ao Exchange, Azure ou Graph.</p>
+                <div class="status-pill warning">MOCK ATIVO</div>
+            </div>
+
+            <div class="dashboard-card status-card">
+                <span class="dashboard-label">Arquitetura</span>
+                <h3>Modular</h3>
+                <p>Cada ferramenta fica isolada para reduzir impacto em produção.</p>
+                <div class="status-pill success">V2</div>
+            </div>
+
+            <div class="dashboard-card status-card">
+                <span class="dashboard-label">Ferramentas</span>
+                <h3 id="dashboardModuleCount">Carregando...</h3>
+                <p>Módulos disponíveis no sistema.</p>
+                <button class="dashboard-action" onclick="carregarFerramentas()">
+                    Abrir ferramentas →
+                </button>
+            </div>
+
+        </div>
+
+        <div class="card">
+            <h2>Resumo técnico</h2>
+
+            <div class="summary-list">
+                <div>
+                    <strong>Modo atual</strong>
+                    <span>Homologação / Mock</span>
+                </div>
+
+                <div>
+                    <strong>Objetivo</strong>
+                    <span>Validar telas, navegação e estrutura sem depender dos serviços corporativos.</span>
+                </div>
+
+                <div>
+                    <strong>Manutenção</strong>
+                    <span>Novas ferramentas devem ser criadas dentro da pasta modules.</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+    await atualizarContadorDashboard();
+}
+
+async function carregarModulos() {
+    const response = await fetch("/api/modules");
+    const data = await response.json();
+
+    if (data.success) {
+        todosModulos = Array.isArray(data.modules) ? data.modules : [data.modules];
+    }
+}
+
+async function carregarFerramentas() {
+    document.getElementById("pageTitle").innerText = "Ferramentas";
+    document.getElementById("pageSubtitle").innerText = "Módulos operacionais disponíveis";
+
+    await carregarModulos();
+
+    let html = `
+        <div class="card">
+            <h2>Ferramentas</h2>
+            <p>Selecione abaixo a ferramenta que deseja utilizar.</p>
+
+            <div class="module-grid">
+    `;
+
+    todosModulos.forEach(modulo => {
+        html += `
+            <div class="module-card" onclick="abrirModulo('${modulo.name}', '${modulo.title}', '${modulo.description}')">
+                <div class="module-icon module-title-badge">${modulo.title}</div>
+
+                <p>${modulo.description}</p>
+
+                <div class="module-footer">
+                    <span class="module-tag">${modulo.category}</span>
+                    <span class="module-open">Abrir →</span>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+    `;
+
+    document.getElementById("content").innerHTML = html;
+}
+
+async function abrirModulo(moduleName, title, description) {
+    document.getElementById("pageTitle").innerText = title;
+    document.getElementById("pageSubtitle").innerText = description;
+
+    const pageResponse = await fetch(`/module/${moduleName}/page`);
+    const html = await pageResponse.text();
+
+    document.getElementById("content").innerHTML = html;
+
+    await carregarScriptModulo(moduleName);
+}
+
+async function carregarScriptModulo(moduleName) {
+    const oldScript = document.getElementById("module-script");
+
+    if (oldScript) {
+        oldScript.remove();
+    }
+
+    const script = document.createElement("script");
+    script.id = "module-script";
+    script.src = `/module/${moduleName}/script?v=${Date.now()}`;
+
+    document.body.appendChild(script);
+}
+
+async function abrirDebug() {
+    document.getElementById("pageTitle").innerText = "Debug";
+    document.getElementById("pageSubtitle").innerText = "Logs do servidor";
+
+    const response = await fetch("/api/debug");
+    const data = await response.json();
+
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Debug da aplicação</h2>
+            <p><strong>Ambiente:</strong> ${data.environment}</p>
+            <p><strong>UseMock:</strong> ${data.useMock}</p>
+            <p><strong>AppRoot:</strong> ${data.appRoot}</p>
+        </div>
+
+        <div class="card">
+            <h2>Últimos logs</h2>
+            <pre>${data.logs.join("\n")}</pre>
+        </div>
+    `;
+}
+
+function mostrarAmbiente() {
+    document.getElementById("environmentBadge").innerHTML = `
+        <span class="badge badge-homolog">HOMOLOG / MOCK</span>
+    `;
+}
+
+mostrarAmbiente();
+carregarDashboard();
+carregarModulos();
+
+

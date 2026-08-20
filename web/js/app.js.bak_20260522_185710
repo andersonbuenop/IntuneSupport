@@ -1,0 +1,202 @@
+﻿let todosModulos = [];
+
+async function carregarDashboard() {
+    document.getElementById("pageTitle").innerText = "Dashboard";
+    document.getElementById("pageSubtitle").innerText = "Visão geral do ambiente Santander Support Web";
+
+    await carregarModulos();
+
+    const totalModulos = Array.isArray(todosModulos) ? todosModulos.length : 0;
+
+    document.getElementById("content").innerHTML = `
+        <div class="dashboard-hero-final">
+            <div class="hero-red-line"></div>
+
+            <div>
+                <span class="dashboard-label-red">PLATAFORMA OPERACIONAL</span>
+                <h2>Santander Support Web V2</h2>
+                <p>
+                    Sistema modular preparado para centralizar ferramentas de suporte,
+                    com separação por módulos e ambiente seguro de Produção.
+                </p>
+            </div>
+
+            <div class="santander-symbol">
+                <div class="flame flame-1"></div>
+                <div class="flame flame-2"></div>
+                <div class="flame flame-3"></div>
+                <div class="symbol-base"></div>
+            </div>
+        </div>
+
+        <div class="dashboard-status-grid">
+            <div class="status-card-final">
+                <div class="status-icon red">♢</div>
+                <div>
+                    <span>AMBIENTE</span>
+                    <h3 class="red-text">Produção</h3>
+                    <p>Ambiente real com ligação aos serviços corporativos.</p>
+                    <strong class="pill-yellow">● SERVIÇOS REAIS</strong>
+                </div>
+            </div>
+
+            <div class="status-card-final">
+                <div class="status-icon green">🧩</div>
+                <div>
+                    <span>VERSÃO</span>
+                    <h3 class="green-text">2.0.0-PROD</h3>
+                    <p>Base Modular V2</p>
+                    <strong class="pill-green">● BUILD 2026.05.22</strong>
+                </div>
+            </div>
+
+            <div class="status-card-final">
+                <div class="status-icon blue">□</div>
+                <div>
+                    <span>FERRAMENTAS</span>
+                    <h3 class="blue-text">${totalModulos} módulo(s)</h3>
+                    <p>Módulos disponíveis no sistema.</p>
+                    <button class="btn-red-dashboard" onclick="carregarFerramentas()">
+                        Abrir ferramentas →
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="resumo-card-final">
+            <div class="resumo-title">
+                <div class="resumo-icon">▤</div>
+                <h3>RESUMO TÉCNICO</h3>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">▣</div>
+                <strong>Modo atual</strong>
+                <span>Produção / Mock</span>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">◎</div>
+                <strong>Objetivo</strong>
+                <span>Executar ferramentas reais em ambiente de produção.</span>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">□</div>
+                <strong>Manutenção</strong>
+                <span>Novas ferramentas devem ser criadas dentro da pasta modules.</span>
+            </div>
+
+            <div class="resumo-row">
+                <div class="resumo-row-icon">ⓘ</div>
+                <strong>Versão</strong>
+                <span>2.0.0-PROD — Base Modular V2 — Build 2026.05.22</span>
+            </div>
+        </div>
+    `;
+}
+
+async function carregarModulos() {
+    try {
+        const response = await fetch("/api/modules");
+        const data = await response.json();
+
+        if (data.success) {
+            todosModulos = Array.isArray(data.modules) ? data.modules : [data.modules];
+        }
+    } catch {
+        todosModulos = [];
+    }
+}
+
+async function carregarFerramentas() {
+    document.getElementById("pageTitle").innerText = "Ferramentas";
+    document.getElementById("pageSubtitle").innerText = "Módulos operacionais disponíveis";
+
+    await carregarModulos();
+
+    let html = `
+        <div class="card">
+            <h2>Ferramentas</h2>
+            <p>Selecione abaixo a ferramenta que deseja utilizar.</p>
+            <div class="module-grid">
+    `;
+
+    todosModulos.forEach(modulo => {
+        html += `
+            <div class="module-card" onclick="abrirModulo('${modulo.name}', '${modulo.title}', '${modulo.description}')">
+                <div class="module-icon module-title-badge">${modulo.title}</div>
+                <p>${modulo.description}</p>
+                <div class="module-footer">
+                    <span class="module-tag">${modulo.category}</span>
+                    <span class="module-open">Abrir →</span>
+                </div>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+    `;
+
+    document.getElementById("content").innerHTML = html;
+}
+
+async function abrirModulo(moduleName, title, description) {
+    document.getElementById("pageTitle").innerText = title;
+    document.getElementById("pageSubtitle").innerText = description;
+
+    const pageResponse = await fetch(`/module/${moduleName}/page`);
+    const html = await pageResponse.text();
+
+    document.getElementById("content").innerHTML = html;
+
+    await carregarScriptModulo(moduleName);
+}
+
+async function carregarScriptModulo(moduleName) {
+    const oldScript = document.getElementById("module-script");
+
+    if (oldScript) {
+        oldScript.remove();
+    }
+
+    const script = document.createElement("script");
+    script.id = "module-script";
+    script.src = `/module/${moduleName}/script?v=${Date.now()}`;
+
+    document.body.appendChild(script);
+}
+
+async function abrirDebug() {
+    document.getElementById("pageTitle").innerText = "Debug";
+    document.getElementById("pageSubtitle").innerText = "Logs do servidor";
+
+    const response = await fetch("/api/debug");
+    const data = await response.json();
+
+    document.getElementById("content").innerHTML = `
+        <div class="card">
+            <h2>Debug da aplicação</h2>
+            <p><strong>Ambiente:</strong> ${data.environment}</p>
+            <p><strong>UseMock:</strong> ${data.useMock}</p>
+            <p><strong>AppRoot:</strong> ${data.appRoot}</p>
+        </div>
+
+        <div class="card">
+            <h2>Últimos logs</h2>
+            <pre>${data.logs.join("\n")}</pre>
+        </div>
+    `;
+}
+
+function mostrarAmbiente() {
+    document.getElementById("environmentBadge").innerHTML = `
+        <span class="badge badge-PROD">PROD / MOCK</span>
+    `;
+}
+
+mostrarAmbiente();
+carregarDashboard();
+

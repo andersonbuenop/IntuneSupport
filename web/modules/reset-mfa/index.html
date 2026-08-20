@@ -1,0 +1,77 @@
+﻿<div class="welcome-box">
+
+    <h2>Reset MFA</h2>
+    <p>Ferramenta para reset de métodos MFA via Microsoft Graph.</p>
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <h5>Sessão Microsoft Graph</h5>
+            <hr>
+
+            <div id="resetMfaGraphStatus">
+                Verificando sessão...
+            </div>
+
+            <br>
+
+            <button class="btn btn-danger" onclick="conectarGraphResetMFA()">
+                Conectar Graph
+            </button>
+
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <h5>Pesquisar Utilizador</h5>
+            <hr>
+
+            <label>UPN / Email / Username</label>
+            <input 
+                type="text" 
+                id="resetMfaUserInput" 
+                class="form-control" 
+                placeholder="exemplo: utilizador@corp.santander.pt">
+
+            <br>
+
+            <button class="btn btn-primary" onclick="pesquisarUtilizadorResetMFA()">
+                Pesquisar
+            </button>
+
+            <button class="btn btn-secondary" onclick="limparResetMFA()">
+                Limpar
+            </button>
+
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <h5>Resultado</h5>
+            <hr>
+
+            <div id="resetMfaResultado">
+                Nenhum utilizador pesquisado.
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <h5>Logs</h5>
+            <hr>
+
+            <pre id="resetMfaLogs" style="background:#111;color:#0f0;padding:15px;border-radius:8px;min-height:180px;">
+Aguardando operação...
+            </pre>
+
+        </div>
+    </div>
+
+</div>

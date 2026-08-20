@@ -1,0 +1,30 @@
+﻿<div class="module-page devices-intune-page">
+
+    <div class="card">
+        <div class="card-header">
+            <h2>💻 Devices Intune</h2>
+            <p>Pesquisa dispositivos Intune por utilizador, UPN, email, nome do equipamento, serial number, IMEI ou Azure Device ID.</p>
+        </div>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Pesquisar</label>
+                <input id="devicesIntuneQuery"
+                       class="form-control"
+                       placeholder="Ex: e868019, user@corp.santander.pt, serial number, iPhone, Android, device name">
+            </div>
+        </div>
+
+        <div class="button-row">
+            <button class="btn btn-primary" onclick="devicesIntunePesquisar()">Pesquisar</button>
+            <button class="btn btn-secondary" onclick="devicesIntuneLimpar()">Limpar</button>
+            <button class="btn btn-secondary" onclick="devicesIntuneExportCsv()">Exportar CSV</button>
+            <button class="btn btn-secondary" onclick="devicesIntuneExportHtml()">Exportar HTML</button>
+        </div>
+    </div>
+
+    <div id="devicesIntuneStatus"></div>
+    <div id="devicesIntuneResumo"></div>
+    <div id="devicesIntuneResultado"></div>
+
+</div>
