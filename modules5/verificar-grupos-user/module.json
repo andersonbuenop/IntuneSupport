@@ -1,0 +1,14 @@
+{
+  "id": "verificar-grupos-user",
+  "name": "verificar-grupos-user",
+  "module": "verificar-grupos-user",
+  "title": "Verificar Grupo de Acesso User",
+  "description": "Consulta os grupos de acesso do utilizador no Entra ID / Azure AD.",
+  "category": "Ferramentas",
+  "icon": "users",
+  "enabled": true,
+  "order": 95,
+  "page": "page.html",
+  "script": "script.js",
+  "api": "api.ps1"
+}

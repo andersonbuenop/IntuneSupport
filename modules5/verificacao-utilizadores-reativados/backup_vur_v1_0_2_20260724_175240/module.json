@@ -1,0 +1,13 @@
+﻿{
+  "id": "verificacao-utilizadores-reativados",
+  "name": "Verificação de Utilizadores Reativados",
+  "description": "Diagnóstico híbrido AD, Exchange on-premises, Entra ID e Exchange Online para utilizadores reativados.",
+  "version": "1.0.0",
+  "category": "Exchange",
+  "icon": "fa-user-check",
+  "page": "page.html",
+  "script": "script.js",
+  "style": "style.css",
+  "api": "api.ps1",
+  "enabled": true
+}

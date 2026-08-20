@@ -1,0 +1,222 @@
+﻿<div class="module-page verificar-grupos-user-page">
+
+    <div class="module-header">
+        <div>
+            <h1>Verificar Grupo de Acesso User</h1>
+            <p>Consulta os grupos de acesso do utilizador no Entra ID / Azure AD.</p>
+        </div>
+    </div>
+
+    <div class="card santander-card">
+        <div class="card-header">
+            <h2>Pesquisar utilizador</h2>
+        </div>
+
+        <div class="card-body">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="vguUser">Utilizador / UPN / Email</label>
+                    <input 
+                        type="text" 
+                        id="vguUser" 
+                        class="form-control" 
+                        placeholder="Ex: E868019 ou utilizador@corp.santander.pt">
+                </div>
+
+                <div class="form-group form-actions">
+                    <button class="btn btn-primary" onclick="vguConsultar()">Consultar grupos</button>
+                    <button class="btn btn-secondary" onclick="vguConectarAzure()">Conectar Azure</button>
+                    <button class="btn btn-secondary" onclick="vguLimpar()">Limpar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="vguMensagem"></div>
+
+    <div id="vguResumo" class="vgu-cards" style="display:none;">
+        <div class="vgu-card">
+            <div class="vgu-card-title">Total</div>
+            <div class="vgu-card-value" id="vguTotal">0</div>
+        </div>
+
+        <div class="vgu-card">
+            <div class="vgu-card-title">Security</div>
+            <div class="vgu-card-value" id="vguSecurity">0</div>
+        </div>
+
+        <div class="vgu-card">
+            <div class="vgu-card-title">Microsoft 365</div>
+            <div class="vgu-card-value" id="vguM365">0</div>
+        </div>
+
+        <div class="vgu-card">
+            <div class="vgu-card-title">Mail Security</div>
+            <div class="vgu-card-value" id="vguMailSecurity">0</div>
+        </div>
+
+        <div class="vgu-card">
+            <div class="vgu-card-title">Distribution</div>
+            <div class="vgu-card-value" id="vguDistribution">0</div>
+        </div>
+    </div>
+
+    <div id="vguUserInfo" class="card santander-card" style="display:none;">
+        <div class="card-header">
+            <h2>Dados do utilizador</h2>
+        </div>
+
+        <div class="card-body">
+            <div id="vguUserInfoBody"></div>
+        </div>
+    </div>
+
+    <div id="vguFerramentas" class="card santander-card" style="display:none;">
+        <div class="card-header">
+            <h2>Filtros e exportação</h2>
+        </div>
+
+        <div class="card-body">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Pesquisar grupo</label>
+                    <input 
+                        id="vguFiltroTexto" 
+                        class="form-control" 
+                        type="text" 
+                        placeholder="Pesquisar por nome, tipo, email ou ID"
+                        oninput="vguAplicarFiltros()">
+                </div>
+
+                <div class="form-group">
+                    <label>Tipo</label>
+                    <select id="vguFiltroTipo" class="form-control" onchange="vguAplicarFiltros()">
+                        <option value="">Todos</option>
+                        <option value="Security">Security</option>
+                        <option value="Microsoft 365">Microsoft 365</option>
+                        <option value="Mail Enabled Security">Mail Enabled Security</option>
+                        <option value="Distribution">Distribution</option>
+                        <option value="Outro">Outro</option>
+                    </select>
+                </div>
+
+                <div class="form-group form-actions">
+                    <button class="btn btn-secondary" onclick="vguExportarCsv()">Exportar CSV</button>
+                    <button class="btn btn-secondary" onclick="vguExportarHtml()">Exportar HTML</button>
+                    <button class="btn btn-secondary" onclick="vguCopiarGrupos()">Copiar grupos</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="vguResultado" class="card santander-card" style="display:none;">
+        <div class="card-header">
+            <h2>Grupos encontrados</h2>
+        </div>
+
+        <div class="card-body">
+            <div id="vguContadorTabela"></div>
+
+            <div class="table-responsive">
+                <table class="table" id="vguTabela">
+                    <thead>
+                        <tr>
+                            <th>Grupo</th>
+                            <th>Tipo</th>
+                            <th>Email</th>
+                            <th>ID</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vguTabelaBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+.vgu-cards {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(140px, 1fr));
+    gap: 16px;
+    margin: 18px 0;
+}
+
+.vgu-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 18px;
+    border-left: 6px solid #e00000;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+}
+
+.vgu-card-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+}
+
+.vgu-card-value {
+    font-size: 30px;
+    font-weight: 800;
+    color: #111;
+    margin-top: 8px;
+}
+
+.vgu-badge {
+    display: inline-block;
+    padding: 4px 9px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    background: #eee;
+}
+
+.vgu-badge-security {
+    background: #ffe1e1;
+    color: #b00000;
+}
+
+.vgu-badge-m365 {
+    background: #e6f0ff;
+    color: #004ea8;
+}
+
+.vgu-badge-mail {
+    background: #fff0d6;
+    color: #9a5a00;
+}
+
+.vgu-badge-distribution {
+    background: #e7f7e7;
+    color: #176b17;
+}
+
+.vgu-user-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.vgu-user-item {
+    padding: 10px;
+    background: #fafafa;
+    border-radius: 8px;
+}
+
+#vguContadorTabela {
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+@media (max-width: 900px) {
+    .vgu-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .vgu-user-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

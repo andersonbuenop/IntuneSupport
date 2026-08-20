@@ -1,0 +1,98 @@
+﻿<div class="vur-shell" id="vurApp">
+  <section class="vur-header">
+    <div>
+      <div class="vur-kicker">EXCHANGE HÍBRIDO</div>
+      <h1>Verificação de Utilizadores Reativados</h1>
+      <p>Diagnóstico em modo somente leitura entre Active Directory, Exchange on-premises, Entra ID e Exchange Online.</p>
+    </div>
+    <div class="vur-version">V1.0</div>
+  </section>
+
+  <section class="vur-panel">
+    <div class="vur-search-grid">
+      <label class="vur-field">
+        <span>Utilizador</span>
+        <input id="vurIdentity" type="text" autocomplete="off"
+          placeholder="UPN, e-mail, sAMAccountName ou nome" />
+      </label>
+      <button class="vur-btn vur-btn-primary" id="vurSearchBtn" type="button">
+        Verificar utilizador
+      </button>
+      <button class="vur-btn" id="vurStatusBtn" type="button">
+        Verificar ligações
+      </button>
+      <button class="vur-btn" id="vurClearBtn" type="button">
+        Limpar
+      </button>
+    </div>
+
+    <div class="vur-progress-wrap" id="vurProgressWrap" hidden>
+      <div class="vur-progress-bar"><div id="vurProgressBar"></div></div>
+      <div id="vurProgressText">A iniciar diagnóstico...</div>
+    </div>
+
+    <div class="vur-connection-row" id="vurConnections">
+      <div class="vur-connection" data-key="ad"><span></span>AD local</div>
+      <div class="vur-connection" data-key="exchangeOnPrem"><span></span>Exchange on-premises</div>
+      <div class="vur-connection" data-key="graph"><span></span>Microsoft Graph</div>
+      <div class="vur-connection" data-key="exchangeOnline"><span></span>Exchange Online</div>
+    </div>
+  </section>
+
+  <section class="vur-summary" id="vurSummary" hidden>
+    <article class="vur-card"><div>Resultado</div><strong id="vurOverallStatus">—</strong></article>
+    <article class="vur-card"><div>AD local</div><strong id="vurAdStatus">—</strong></article>
+    <article class="vur-card"><div>Exchange local</div><strong id="vurOnPremStatus">—</strong></article>
+    <article class="vur-card"><div>Entra ID</div><strong id="vurEntraStatus">—</strong></article>
+    <article class="vur-card"><div>Exchange Online</div><strong id="vurExoStatus">—</strong></article>
+    <article class="vur-card"><div>ExchangeGuid</div><strong id="vurGuidStatus">—</strong></article>
+  </section>
+
+  <section class="vur-panel" id="vurDiagnosisPanel" hidden>
+    <div class="vur-section-head">
+      <div>
+        <h2>Diagnóstico</h2>
+        <p id="vurDiagnosisHeadline"></p>
+      </div>
+      <div class="vur-actions">
+        <button class="vur-btn" id="vurCopyDiagnosisBtn" type="button">Copiar diagnóstico</button>
+        <button class="vur-btn" id="vurCopyCommandsBtn" type="button">Copiar comandos</button>
+      </div>
+    </div>
+
+    <div class="vur-alert-list" id="vurFindings"></div>
+
+    <h3>Comparação dos atributos</h3>
+    <div class="vur-table-wrap">
+      <table class="vur-table">
+        <thead>
+          <tr>
+            <th>Atributo</th>
+            <th>AD local</th>
+            <th>Exchange on-premises</th>
+            <th>Entra ID</th>
+            <th>Exchange Online</th>
+            <th>Resultado</th>
+          </tr>
+        </thead>
+        <tbody id="vurComparisonBody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="vur-panel" id="vurDetailsPanel" hidden>
+    <h2>Detalhes técnicos</h2>
+    <div class="vur-details-grid">
+      <article><h3>Active Directory</h3><pre id="vurAdDetails"></pre></article>
+      <article><h3>Exchange on-premises</h3><pre id="vurOnPremDetails"></pre></article>
+      <article><h3>Entra ID</h3><pre id="vurEntraDetails"></pre></article>
+      <article><h3>Exchange Online</h3><pre id="vurExoDetails"></pre></article>
+    </div>
+  </section>
+
+  <section class="vur-panel" id="vurCommandsPanel" hidden>
+    <h2>Correção recomendada</h2>
+    <p class="vur-warning">Os comandos abaixo não são executados automaticamente. Valide o diagnóstico antes de aplicar qualquer alteração.</p>
+    <pre id="vurCommands"></pre>
+  </section>
+</div>
