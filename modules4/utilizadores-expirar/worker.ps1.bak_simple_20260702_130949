@@ -1,0 +1,197 @@
+param(
+    [string]$PayloadPath
+)
+
+$ErrorActionPreference = "Stop"
+
+function Write-State {
+    param($Path, $State)
+    $tmp = "$Path.tmp"
+    $State | ConvertTo-Json -Depth 60 | Set-Content $tmp -Encoding UTF8
+    Move-Item $tmp $Path -Force
+}
+
+function To-FileTime {
+    param([datetime]$Date)
+    return $Date.ToUniversalTime().ToFileTime()
+}
+
+function Normalize-Date {
+    param($Value, [bool]$EndOfDay = $false)
+    if ([string]::IsNullOrWhiteSpace($Value)) { return $null }
+    $d = [datetime]::Parse($Value)
+    if ($EndOfDay) { return $d.Date.AddDays(1).AddSeconds(-1) }
+    return $d.Date
+}
+
+function Publish {
+    param(
+        $StatePath,$JobId,$Status,$Percent,$Current,$Domain,$User,$Processed,$Data,$Started,$ErrorMessage=$null
+    )
+
+    $elapsed = (Get-Date) - $Started
+    $seconds = [math]::Max(1,[int]$elapsed.TotalSeconds)
+
+    $expired = 0
+    $today = 0
+    $seven = 0
+    $thirty = 0
+
+    foreach ($i in $Data) {
+        $d = [int]$i.DiasParaExpirar
+        if ($d -lt 0) { $expired++ }
+        elseif ($d -eq 0) { $today++ }
+        elseif ($d -le 7) { $seven++ }
+        elseif ($d -le 30) { $thirty++ }
+    }
+
+    Write-State $StatePath @{
+        success = ($Status -ne "error")
+        jobId = $JobId
+        status = $Status
+        percent = $Percent
+        current = $Current
+        currentDomain = $Domain
+        currentUser = $User
+        processed = $Processed
+        found = @($Data).Count
+        elapsed = ("{0:hh\:mm\:ss}" -f $elapsed)
+        speed = [math]::Round($Processed / $seconds, 2)
+        data = @($Data | Sort-Object AccountExpires)
+        stats = @{
+            total = @($Data).Count
+            expired = $expired
+            today = $today
+            sevenDays = $seven
+            thirtyDays = $thirty
+        }
+        error = $ErrorMessage
+        startedAt = $Started.ToString("yyyy-MM-dd HH:mm:ss")
+        finishedAt = if ($Status -in @("done","error","cancelled")) { (Get-Date).ToString("yyyy-MM-dd HH:mm:ss") } else { $null }
+    }
+}
+
+try {
+    Import-Module ActiveDirectory -ErrorAction Stop
+
+    $Payload = Get-Content $PayloadPath -Raw | ConvertFrom-Json
+
+    $JobId = $Payload.jobId
+    $StatePath = $Payload.statePath
+    $User = $Payload.user
+    $Date = $Payload.date
+    $DateFrom = $Payload.dateFrom
+    $DateTo = $Payload.dateTo
+
+    $Started = Get-Date
+    $Data = New-Object System.Collections.Generic.List[object]
+    $Processed = 0
+
+    if (-not [string]::IsNullOrWhiteSpace($Date)) {
+        $StartDate = Normalize-Date $Date $false
+        $EndDate = Normalize-Date $Date $true
+    } else {
+        $StartDate = Normalize-Date $DateFrom $false
+        $EndDate = Normalize-Date $DateTo $true
+    }
+
+    $Domains = @(
+        @{ Name = "central.rinterna.local"; Server = "central.rinterna.local"; Base = 0 },
+        @{ Name = "rede.rinterna.local"; Server = "rede.rinterna.local"; Base = 50 }
+    )
+
+    foreach ($D in $Domains) {
+        $DomainName = $D.Name
+        $Server = $D.Server
+        $Base = [int]$D.Base
+
+        Publish $StatePath $JobId "running" ($Base + 5) "A consultar $DomainName..." $DomainName "" $Processed $Data $Started
+
+        $ldapParts = @(
+            "(&(objectCategory=person)(objectClass=user)"
+            "(!(accountExpires=0))"
+            "(!(accountExpires=9223372036854775807))"
+        )
+
+        if ($StartDate) {
+            $ldapParts += "(accountExpires>=$(To-FileTime $StartDate))"
+        }
+
+        if ($EndDate) {
+            $ldapParts += "(accountExpires<=$(To-FileTime $EndDate))"
+        }
+
+        if (-not [string]::IsNullOrWhiteSpace($User)) {
+            $u = $User.Replace("\","\5c").Replace("*","\2a").Replace("(","\28").Replace(")","\29")
+            $ldapParts += "(|(sAMAccountName=*$u*)(userPrincipalName=*$u*)(displayName=*$u*)(mail=*$u*)(name=*$u*))"
+        }
+
+        $ldapParts += ")"
+        $LDAPFilter = ($ldapParts -join "")
+
+        $Users = Get-ADUser `
+            -Server $Server `
+            -LDAPFilter $LDAPFilter `
+            -Properties DisplayName,UserPrincipalName,Mail,Enabled,AccountExpirationDate,accountExpires,Department,Title,Manager,whenCreated,DistinguishedName `
+            -ResultSetSize $null
+
+        $UsersArray = @($Users)
+        $Total = $UsersArray.Count
+        $Index = 0
+
+        foreach ($U in $UsersArray) {
+            $Index++
+            $Processed++
+
+            $ExpireDate = $U.AccountExpirationDate
+
+            if (-not $ExpireDate -and $U.accountExpires) {
+                try { $ExpireDate = [DateTime]::FromFileTimeUtc([int64]$U.accountExpires).ToLocalTime() } catch {}
+            }
+
+            if ($ExpireDate) {
+                $Days = [math]::Floor(($ExpireDate.Date - (Get-Date).Date).TotalDays)
+
+                $Estado = if ($Days -lt 0) { "Expirado" }
+                elseif ($Days -eq 0) { "Expira hoje" }
+                else { "A expirar" }
+
+                $Data.Add([pscustomobject]@{
+                    Dominio = $DomainName
+                    SamAccountName = $U.SamAccountName
+                    Nome = $U.DisplayName
+                    UserPrincipalName = $U.UserPrincipalName
+                    Email = $U.Mail
+                    Enabled = $U.Enabled
+                    Estado = $Estado
+                    AccountExpires = $ExpireDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    DiasParaExpirar = $Days
+                    Departamento = $U.Department
+                    Cargo = $U.Title
+                    Manager = $U.Manager
+                    CriadoEm = if ($U.whenCreated) { $U.whenCreated.ToString("yyyy-MM-dd HH:mm:ss") } else { $null }
+                    DistinguishedName = $U.DistinguishedName
+                })
+            }
+
+            $Percent = if ($Total -gt 0) {
+                $Base + [math]::Round(($Index / $Total) * 45)
+            } else {
+                $Base + 45
+            }
+
+            Publish $StatePath $JobId "running" ([math]::Min(98,$Percent)) "A carregar resultados de ${DomainName}: $Index de $Total..." $DomainName $U.SamAccountName $Processed $Data $Started
+        }
+
+        Publish $StatePath $JobId "running" ($Base + 49) "$DomainName concluído." $DomainName "" $Processed $Data $Started
+    }
+
+    Publish $StatePath $JobId "done" 100 "Consulta concluída." "" "" $Processed $Data $Started
+}
+catch {
+    try {
+        $Payload = Get-Content $PayloadPath -Raw | ConvertFrom-Json
+        Publish $Payload.statePath $Payload.jobId "error" 100 "Erro na consulta." "" "" 0 @() (Get-Date) $_.Exception.Message
+    } catch {}
+}
+

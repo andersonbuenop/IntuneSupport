@@ -1,0 +1,165 @@
+﻿<div class="ux-card">
+    <div class="ux-header">
+        <div>
+            <h2>⏳ Utilizadores a expirar</h2>
+            <p>Consulta utilizadores com <b>Account Expires</b> e permite notificação por email e abertura de ticket ServiceNow.</p>
+        </div>
+    </div>
+
+    <div class="ux-dashboard">
+        <div class="ux-stat"><span>Total</span><strong id="uxStatTotal">0</strong></div>
+        <div class="ux-stat danger"><span>Expirados</span><strong id="uxStatExpired">0</strong></div>
+        <div class="ux-stat warn"><span>Hoje</span><strong id="uxStatToday">0</strong></div>
+        <div class="ux-stat orange"><span>Até 7 dias</span><strong id="uxStat7">0</strong></div>
+        <div class="ux-stat blue"><span>Até 30 dias</span><strong id="uxStat30">0</strong></div>
+        <div class="ux-stat"><span>E8/E9</span><strong id="uxStatE8E9">0</strong></div>
+    </div>
+
+    <div class="ux-filters">
+        <div>
+            <label>Utilizador</label>
+            <input id="uxUser" type="text" placeholder="SamAccountName, UPN, nome ou email">
+        </div>
+
+        <div>
+            <label>Data específica</label>
+            <input id="uxDate" type="date">
+        </div>
+
+        <div>
+            <label>Data inicial</label>
+            <input id="uxDateFrom" type="date">
+        </div>
+
+        <div>
+            <label>Data final</label>
+            <input id="uxDateTo" type="date">
+        </div>
+
+        <div>
+            <label>Email teste</label>
+            <input id="uxTestEmail" type="email" placeholder="destinatario.teste@santander.pt">
+        </div>
+
+        <div class="ux-check">
+            <label>
+                <input id="uxOnlyE8E9" type="checkbox" checked>
+                Apenas utilizadores E8* e E9*
+            </label>
+        </div>
+
+        <div class="ux-actions">
+            <button class="ux-btn primary" onclick="uxSearch()">Consultar</button>
+            <button class="ux-btn danger-btn" onclick="uxCancel()">Cancelar</button>
+            <button class="ux-btn" onclick="uxClear()">Limpar</button>
+            <button class="ux-btn" onclick="uxExportCsv()">Exportar CSV</button>
+            <button class="ux-btn primary" onclick="uxSendAll()">Enviar email para todos E8/E9</button>
+        </div>
+    </div>
+
+    <div class="ux-info">
+        <b>CC fixo:</b>
+        santander.enduser@santander.pt;
+        jose.simoes@santander.pt;
+        maria.santosp@gruposantander.com
+        <br>
+        <b>Caixa remetente:</b> User.Action.Required@santander.pt
+    </div>
+
+    <div id="uxProgressBox" class="ux-progress-box" style="display:none;">
+        <div class="ux-progress-top">
+            <div>
+                <strong id="uxProgressText">A iniciar...</strong>
+                <div id="uxProgressSub">A aguardar início da consulta.</div>
+            </div>
+            <div id="uxProgressPercent">0%</div>
+        </div>
+
+        <div class="ux-progress-bar">
+            <div id="uxProgressFill"></div>
+        </div>
+
+        <div class="ux-progress-grid">
+            <div><span>Domínio</span><strong id="uxCurrentDomain">-</strong></div>
+            <div><span>Utilizador atual</span><strong id="uxCurrentUser">-</strong></div>
+            <div><span>Processados</span><strong id="uxProcessed">0</strong></div>
+            <div><span>Encontrados</span><strong id="uxFound">0</strong></div>
+            <div><span>Tempo</span><strong id="uxElapsed">00:00:00</strong></div>
+            <div><span>Velocidade</span><strong id="uxSpeed">0/s</strong></div>
+        </div>
+    </div>
+
+    <div id="uxSummary" class="ux-summary" style="display:none;"></div>
+
+    <div class="ux-table-wrap">
+        <table class="ux-table">
+            <thead>
+                <tr>
+                    <th>Ações</th>
+                    <th>Notificar</th>
+                    <th>Domínio</th>
+                    <th>Utilizador</th>
+                    <th>Nome</th>
+                    <th>UPN</th>
+                    <th>Email</th>
+                    <th>Manager</th>
+                    <th>Email Manager</th>
+                    <th>Estado AD</th>
+                    <th>Account Expires</th>
+                    <th>Dias</th>
+                    <th>Departamento</th>
+                    <th>Cargo</th>
+                    <th>Descrição</th>
+                    <th>DN</th>
+                </tr>
+            </thead>
+            <tbody id="uxTableBody">
+                <tr>
+                    <td colspan="16" class="ux-empty">Preencha os filtros e clique em Consultar.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+.ux-card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 8px 28px rgba(0,0,0,.08);border:1px solid #eee}
+.ux-header h2{margin:0;color:#b00020;font-size:24px}.ux-header p{margin-top:6px;color:#555}
+.ux-dashboard{display:grid;grid-template-columns:repeat(6,minmax(140px,1fr));gap:12px;margin-top:18px}
+.ux-stat{background:linear-gradient(180deg,#fff,#fafafa);border:1px solid #eee;border-radius:16px;padding:14px}
+.ux-stat span{display:block;color:#666;font-size:12px;font-weight:700;text-transform:uppercase}
+.ux-stat strong{display:block;margin-top:8px;font-size:28px;color:#222}
+.ux-stat.danger strong{color:#b00020}.ux-stat.warn strong{color:#c47a00}.ux-stat.orange strong{color:#e66a00}.ux-stat.blue strong{color:#0057a8}
+.ux-filters{display:grid;grid-template-columns:repeat(4,minmax(180px,1fr));gap:12px;margin-top:18px;align-items:end}
+.ux-filters label{display:block;font-weight:700;font-size:13px;margin-bottom:5px;color:#333}
+.ux-filters input{width:100%;padding:10px;border:1px solid #ddd;border-radius:10px;font-size:14px}
+.ux-check{padding:10px;background:#fafafa;border:1px solid #eee;border-radius:10px}
+.ux-check input{width:auto;margin-right:6px}
+.ux-actions{grid-column:1/-1;display:flex;gap:8px;flex-wrap:wrap}
+.ux-btn{border:1px solid #ddd;background:#f8f8f8;border-radius:10px;padding:9px 12px;cursor:pointer;font-weight:700;white-space:nowrap}
+.ux-btn.primary{background:#e4002b;border-color:#e4002b;color:#fff}
+.ux-btn.danger-btn{background:#fff1f3;border-color:#ffcbd3;color:#b00020}
+.ux-btn.small{font-size:12px;padding:7px 9px}
+.ux-info{margin-top:14px;background:#f8f8f8;border:1px solid #eee;border-radius:12px;padding:10px;font-size:13px;color:#333}
+.ux-progress-box{margin-top:16px;padding:14px;border-radius:16px;background:#fff5f6;border:1px solid #ffd6dc}
+.ux-progress-top{display:flex;justify-content:space-between;gap:12px;align-items:center}
+#uxProgressText{color:#5c0011}#uxProgressSub{margin-top:4px;color:#6d3b44;font-size:13px}
+#uxProgressPercent{font-size:30px;font-weight:900;color:#e4002b}
+.ux-progress-bar{width:100%;height:14px;background:#eee;border-radius:999px;overflow:hidden;margin-top:12px}
+#uxProgressFill{width:0%;height:100%;background:#e4002b;transition:width .3s ease}
+.ux-progress-grid{display:grid;grid-template-columns:repeat(6,minmax(120px,1fr));gap:10px;margin-top:14px}
+.ux-progress-grid div{background:#fff;border-radius:12px;padding:10px;border:1px solid #ffe0e5}
+.ux-progress-grid span{display:block;color:#777;font-size:12px;font-weight:700}
+.ux-progress-grid strong{display:block;margin-top:4px;color:#222;font-size:14px}
+.ux-summary{margin-top:16px;padding:12px;border-radius:12px;background:#f8f8f8;border:1px solid #eee;color:#333;font-weight:700}
+.ux-table-wrap{margin-top:16px;overflow:auto;border:1px solid #eee;border-radius:14px;max-height:640px}
+.ux-table{width:100%;border-collapse:collapse;font-size:13px}
+.ux-table th{position:sticky;top:0;z-index:2;background:#f6f6f6;color:#222;text-align:left;padding:10px;white-space:nowrap;border-bottom:1px solid #e5e5e5}
+.ux-table td{padding:9px 10px;border-bottom:1px solid #f0f0f0;vertical-align:top;white-space:nowrap}
+.ux-table tr:hover{background:#fafafa}.ux-empty{text-align:center;color:#777;padding:20px!important}
+.ux-badge{display:inline-block;padding:4px 8px;border-radius:999px;font-weight:800;font-size:12px;margin-bottom:4px}
+.ux-badge.ok{background:#eaf7ea;color:#126b20}.ux-badge.warn{background:#fff4d6;color:#8a5a00}.ux-badge.danger{background:#ffe1e5;color:#9b001b}.ux-badge.gray{background:#eee;color:#555}
+.ux-row-actions{display:flex;gap:6px;flex-wrap:wrap}
+@media(max-width:1100px){.ux-dashboard,.ux-progress-grid{grid-template-columns:repeat(2,1fr)}.ux-filters{grid-template-columns:1fr}}
+</style>
+

@@ -1,0 +1,13 @@
+{
+  "id": "utilizadores-expirar",
+  "name": "Utilizadores a expirar",
+  "title": "Utilizadores a expirar",
+  "description": "Relatório de utilizadores com Account Expires definido no Active Directory.",
+  "category": "Relatórios",
+  "icon": "⏳",
+  "order": 35,
+  "enabled": true,
+  "page": "page.html",
+  "script": "script.js",
+  "api": "api.ps1"
+}

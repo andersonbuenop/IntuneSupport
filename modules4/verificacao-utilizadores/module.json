@@ -1,0 +1,14 @@
+{
+  "id": "verificacao-utilizadores",
+  "module": "verificacao-utilizadores",
+  "name": "verificacao-utilizadores",
+  "title": "Verificação de Utilizadores",
+  "description": "Consulta utilizadores e pesquisa preventivamente contas criadas no AD, validando Azure, EXO, licença E3, arquivo, visibilidade nas listas e limite de destinatários.",
+  "category": "Ferramentas",
+  "order": 31,
+  "enabled": true,
+  "page": "page.html",
+  "script": "script.js",
+  "style": "style.css",
+  "api": "api.ps1"
+}

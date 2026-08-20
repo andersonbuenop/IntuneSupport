@@ -1,0 +1,259 @@
+param(
+    $Query = $null,
+    $Config = $null,
+    $Body = $null
+)
+
+$ErrorActionPreference = "Stop"
+
+$ModuleRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$JobsPath = Join-Path $ModuleRoot "jobs"
+New-Item -ItemType Directory -Force -Path $JobsPath | Out-Null
+
+$FromMailbox = "User.Action.Required@santander.pt"
+$FixedCc = "santander.enduser@santander.pt;jose.simoes@santander.pt;maria.santosp@gruposantander.com"
+
+function Send-Json { param($Obj) $Obj | ConvertTo-Json -Depth 80 -Compress }
+
+function Get-Param {
+    param([string]$Name)
+    if ($Body) {
+        try {
+            if ($Body -is [string]) {
+                $json = $Body | ConvertFrom-Json
+                if ($json.PSObject.Properties[$Name]) { return $json.$Name }
+            } elseif ($Body.PSObject.Properties[$Name]) {
+                return $Body.$Name
+            }
+        } catch {}
+    }
+    if ($Query -and $Query[$Name]) { return $Query[$Name] }
+    return $null
+}
+
+function Write-State {
+    param($Path, $State)
+    $tmp = "$Path.$([guid]::NewGuid()).tmp"
+    $State | ConvertTo-Json -Depth 80 | Set-Content $tmp -Encoding UTF8 -Force
+    Copy-Item $tmp $Path -Force
+    Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+}
+
+function Get-MailBody {
+    param($Row, [bool]$IsTest)
+
+    $testBanner = if ($IsTest) {
+        "<div style='background:#fff4d6;border:1px solid #f0c36d;color:#6b4b00;padding:12px;border-radius:8px;margin-bottom:16px;'><b>EMAIL DE TESTE</b><br>Este email foi enviado apenas para validação do conteúdo.</div>"
+    } else { "" }
+
+    $managerText = if ($Row.ManagerEmail) {
+        "Este aviso está a ser enviado ao utilizador e ao respetivo manager."
+    } else {
+        "Não foi identificado manager associado no Active Directory. O utilizador deverá contactar o seu manager para regularização."
+    }
+
+    return @"
+<html>
+<body style="margin:0;padding:0;background:#f4f5f7;font-family:Segoe UI,Arial,sans-serif;color:#222;">
+    <div style="max-width:760px;margin:24px auto;background:#ffffff;border-radius:14px;overflow:hidden;border:1px solid #e5e5e5;">
+        <div style="background:#e4002b;color:#ffffff;padding:20px 24px;">
+            <h2 style="margin:0;font-size:22px;">Ação necessária - Conta a expirar</h2>
+            <p style="margin:6px 0 0 0;font-size:14px;">Atualização de dados no Workday</p>
+        </div>
+
+        <div style="padding:24px;">
+            $testBanner
+
+            <p>Bom dia,</p>
+
+            <p>
+                Informamos que a conta abaixo tem uma data de expiração configurada no Active Directory.
+                Para evitar o bloqueio do acesso, é necessário que as informações do utilizador sejam revistas e atualizadas no <b>Workday</b>.
+            </p>
+
+            <div style="background:#fafafa;border:1px solid #eeeeee;border-radius:12px;padding:16px;margin:18px 0;">
+                <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                    <tr>
+                        <td style="padding:8px 0;color:#666;width:190px;"><b>Utilizador</b></td>
+                        <td style="padding:8px 0;">$($Row.SamAccountName)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 0;color:#666;"><b>Nome</b></td>
+                        <td style="padding:8px 0;">$($Row.Nome)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 0;color:#666;"><b>Email</b></td>
+                        <td style="padding:8px 0;">$($Row.Email)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 0;color:#666;"><b>Manager</b></td>
+                        <td style="padding:8px 0;">$($Row.Manager)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 0;color:#666;"><b>Data de expiração</b></td>
+                        <td style="padding:8px 0;color:#b00020;"><b>$($Row.AccountExpires)</b></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 0;color:#666;"><b>Dias para expirar</b></td>
+                        <td style="padding:8px 0;"><b>$($Row.DiasParaExpirar)</b></td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 0;color:#666;"><b>Departamento</b></td>
+                        <td style="padding:8px 0;">$($Row.Departamento)</td>
+                    </tr>
+                    <tr>
+                        <td style="padding:8px 0;color:#666;"><b>Descrição AD</b></td>
+                        <td style="padding:8px 0;">$($Row.Descricao)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>$managerText</p>
+
+            <div style="background:#fff5f6;border-left:5px solid #e4002b;padding:14px 16px;margin:18px 0;">
+                <b>Importante:</b><br>
+                Caso a atualização não seja efetuada antes da data indicada, o utilizador poderá ficar bloqueado.
+            </div>
+
+            <p>Obrigado,<br><b>IT Santander Portugal</b></p>
+        </div>
+    </div>
+</body>
+</html>
+"@
+}
+
+function Send-OutlookMail {
+    param($To, $Cc, $Subject, $HtmlBody)
+
+    $outlook = New-Object -ComObject Outlook.Application
+    $mail = $outlook.CreateItem(0)
+
+    foreach ($acc in $outlook.Session.Accounts) {
+        if ($acc.SmtpAddress -ieq $FromMailbox) {
+            $mail.SendUsingAccount = $acc
+            break
+        }
+    }
+
+    $mail.To = $To
+    if (-not [string]::IsNullOrWhiteSpace($Cc)) {
+        $mail.CC = $Cc
+    }
+    $mail.Subject = $Subject
+    $mail.HTMLBody = $HtmlBody
+    $mail.Send()
+}
+
+try {
+    $Action = Get-Param "action"
+    if ([string]::IsNullOrWhiteSpace($Action)) { $Action = "start" }
+
+    if ($Action -eq "progress") {
+        $JobId = Get-Param "jobId"
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+
+        if (-not (Test-Path $StatePath)) {
+            Send-Json @{ success = $false; message = "Job não encontrado." }
+            return
+        }
+
+        Get-Content $StatePath -Raw
+        return
+    }
+
+    if ($Action -eq "cancel") {
+        $JobId = Get-Param "jobId"
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+
+        if (Test-Path $StatePath) {
+            $state = Get-Content $StatePath -Raw | ConvertFrom-Json
+            $state.status = "cancelled"
+            $state.current = "Consulta cancelada pelo utilizador."
+            Write-State $StatePath $state
+        }
+
+        Send-Json @{ success = $true; message = "Cancelado." }
+        return
+    }
+
+    if ($Action -eq "sendMail") {
+        $Row = Get-Param "row"
+        $TestTo = Get-Param "testTo"
+        $IsTest = -not [string]::IsNullOrWhiteSpace($TestTo)
+
+        if (-not $Row) { throw "Dados do utilizador não enviados." }
+
+        $realTo = @()
+        if ($Row.Email) { $realTo += $Row.Email }
+        if ($Row.ManagerEmail) { $realTo += $Row.ManagerEmail }
+
+        if ($realTo.Count -eq 0 -and -not $IsTest) {
+            throw "Utilizador sem email para envio."
+        }
+
+        $To = if ($IsTest) { $TestTo } else { ($realTo -join ";") }
+
+        $Subject = "Ação necessária - Conta $($Row.SamAccountName) expira em $($Row.AccountExpires)"
+        $BodyHtml = Get-MailBody -Row $Row -IsTest:$IsTest
+
+        $CcToUse = if ($IsTest) { "" } else { $FixedCc }
+        Send-OutlookMail -To $To -Cc $CcToUse -Subject $Subject -HtmlBody $BodyHtml
+
+        Send-Json @{
+            success = $true
+            message = if ($IsTest) { "Email de teste enviado para $TestTo." } else { "Email enviado para $To." }
+        }
+        return
+    }
+
+    if ($Action -eq "start") {
+        $JobId = [guid]::NewGuid().ToString()
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+        $PayloadPath = Join-Path $JobsPath "$JobId.payload.json"
+        $WorkerPath = Join-Path $ModuleRoot "worker.ps1"
+
+        $Payload = @{
+            jobId = $JobId
+            user = Get-Param "user"
+            date = Get-Param "date"
+            dateFrom = Get-Param "dateFrom"
+            dateTo = Get-Param "dateTo"
+            notifyOnlyE8E9 = Get-Param "notifyOnlyE8E9"
+            statePath = $StatePath
+        }
+
+        Write-State $StatePath @{
+            success = $true
+            jobId = $JobId
+            status = "running"
+            percent = 0
+            current = "A iniciar consulta..."
+            currentDomain = ""
+            currentUser = ""
+            processed = 0
+            found = 0
+            data = @()
+            stats = @{ total = 0; expired = 0; today = 0; sevenDays = 0; thirtyDays = 0 }
+            error = $null
+            startedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+            finishedAt = $null
+        }
+
+        $Payload | ConvertTo-Json -Depth 20 | Set-Content $PayloadPath -Encoding UTF8
+
+        Start-Process powershell.exe -WindowStyle Hidden -ArgumentList @(
+            "-NoProfile","-ExecutionPolicy","Bypass","-File","`"$WorkerPath`"","-PayloadPath","`"$PayloadPath`""
+        )
+
+        Send-Json @{ success = $true; jobId = $JobId; message = "Consulta iniciada." }
+        return
+    }
+
+    Send-Json @{ success = $false; message = "Action inválida: $Action" }
+}
+catch {
+    Send-Json @{ success = $false; message = $_.Exception.Message }
+}
+
+

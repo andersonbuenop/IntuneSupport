@@ -1,0 +1,27 @@
+﻿{
+    "jobId":  "0ee687b6-a895-4902-a141-6b78fe878c61",
+    "currentUser":  "",
+    "currentDomain":  "",
+    "data":  [
+
+             ],
+    "percent":  100,
+    "current":  "Consulta concluÃ­da.",
+    "speed":  0,
+    "found":  0,
+    "status":  "done",
+    "success":  true,
+    "error":  null,
+    "finishedAt":  "2026-07-02 16:21:33",
+    "stats":  {
+                  "today":  0,
+                  "e8e9":  0,
+                  "total":  0,
+                  "sevenDays":  0,
+                  "expired":  0,
+                  "thirtyDays":  0
+              },
+    "elapsed":  "00:00:01",
+    "startedAt":  "2026-07-02 16:21:32",
+    "processed":  0
+}

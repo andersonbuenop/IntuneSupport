@@ -1,0 +1,170 @@
+param([string]$PayloadPath)
+
+$ErrorActionPreference = "Stop"
+
+function Save-State {
+    param($Path, $State)
+    $tmp = "$Path.$([guid]::NewGuid()).tmp"
+    $State | ConvertTo-Json -Depth 80 | Set-Content $tmp -Encoding UTF8 -Force
+    Copy-Item $tmp $Path -Force
+    Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+}
+
+function Get-FileTime { param([datetime]$Date) return $Date.ToUniversalTime().ToFileTime() }
+
+function Publish-State {
+    param($StatePath,$JobId,$Status,$Percent,$Current,$Domain,$CurrentUser,$Processed,$Data,$Started,$ErrorMessage=$null)
+
+    $elapsed = (Get-Date) - $Started
+    $seconds = [math]::Max(1,[int]$elapsed.TotalSeconds)
+
+    Save-State $StatePath @{
+        success = ($Status -ne "error")
+        jobId = $JobId
+        status = $Status
+        percent = $Percent
+        current = $Current
+        currentDomain = $Domain
+        currentUser = $CurrentUser
+        processed = $Processed
+        found = @($Data).Count
+        elapsed = ("{0:hh\:mm\:ss}" -f $elapsed)
+        speed = [math]::Round($Processed / $seconds, 2)
+        data = @($Data | Sort-Object AccountExpires,SamAccountName)
+        stats = @{
+            total = @($Data).Count
+            expired = @($Data | Where-Object { $_.DiasParaExpirar -lt 0 }).Count
+            today = @($Data | Where-Object { $_.DiasParaExpirar -eq 0 }).Count
+            sevenDays = @($Data | Where-Object { $_.DiasParaExpirar -gt 0 -and $_.DiasParaExpirar -le 7 }).Count
+            thirtyDays = @($Data | Where-Object { $_.DiasParaExpirar -gt 7 -and $_.DiasParaExpirar -le 30 }).Count
+        }
+        error = $ErrorMessage
+        startedAt = $Started.ToString("yyyy-MM-dd HH:mm:ss")
+        finishedAt = if ($Status -in @("done","error","cancelled")) { (Get-Date).ToString("yyyy-MM-dd HH:mm:ss") } else { $null }
+    }
+}
+
+try {
+    Import-Module ActiveDirectory -ErrorAction Stop
+
+    $Payload = Get-Content $PayloadPath -Raw | ConvertFrom-Json
+
+    $JobId = [string]$Payload.jobId
+    $StatePath = [string]$Payload.statePath
+    $User = [string]$Payload.user
+    $Date = [string]$Payload.date
+    $DateFrom = [string]$Payload.dateFrom
+    $DateTo = [string]$Payload.dateTo
+    $NotifyOnlyE8E9 = [bool]$Payload.notifyOnlyE8E9
+
+    $Started = Get-Date
+    $Data = @()
+    $Processed = 0
+
+    if (![string]::IsNullOrWhiteSpace($Date)) {
+        $StartDate = ([datetime]$Date).Date
+        $EndDate = ([datetime]$Date).Date.AddDays(1).AddSeconds(-1)
+    } else {
+        $StartDate = if (![string]::IsNullOrWhiteSpace($DateFrom)) { ([datetime]$DateFrom).Date } else { $null }
+        $EndDate = if (![string]::IsNullOrWhiteSpace($DateTo)) { ([datetime]$DateTo).Date.AddDays(1).AddSeconds(-1) } else { $null }
+    }
+
+    $Domains = @(
+        @{ Name = "central.rinterna.local"; Server = "central.rinterna.local"; Base = 0 },
+        @{ Name = "rede.rinterna.local"; Server = "rede.rinterna.local"; Base = 50 }
+    )
+
+    foreach ($D in $Domains) {
+        $DomainName = $D.Name
+        $Server = $D.Server
+        $Base = [int]$D.Base
+
+        Publish-State $StatePath $JobId "running" ($Base + 5) "A consultar $DomainName..." $DomainName "" $Processed $Data $Started
+
+        $ldap = "(&(objectCategory=person)(objectClass=user)(!(accountExpires=0))(!(accountExpires=9223372036854775807))"
+
+        if ($StartDate) { $ldap += "(accountExpires>=$(Get-FileTime $StartDate))" }
+        if ($EndDate) { $ldap += "(accountExpires<=$(Get-FileTime $EndDate))" }
+
+        if ($NotifyOnlyE8E9) {
+            $ldap += "(|(sAMAccountName=E8*)(sAMAccountName=E9*))"
+        }
+
+        if (![string]::IsNullOrWhiteSpace($User)) {
+            $u = $User.Replace("\","\5c").Replace("*","\2a").Replace("(","\28").Replace(")","\29")
+            $ldap += "(|(sAMAccountName=*$u*)(userPrincipalName=*$u*)(displayName=*$u*)(mail=*$u*)(name=*$u*))"
+        }
+
+        $ldap += ")"
+
+        $Users = @(Get-ADUser -Server $Server -LDAPFilter $ldap -Properties DisplayName,UserPrincipalName,Mail,Enabled,AccountExpirationDate,accountExpires,Department,Title,Manager,Description,whenCreated,DistinguishedName -ResultSetSize $null)
+
+        $Total = $Users.Count
+        $Index = 0
+
+        foreach ($U in $Users) {
+            $Index++
+            $Processed++
+
+            $ExpireDate = $U.AccountExpirationDate
+            if (-not $ExpireDate -and $U.accountExpires) {
+                $ExpireDate = [datetime]::FromFileTimeUtc([int64]$U.accountExpires).ToLocalTime()
+            }
+
+            $ManagerName = $null
+            $ManagerEmail = $null
+
+            if ($U.Manager) {
+                try {
+                    $M = Get-ADUser -Server $Server -Identity $U.Manager -Properties DisplayName,Mail,UserPrincipalName
+                    $ManagerName = $M.DisplayName
+                    $ManagerEmail = if ($M.Mail) { $M.Mail } else { $M.UserPrincipalName }
+                } catch {
+                    $ManagerName = $U.Manager
+                }
+            }
+
+            if ($ExpireDate) {
+                $Days = [math]::Floor(($ExpireDate.Date - (Get-Date).Date).TotalDays)
+
+                $Estado = if ($Days -lt 0) { "Expirado" }
+                elseif ($Days -eq 0) { "Expira hoje" }
+                else { "A expirar" }
+
+                $Eligible = ($U.SamAccountName -like "E8*" -or $U.SamAccountName -like "E9*")
+
+                $Data += [pscustomobject]@{
+                    Dominio = $DomainName
+                    SamAccountName = $U.SamAccountName
+                    Nome = $U.DisplayName
+                    UserPrincipalName = $U.UserPrincipalName
+                    Email = $U.Mail
+                    Enabled = $U.Enabled
+                    Estado = $Estado
+                    AccountExpires = $ExpireDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    DiasParaExpirar = $Days
+                    Departamento = $U.Department
+                    Cargo = $U.Title
+                    Manager = $ManagerName
+                    ManagerEmail = $ManagerEmail
+                    Descricao = $U.Description
+                    Notificar = $Eligible
+                    CriadoEm = if ($U.whenCreated) { $U.whenCreated.ToString("yyyy-MM-dd HH:mm:ss") } else { $null }
+                    DistinguishedName = $U.DistinguishedName
+                }
+            }
+
+            $Percent = if ($Total -gt 0) { $Base + [math]::Round(($Index / $Total) * 45) } else { $Base + 45 }
+
+            Publish-State $StatePath $JobId "running" ([math]::Min(98,$Percent)) "A carregar resultados de ${DomainName}: $Index de $Total..." $DomainName $U.SamAccountName $Processed $Data $Started
+        }
+    }
+
+    Publish-State $StatePath $JobId "done" 100 "Consulta concluída." "" "" $Processed $Data $Started
+}
+catch {
+    try {
+        $Payload = Get-Content $PayloadPath -Raw | ConvertFrom-Json
+        Publish-State $Payload.statePath $Payload.jobId "error" 100 "Erro na consulta." "" "" 0 @() (Get-Date) $_.Exception.Message
+    } catch {}
+}

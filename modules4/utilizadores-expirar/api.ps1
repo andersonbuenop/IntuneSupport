@@ -1,0 +1,386 @@
+param(
+    $Query = $null,
+    $Config = $null,
+    $Body = $null
+)
+
+$ErrorActionPreference = "Stop"
+
+$ModuleRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$JobsPath = Join-Path $ModuleRoot "jobs"
+New-Item -ItemType Directory -Force -Path $JobsPath | Out-Null
+
+$FromMailbox = "User.Action.Required@santander.pt"
+$FixedCc = "santander.enduser@santander.pt;jose.simoes@santander.pt;maria.santosp@gruposantander.com;gestaoperfis@santander.pt"
+
+function Send-Json { param($Obj) $Obj | ConvertTo-Json -Depth 80 -Compress }
+
+function Get-Param {
+    param([string]$Name)
+    if ($Body) {
+        try {
+            if ($Body -is [string]) {
+                $json = $Body | ConvertFrom-Json
+                if ($json.PSObject.Properties[$Name]) { return $json.$Name }
+            } elseif ($Body.PSObject.Properties[$Name]) {
+                return $Body.$Name
+            }
+        } catch {}
+    }
+    if ($Query -and $Query[$Name]) { return $Query[$Name] }
+    return $null
+}
+
+function Write-State {
+    param($Path, $State)
+    $tmp = "$Path.$([guid]::NewGuid()).tmp"
+    $State | ConvertTo-Json -Depth 80 | Set-Content $tmp -Encoding UTF8 -Force
+    Copy-Item $tmp $Path -Force
+    Remove-Item $tmp -Force -ErrorAction SilentlyContinue
+}
+
+function Get-Saudacao {
+    $now = Get-Date
+    $minutes = ($now.Hour * 60) + $now.Minute
+
+    if ($minutes -ge 1 -and $minutes -le 720) {
+        return "Bom dia"
+    }
+    elseif ($minutes -ge 721 -and $minutes -le 1080) {
+        return "Boa tarde"
+    }
+    else {
+        return "Boa noite"
+    }
+}
+
+function Get-MailBody {
+    param($Row, [bool]$IsTest)
+
+    $Saudacao = Get-Saudacao
+
+    $SubjectPrefix = if ($IsTest) { "[TESTE] " } else { "" }
+
+    $TestBanner = if ($IsTest) {
+@"
+<tr>
+    <td style="padding:0 32px 18px 32px;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#fff7e6;border:1px solid #f0c36d;border-radius:8px;">
+            <tr>
+                <td style="padding:14px 16px;font-family:Segoe UI,Arial,sans-serif;font-size:14px;color:#5c3b00;">
+                    <b>EMAIL DE TESTE</b><br>
+                    Esta mensagem foi enviada apenas para validação do conteúdo. O email real será enviado ao utilizador e/ou manager.
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+"@
+    } else { "" }
+
+    $ManagerInfo = if ($Row.ManagerEmail) {
+        "Este aviso é enviado ao utilizador e ao respetivo manager registado em Active Directory."
+    } else {
+        "Não foi identificado manager associado no Active Directory. O utilizador deverá contactar o seu manager para regularização no Workday."
+    }
+
+    return @"
+<html>
+<body style="margin:0;padding:0;background:#f3f4f6;font-family:Segoe UI,Arial,sans-serif;color:#222222;">
+<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#f3f4f6;padding:24px 0;">
+<tr>
+<td align="center">
+
+<table width="760" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#ffffff;border:1px solid #dddddd;border-radius:12px;overflow:hidden;">
+
+<tr>
+<td style="background:#ffffff;padding:22px 32px 14px 32px;border-bottom:4px solid #e4002b;">
+    <div style="font-family:Segoe UI,Arial,sans-serif;font-size:26px;font-weight:700;color:#e4002b;letter-spacing:.2px;">
+        SANTANDER
+    </div>
+    <div style="font-family:Segoe UI,Arial,sans-serif;font-size:13px;color:#666666;margin-top:4px;">
+        IT Santander Portugal · Identity & Access Management
+    </div>
+</td>
+</tr>
+
+<tr>
+<td style="background:#e4002b;padding:20px 32px;color:#ffffff;">
+    <div style="font-family:Segoe UI,Arial,sans-serif;font-size:22px;font-weight:700;">
+        $($SubjectPrefix)Ação necessária - Conta a expirar
+    </div>
+    <div style="font-family:Segoe UI,Arial,sans-serif;font-size:14px;margin-top:6px;">
+        Atualização de informação contratual no Workday
+    </div>
+</td>
+</tr>
+
+$TestBanner
+
+<tr>
+<td style="padding:26px 32px 8px 32px;font-family:Segoe UI,Arial,sans-serif;font-size:15px;line-height:1.55;color:#222222;">
+    <p style="margin:0 0 14px 0;">
+    Informamos que a conta do utilizador abaixo identificado expira em breve.
+    Para evitar o bloqueio dos seus acessos, deverá garantir a actualização da data de fim de contrato.
+    Para tal, deverá no <b>Workday</b> proceder à actualização da mesma.
+    Se o utilizador não existir ainda no Workday deverá proceder à sua criação, para alteração da data.
+</p>
+
+<p style="margin:0 0 18px 0;">
+    Após a atualização no Workday, a informação será posteriormente refletida nos sistemas internos.
+</p>
+</td>
+</tr>
+
+<tr>
+<td style="padding:0 32px 22px 32px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#fafafa;border:1px solid #e6e6e6;border-radius:10px;">
+        <tr>
+            <td colspan="2" style="padding:16px 18px;border-bottom:1px solid #e6e6e6;font-family:Segoe UI,Arial,sans-serif;font-size:16px;font-weight:700;color:#222222;">
+                Dados do utilizador
+            </td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;width:220px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Utilizador</b></td>
+            <td style="padding:11px 18px;font-size:14px;border-bottom:1px solid #eeeeee;">$($Row.SamAccountName)</td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Nome</b></td>
+            <td style="padding:11px 18px;font-size:14px;border-bottom:1px solid #eeeeee;">$($Row.Nome)</td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Email</b></td>
+            <td style="padding:11px 18px;font-size:14px;border-bottom:1px solid #eeeeee;">$($Row.Email)</td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Manager</b></td>
+            <td style="padding:11px 18px;font-size:14px;border-bottom:1px solid #eeeeee;">$($Row.Manager)</td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Email Manager</b></td>
+            <td style="padding:11px 18px;font-size:14px;border-bottom:1px solid #eeeeee;">$($Row.ManagerEmail)</td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Data de expiração</b></td>
+            <td style="padding:11px 18px;font-size:14px;color:#b00020;border-bottom:1px solid #eeeeee;"><b>$($Row.AccountExpires)</b></td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Dias para expirar</b></td>
+            <td style="padding:11px 18px;font-size:14px;border-bottom:1px solid #eeeeee;"><b>$($Row.DiasParaExpirar)</b></td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;border-bottom:1px solid #eeeeee;"><b>Departamento</b></td>
+            <td style="padding:11px 18px;font-size:14px;border-bottom:1px solid #eeeeee;">$($Row.Departamento)</td>
+        </tr>
+        <tr>
+            <td style="padding:11px 18px;color:#666666;font-size:14px;"><b>Descrição AD</b></td>
+            <td style="padding:11px 18px;font-size:14px;">$($Row.Descricao)</td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+<tr>
+<td style="padding:0 32px 18px 32px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#fff8e8;border-left:5px solid #ffcc33;border-radius:8px;">
+        <tr>
+            <td style="padding:16px 18px;font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.5;color:#3b3b3b;">
+                <b>Ação necessária</b><br>
+                $ManagerInfo<br><br>
+                O manager deverá validar a situação do colaborador no Workday:
+                <br>• se ainda não existir, deverá proceder ao registo;
+                <br>• se já existir, deverá definir ou atualizar a nova data de fim do contrato.
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+<tr>
+<td style="padding:0 32px 24px 32px;">
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;background:#fff5f6;border-left:5px solid #e4002b;border-radius:8px;">
+        <tr>
+            <td style="padding:16px 18px;font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.5;color:#3b3b3b;">
+                <b>Importante</b><br>
+                Caso a atualização não seja efetuada antes da data indicada, o acesso do utilizador poderá ser bloqueado automaticamente.
+            </td>
+        </tr>
+    </table>
+</td>
+</tr>
+
+<tr>
+<td style="padding:0 32px 26px 32px;font-family:Segoe UI,Arial,sans-serif;font-size:14px;line-height:1.5;color:#222222;">
+    <p style="margin:0;">Obrigado,<br><b>IT Santander Portugal</b></p>
+</td>
+</tr>
+
+<tr>
+<td style="background:#f5f5f5;padding:16px 32px;font-family:Segoe UI,Arial,sans-serif;font-size:12px;color:#666666;border-top:1px solid #e6e6e6;">
+    Este é um email automático enviado pela área de IT Santander Portugal.<br>
+    Por favor, não responda diretamente a esta mensagem.
+</td>
+</tr>
+
+</table>
+
+</td>
+</tr>
+</table>
+</body>
+</html>
+"@
+}
+
+function Send-OutlookMail {
+    param($To, $Cc, $Subject, $HtmlBody)
+
+    $outlook = New-Object -ComObject Outlook.Application
+    $mail = $outlook.CreateItem(0)
+
+    $accountFound = $false
+
+    foreach ($acc in $outlook.Session.Accounts) {
+        try {
+            if ($acc.SmtpAddress -ieq $FromMailbox) {
+                $mail.SendUsingAccount = $acc
+                $accountFound = $true
+                break
+            }
+        } catch {}
+    }
+
+    if (-not $accountFound) {
+        # Envia "em nome de" a mailbox partilhada.
+        # Necessário ter permissão Send As ou Send on Behalf no Exchange.
+        $mail.SentOnBehalfOfName = $FromMailbox
+    }
+
+    $mail.To = $To
+
+    if (-not [string]::IsNullOrWhiteSpace($Cc)) {
+        $mail.CC = $Cc
+    }
+
+    $mail.Subject = $Subject
+    $mail.HTMLBody = $HtmlBody
+
+    $mail.Send()
+}
+
+try {
+    $Action = Get-Param "action"
+    if ([string]::IsNullOrWhiteSpace($Action)) { $Action = "start" }
+
+    if ($Action -eq "progress") {
+        $JobId = Get-Param "jobId"
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+
+        if (-not (Test-Path $StatePath)) {
+            Send-Json @{ success = $false; message = "Job não encontrado." }
+            return
+        }
+
+        Get-Content $StatePath -Raw
+        return
+    }
+
+    if ($Action -eq "cancel") {
+        $JobId = Get-Param "jobId"
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+
+        if (Test-Path $StatePath) {
+            $state = Get-Content $StatePath -Raw | ConvertFrom-Json
+            $state.status = "cancelled"
+            $state.current = "Consulta cancelada pelo utilizador."
+            Write-State $StatePath $state
+        }
+
+        Send-Json @{ success = $true; message = "Cancelado." }
+        return
+    }
+
+    if ($Action -eq "sendMail") {
+        $Row = Get-Param "row"
+        $TestTo = Get-Param "testTo"
+        $IsTest = -not [string]::IsNullOrWhiteSpace($TestTo)
+
+        if (-not $Row) { throw "Dados do utilizador não enviados." }
+
+        $realTo = @()
+        if ($Row.Email) { $realTo += $Row.Email }
+        if ($Row.ManagerEmail) { $realTo += $Row.ManagerEmail }
+
+        if ($realTo.Count -eq 0 -and -not $IsTest) {
+            throw "Utilizador sem email para envio."
+        }
+
+        $To = if ($IsTest) { $TestTo } else { ($realTo -join ";") }
+
+        $Subject = "Ação necessária - Conta $($Row.SamAccountName) expira em $($Row.AccountExpires)"
+        $BodyHtml = Get-MailBody -Row $Row -IsTest:$IsTest
+
+        $CcToUse = if ($IsTest) { "" } else { $FixedCc }
+        Send-OutlookMail -To $To -Cc $CcToUse -Subject $Subject -HtmlBody $BodyHtml
+
+        Send-Json @{
+            success = $true
+            message = if ($IsTest) { "Email de teste enviado para $TestTo." } else { "Email enviado para $To." }
+        }
+        return
+    }
+
+    if ($Action -eq "start") {
+        $JobId = [guid]::NewGuid().ToString()
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+        $PayloadPath = Join-Path $JobsPath "$JobId.payload.json"
+        $WorkerPath = Join-Path $ModuleRoot "worker.ps1"
+
+        $Payload = @{
+            jobId = $JobId
+            user = Get-Param "user"
+            date = Get-Param "date"
+            dateFrom = Get-Param "dateFrom"
+            dateTo = Get-Param "dateTo"
+            notifyOnlyE8E9 = Get-Param "notifyOnlyE8E9"
+            statePath = $StatePath
+        }
+
+        Write-State $StatePath @{
+            success = $true
+            jobId = $JobId
+            status = "running"
+            percent = 0
+            current = "A iniciar consulta..."
+            currentDomain = ""
+            currentUser = ""
+            processed = 0
+            found = 0
+            data = @()
+            stats = @{ total = 0; expired = 0; today = 0; sevenDays = 0; thirtyDays = 0 }
+            error = $null
+            startedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+            finishedAt = $null
+        }
+
+        $Payload | ConvertTo-Json -Depth 20 | Set-Content $PayloadPath -Encoding UTF8
+
+        Start-Process powershell.exe -WindowStyle Hidden -ArgumentList @(
+            "-NoProfile","-ExecutionPolicy","Bypass","-File","`"$WorkerPath`"","-PayloadPath","`"$PayloadPath`""
+        )
+
+        Send-Json @{ success = $true; jobId = $JobId; message = "Consulta iniciada." }
+        return
+    }
+
+    Send-Json @{ success = $false; message = "Action inválida: $Action" }
+}
+catch {
+    Send-Json @{ success = $false; message = $_.Exception.Message }
+}
+
+
+
+
+
+

@@ -1,0 +1,189 @@
+<div class="vu-v4">
+  <section class="vu-hero">
+    <div>
+      <span class="vu-eyebrow">VERIFICAÇÃO E PREVENÇÃO</span>
+      <h2>Consulta e preparação de utilizadores</h2>
+      <p>AD Local • Atributo 3 • Azure/Entra • Exchange Online • Licença E3 • Arquivo Online</p>
+    </div>
+    <div class="vu-env">PRODUÇÃO</div>
+  </section>
+
+  <section class="vu-query-grid">
+    <div class="vu-panel">
+      <div class="vu-panel-title">
+        <div>
+          <h3>Consulta direta</h3>
+          <p>Utilizador único ou lista copiada do Excel</p>
+        </div>
+        <span class="vu-panel-icon">👤</span>
+      </div>
+
+      <label for="vuSingleUser">Utilizador único</label>
+      <input id="vuSingleUser" class="vu-input" placeholder="Ex.: e868019">
+
+      <label for="vuUserList">Lista de utilizadores</label>
+      <textarea id="vuUserList" class="vu-textarea" placeholder="Cole uma coluna do Excel&#10;e868019&#10;s611606&#10;s613933"></textarea>
+
+      <div class="vu-actions">
+        <button type="button" class="vu-btn vu-btn-primary" data-vu-busy onclick="vuVerificar()">Verificar utilizadores</button>
+      </div>
+    </div>
+    <div class="vu-panel vu-preventive-panel">
+      <div class="vu-panel-title">
+        <div>
+          <h3>Pesquisa preventiva</h3>
+          <p>Localize contas criadas no AD dentro de um período</p>
+        </div>
+        <span class="vu-panel-icon">🛡️</span>
+      </div>
+
+      <div class="vu-date-grid">
+        <div>
+          <label for="vuStartDate">Data inicial</label>
+          <input id="vuStartDate" class="vu-input" type="date">
+        </div>
+        <div>
+          <label for="vuEndDate">Data final</label>
+          <input id="vuEndDate" class="vu-input" type="date">
+        </div>
+      </div>
+
+      <div class="vu-quick-periods">
+        <button type="button" class="vu-chip" data-vu-busy onclick="vuSetPeriodo('today')">Hoje</button>
+        <button type="button" class="vu-chip" data-vu-busy onclick="vuSetPeriodo('last7')">Últimos 7 dias</button>
+        <button type="button" class="vu-chip" data-vu-busy onclick="vuSetPeriodo('month')">Mês atual</button>
+      </div>
+
+      <label class="vu-check">
+        <input id="vuOnlyActive" type="checkbox" checked>
+        <span>Apenas utilizadores ativos no AD</span>
+      </label>
+
+      <label class="vu-check">
+        <input id="vuRequireUpn" type="checkbox" checked>
+        <span>Ignorar contas sem UPN</span>
+      </label>
+
+      <div class="vu-preventive-info">
+        A pesquisa usa o campo <b>whenCreated</b> nos domínios
+        <b>central.rinterna.local</b> e <b>rede.rinterna.local</b>.
+      </div>
+
+      <div class="vu-actions">
+        <button type="button" class="vu-btn vu-btn-primary" data-vu-busy onclick="vuPesquisarCriados()">Pesquisar criados no AD</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="vu-panel vu-summary-panel">
+    <div class="vu-panel-title">
+      <div>
+        <h3>Resumo da verificação</h3>
+        <p id="vuResumoSub">Aguardando consulta</p>
+      </div>
+      <span id="vuBusyText" class="vu-busy-text"></span>
+    </div>
+
+    <div class="vu-kpi-grid" aria-label="Filtros rápidos do resumo">
+      <button type="button" class="vu-kpi-card green" data-vu-kpi="all" onclick="vuAplicarFiltroKpi('all')" title="Mostrar todos os utilizadores">
+        <strong id="vuKpiTotal">0</strong>
+        <span>Verificados</span>
+      </button>
+      <button type="button" class="vu-kpi-card blue" data-vu-kpi="ad" onclick="vuAplicarFiltroKpi('ad')" title="Mostrar utilizadores encontrados no AD Local">
+        <strong id="vuKpiAd">0</strong>
+        <span>AD Local</span>
+      </button>
+      <button type="button" class="vu-kpi-card purple" data-vu-kpi="azure" onclick="vuAplicarFiltroKpi('azure')" title="Mostrar utilizadores encontrados no Azure">
+        <strong id="vuKpiAzure">0</strong>
+        <span>Azure</span>
+      </button>
+      <button type="button" class="vu-kpi-card red" data-vu-kpi="e3" onclick="vuAplicarFiltroKpi('e3')" title="Mostrar utilizadores com licença E3 validada">
+        <strong id="vuKpiE3">0</strong>
+        <span>Licença E3</span>
+      </button>
+      <button type="button" class="vu-kpi-card orange" data-vu-kpi="exo" onclick="vuAplicarFiltroKpi('exo')" title="Mostrar utilizadores com mailbox no Exchange Online">
+        <strong id="vuKpiExo">0</strong>
+        <span>EXO</span>
+      </button>
+      <button type="button" class="vu-kpi-card gray" data-vu-kpi="archive" onclick="vuAplicarFiltroKpi('archive')" title="Mostrar utilizadores com Arquivo Online">
+        <strong id="vuKpiArchive">0</strong>
+        <span>Archive</span>
+      </button>
+      <button type="button" class="vu-kpi-card healthy" data-vu-kpi="healthy" onclick="vuAplicarFiltroKpi('healthy')" title="Mostrar apenas utilizadores saudáveis">
+        <strong id="vuKpiHealthy">0</strong>
+        <span>Saudáveis</span>
+      </button>
+      <button type="button" class="vu-kpi-card pending" data-vu-kpi="pending" onclick="vuAplicarFiltroKpi('pending')" title="Mostrar apenas utilizadores com pendências">
+        <strong id="vuKpiPending">0</strong>
+        <span>Com pendências</span>
+      </button>
+    </div>
+
+    <div id="vuNotes" class="vu-notes"></div>
+  </section>
+
+  <section id="vuStatusBox" class="vu-status idle" role="status" aria-live="polite" aria-atomic="true">
+    <div>
+      <strong id="vuStatus">Aguardando consulta.</strong>
+      <span id="vuStatusDetail">Consulte diretamente ou pesquise utilizadores criados num período.</span>
+    </div>
+  </section>
+
+  <section id="vuProgressWrap" class="vu-progress-wrap" style="display:none;" role="status" aria-live="polite">
+    <div class="vu-progress-top">
+      <span id="vuProgressText">A preparar...</span>
+      <strong id="vuProgressPercent">0%</strong>
+    </div>
+    <div id="vuProgressBar" class="vu-progress-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div id="vuProgressFill" class="vu-progress-fill"></div>
+    </div>
+  </section>
+
+  <section class="vu-results-panel">
+    <div class="vu-results-header">
+      <div>
+        <h3>Resultados da verificação</h3>
+        <p><span id="vuResultCount">0 resultado(s)</span> • <span id="vuResultSource">Sem origem</span></p>
+      </div>
+
+      <div class="vu-result-tools">
+        <button id="vuCancelButton" type="button" class="vu-btn vu-btn-cancel" onclick="vuCancelar()" hidden>Cancelar operação</button>
+        <button id="vuOpenAllTickets" type="button" class="vu-btn" onclick="vuIniciarFilaTickets()" disabled>Abrir pedidos em sequência</button>
+        <input id="vuFilter" class="vu-filter" placeholder="Filtrar resultados..." oninput="vuRenderResultados()">
+        <button type="button" class="vu-btn" data-vu-busy onclick="vuExportCsv()">Exportar CSV</button>
+        <button type="button" class="vu-btn" data-vu-busy onclick="vuCopiarResumo()">Copiar resumo</button>
+        <button type="button" class="vu-btn" data-vu-busy onclick="vuLimpar()">Limpar</button>
+      </div>
+    </div>
+
+    <div id="vuActiveFilter" class="vu-active-filter" hidden>
+      <span id="vuActiveFilterText">Filtro rápido ativo</span>
+      <button type="button" class="vu-active-filter-clear" onclick="vuLimparFiltroKpi()" aria-label="Limpar filtro rápido" title="Limpar filtro">×</button>
+    </div>
+
+    <div id="vuResultado" class="vu-results-empty">
+      Nenhuma consulta executada.
+    </div>
+  </section>
+
+  <div class="vu-ticket-queue-overlay" id="vuTicketQueueOverlay" aria-hidden="true">
+    <section class="vu-ticket-queue-modal" role="dialog" aria-modal="true" aria-labelledby="vuTicketQueueTitle">
+      <header class="vu-ticket-queue-head">
+        <div><span class="vu-eyebrow">SERVICENOW</span><h2 id="vuTicketQueueTitle">Abertura sequencial de pedidos</h2></div>
+        <button type="button" class="vu-ticket-queue-close" onclick="vuFecharFilaTickets()" aria-label="Fechar">×</button>
+      </header>
+      <div class="vu-ticket-queue-body">
+        <div class="vu-ticket-queue-progress"><strong id="vuTicketQueueCounter">0 de 0</strong><span id="vuTicketQueueStatus">Aguardando início</span></div>
+        <div class="vu-ticket-queue-track"><div id="vuTicketQueueBar"></div></div>
+        <article class="vu-ticket-queue-current"><span>Pedido atual</span><h3 id="vuTicketQueueName">—</h3><p id="vuTicketQueueUser">—</p></article>
+        <p class="vu-ticket-queue-help" id="vuTicketQueueHelp">O resumo foi copiado e o formulário do ServiceNow foi aberto numa nova aba. Depois de abrir o pedido, volte a esta página e confirme para avançar.</p>
+        <div class="vu-ticket-queue-actions">
+          <button type="button" class="vu-btn vu-btn-primary" id="vuTicketQueueConfirm" onclick="vuAvancarFilaTickets(true)">Pedido aberto — próximo</button>
+          <button type="button" class="vu-btn" id="vuTicketQueueReopen" onclick="vuAbrirTicketAtual()">Copiar e abrir novamente</button>
+          <button type="button" class="vu-btn" id="vuTicketQueueSkip" onclick="vuAvancarFilaTickets(false)">Ignorar — próximo</button>
+          <button type="button" class="vu-btn" onclick="vuFecharFilaTickets()">Terminar</button>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

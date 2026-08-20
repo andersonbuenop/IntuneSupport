@@ -1,0 +1,309 @@
+
+function uxParseApi(raw) {
+    let result = JSON.parse(raw);
+
+    if (typeof result === "string") {
+        result = JSON.parse(result);
+    }
+
+    return result;
+}
+let uxLastData = [];
+let uxPollTimer = null;
+let uxCurrentJobId = null;
+
+function uxEscape(value) {
+    if (value === null || value === undefined) return "";
+    return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
+function uxBadge(row) {
+    const estado = row.Estado || "";
+
+    if (estado === "Expirado") {
+        return `<span class="ux-badge danger">Expirado</span>`;
+    }
+
+    if (estado === "Expira hoje") {
+        return `<span class="ux-badge warn">Expira hoje</span>`;
+    }
+
+    return `<span class="ux-badge ok">A expirar</span>`;
+}
+
+async function uxSearch() {
+    const user = document.getElementById("uxUser").value.trim();
+    const date = document.getElementById("uxDate").value;
+    const dateFrom = document.getElementById("uxDateFrom").value;
+    const dateTo = document.getElementById("uxDateTo").value;
+
+    const tbody = document.getElementById("uxTableBody");
+    const summary = document.getElementById("uxSummary");
+
+    uxResetStats();
+
+    document.getElementById("uxProgressBox").style.display = "block";
+    document.getElementById("uxProgressText").innerText = "A iniciar consulta...";
+    document.getElementById("uxProgressSub").innerText = "A preparar job de consulta.";
+    document.getElementById("uxProgressPercent").innerText = "0%";
+    document.getElementById("uxProgressFill").style.width = "0%";
+
+    tbody.innerHTML = `<tr><td colspan="12" class="ux-empty">A iniciar consulta no Active Directory...</td></tr>`;
+    summary.style.display = "none";
+    uxLastData = [];
+
+    if (uxPollTimer) {
+        clearInterval(uxPollTimer);
+        uxPollTimer = null;
+    }
+
+    try {
+        const response = await fetch("/module/utilizadores-expirar/api", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "start",
+                user,
+                date,
+                dateFrom,
+                dateTo
+            })
+        });
+
+        const raw = await response.text();
+console.log("START RAW:", raw);
+const startResult = uxParseApi(raw);
+console.log("START PARSED:", startResult);
+
+        if (!startResult.success) {
+            throw new Error(startResult.message || "Erro ao iniciar consulta.");
+        }
+
+        uxCurrentJobId = startResult.jobId;
+
+        uxPollTimer = setInterval(async () => {
+            await uxReadProgress(uxCurrentJobId);
+        }, 1000);
+
+        await uxReadProgress(uxCurrentJobId);
+
+    } catch (err) {
+        tbody.innerHTML = `<tr><td colspan="12" class="ux-empty">Erro: ${uxEscape(err.message)}</td></tr>`;
+    }
+}
+
+async function uxReadProgress(jobId) {
+    try {
+        const response = await fetch("/module/utilizadores-expirar/api", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                action: "progress",
+                jobId
+            })
+        });
+
+        const raw = await response.text();
+console.log("PROGRESS RAW:", raw);
+const result = uxParseApi(raw);
+console.log("PROGRESS PARSED:", result);
+
+        if (!result.success && result.status !== "done" && result.status !== "cancelled") {
+            throw new Error(result.message || result.error || "Erro ao consultar progresso.");
+        }
+
+        const percent = result.percent || 0;
+
+        document.getElementById("uxProgressText").innerText = result.current || "A processar...";
+        document.getElementById("uxProgressSub").innerText =
+            `Estado: ${result.status || "-"} | Job: ${jobId}`;
+        document.getElementById("uxProgressPercent").innerText = percent + "%";
+        document.getElementById("uxProgressFill").style.width = percent + "%";
+
+        document.getElementById("uxCurrentDomain").innerText = result.currentDomain || "-";
+        document.getElementById("uxCurrentUser").innerText = result.currentUser || "-";
+        document.getElementById("uxProcessed").innerText = result.processed || 0;
+        document.getElementById("uxFound").innerText = result.found || 0;
+        document.getElementById("uxElapsed").innerText = result.elapsed || "00:00:00";
+        document.getElementById("uxSpeed").innerText = `${result.speed || 0}/s`;
+
+        uxLastData = result.data || [];
+        uxUpdateStats(result.stats);
+        uxRenderTable();
+
+        document.getElementById("uxSummary").style.display = "block";
+        document.getElementById("uxSummary").innerHTML =
+            `Encontrados: ${uxLastData.length} | Processados: ${result.processed || 0} | Tempo: ${uxEscape(result.elapsed || "00:00:00")}`;
+
+        if (result.status === "done" || result.status === "error" || result.status === "cancelled") {
+            clearInterval(uxPollTimer);
+            uxPollTimer = null;
+
+            if (result.status === "error") {
+                document.getElementById("uxTableBody").innerHTML =
+                    `<tr><td colspan="12" class="ux-empty">Erro: ${uxEscape(result.error)}</td></tr>`;
+            }
+
+            if (result.status === "cancelled") {
+                document.getElementById("uxProgressText").innerText = "Consulta cancelada.";
+            }
+        }
+
+    } catch (err) {
+        clearInterval(uxPollTimer);
+        uxPollTimer = null;
+
+        document.getElementById("uxTableBody").innerHTML =
+            `<tr><td colspan="12" class="ux-empty">Erro: ${uxEscape(err.message)}</td></tr>`;
+    }
+}
+
+async function uxCancel() {
+    if (!uxCurrentJobId) {
+        alert("Não existe consulta em execução.");
+        return;
+    }
+
+    await fetch("/module/utilizadores-expirar/api", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            action: "cancel",
+            jobId: uxCurrentJobId
+        })
+    });
+}
+
+function uxRenderTable() {
+    const tbody = document.getElementById("uxTableBody");
+
+    if (!uxLastData.length) {
+        tbody.innerHTML = `<tr><td colspan="12" class="ux-empty">A processar... ainda nenhum utilizador com Account Expires encontrado.</td></tr>`;
+        return;
+    }
+
+    tbody.innerHTML = uxLastData.map(row => `
+        <tr>
+            <td>${uxEscape(row.Dominio)}</td>
+            <td><b>${uxEscape(row.SamAccountName)}</b></td>
+            <td>${uxEscape(row.Nome)}</td>
+            <td>${uxEscape(row.UserPrincipalName)}</td>
+            <td>${uxEscape(row.Email)}</td>
+            <td>${row.Enabled ? "Ativo" : "Desativado"}</td>
+            <td>${uxBadge(row)}<br>${uxEscape(row.AccountExpires)}</td>
+            <td>${uxEscape(row.DiasParaExpirar)}</td>
+            <td>${uxEscape(row.Departamento)}</td>
+            <td>${uxEscape(row.Cargo)}</td>
+            <td></td>
+            <td></td>
+            <td title="">${uxEscape(row.DistinguishedName)}</td>
+        </tr>
+    `).join("");
+}
+
+function uxUpdateStats(stats) {
+    stats = stats || {};
+
+    document.getElementById("uxStatTotal").innerText = stats.total || 0;
+    document.getElementById("uxStatExpired").innerText = stats.expired || 0;
+    document.getElementById("uxStatToday").innerText = stats.today || 0;
+    document.getElementById("uxStat7").innerText = stats.sevenDays || 0;
+    document.getElementById("uxStat30").innerText = stats.thirtyDays || 0;
+}
+
+function uxResetStats() {
+    uxUpdateStats({
+        total: 0,
+        expired: 0,
+        today: 0,
+        sevenDays: 0,
+        thirtyDays: 0
+    });
+
+    document.getElementById("uxCurrentDomain").innerText = "-";
+    document.getElementById("uxCurrentUser").innerText = "-";
+    document.getElementById("uxProcessed").innerText = "0";
+    document.getElementById("uxFound").innerText = "0";
+    document.getElementById("uxElapsed").innerText = "00:00:00";
+    document.getElementById("uxSpeed").innerText = "0/s";
+}
+
+function uxClear() {
+    if (uxPollTimer) {
+        clearInterval(uxPollTimer);
+        uxPollTimer = null;
+    }
+
+    uxCurrentJobId = null;
+    uxLastData = [];
+
+    document.getElementById("uxUser").value = "";
+    document.getElementById("uxDate").value = "";
+    document.getElementById("uxDateFrom").value = "";
+    document.getElementById("uxDateTo").value = "";
+
+    document.getElementById("uxProgressBox").style.display = "none";
+    document.getElementById("uxSummary").style.display = "none";
+    document.getElementById("uxTableBody").innerHTML =
+        `<tr><td colspan="12" class="ux-empty">Preencha os filtros e clique em Consultar.</td></tr>`;
+
+    uxResetStats();
+}
+
+function uxExportCsv() {
+    if (!uxLastData.length) {
+        alert("Não existem dados para exportar.");
+        return;
+    }
+
+    const headers = [
+        "Dominio",
+        "SamAccountName",
+        "Nome",
+        "UserPrincipalName",
+        "Email",
+        "Enabled",
+        "Estado",
+        "AccountExpires",
+        "DiasParaExpirar",
+        "Departamento",
+        "Cargo",
+        "Manager",`r`n        "Descricao",
+        "CriadoEm",
+        "DistinguishedName"
+    ];
+
+    const csv = [
+        headers.join(";"),
+        ...uxLastData.map(row => headers.map(h => {
+            const value = row[h] ?? "";
+            return `"${String(value).replaceAll('"', '""')}"`;
+        }).join(";"))
+    ].join("\r\n");
+
+    const blob = new Blob(["\ufeff" + csv], {
+        type: "text/csv;charset=utf-8;"
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "utilizadores-a-expirar.csv";
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+
+
+

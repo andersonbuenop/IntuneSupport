@@ -1,0 +1,27 @@
+﻿{
+    "jobId":  "f5809964-cb1f-416e-a14f-bc3465d15904",
+    "currentUser":  "",
+    "currentDomain":  "",
+    "data":  [
+
+             ],
+    "percent":  100,
+    "current":  "Erro na consulta.",
+    "speed":  0,
+    "found":  0,
+    "status":  "error",
+    "success":  false,
+    "error":  "The term \u0027.DiasParaExpirar\u0027 is not recognized as the name of a cmdlet, function, script file, or operable program. Check the spelling of the name, or if a path was included, verify that the path is correct and try again.",
+    "finishedAt":  "2026-07-02 15:24:28",
+    "stats":  {
+                  "today":  0,
+                  "e8e9":  0,
+                  "total":  0,
+                  "sevenDays":  0,
+                  "expired":  0,
+                  "thirtyDays":  0
+              },
+    "elapsed":  "00:00:00",
+    "startedAt":  "2026-07-02 15:24:28",
+    "processed":  0
+}

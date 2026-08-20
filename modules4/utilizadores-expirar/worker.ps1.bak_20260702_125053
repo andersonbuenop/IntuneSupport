@@ -1,0 +1,365 @@
+param(
+    [string]$PayloadPath
+)
+
+$ErrorActionPreference = "Stop"
+
+function Write-JobState {
+    param(
+        [string]$Path,
+        [object]$State
+    )
+
+    $tmp = "$Path.tmp"
+    $State | ConvertTo-Json -Depth 60 | Set-Content -Path $tmp -Encoding UTF8
+    Move-Item -Path $tmp -Destination $Path -Force
+}
+
+function Read-JobState {
+    param([string]$Path)
+
+    if (Test-Path $Path) {
+        try {
+            return Get-Content $Path -Raw | ConvertFrom-Json
+        } catch {
+            return $null
+        }
+    }
+
+    return $null
+}
+
+function Normalize-Date {
+    param($Value, [bool]$EndOfDay = $false)
+
+    if ([string]::IsNullOrWhiteSpace($Value)) { return $null }
+
+    $d = [DateTime]::Parse($Value)
+
+    if ($EndOfDay) {
+        return $d.Date.AddDays(1).AddSeconds(-1)
+    }
+
+    return $d.Date
+}
+
+function Get-Stats {
+    param($Data)
+
+    $today = (Get-Date).Date
+
+    $expired = 0
+    $todayCount = 0
+    $seven = 0
+    $thirty = 0
+    $future = 0
+
+    foreach ($item in $Data) {
+        $days = [int]$item.DiasParaExpirar
+
+        if ($days -lt 0) {
+            $expired++
+        }
+        elseif ($days -eq 0) {
+            $todayCount++
+        }
+        elseif ($days -le 7) {
+            $seven++
+            $future++
+        }
+        elseif ($days -le 30) {
+            $thirty++
+            $future++
+        }
+        else {
+            $future++
+        }
+    }
+
+    return @{
+        total = @($Data).Count
+        expired = $expired
+        today = $todayCount
+        sevenDays = $seven
+        thirtyDays = $thirty
+        future = $future
+    }
+}
+
+function Publish-State {
+    param(
+        [string]$StatePath,
+        [string]$JobId,
+        [string]$Status,
+        [int]$Percent,
+        [string]$Current,
+        [string]$CurrentDomain,
+        [string]$CurrentUser,
+        [int]$Processed,
+        [int]$TotalEstimated,
+        $Data,
+        [datetime]$StartedAt,
+        [string]$ErrorMessage = $null
+    )
+
+    $elapsedSpan = (Get-Date) - $StartedAt
+    $elapsed = "{0:hh\:mm\:ss}" -f $elapsedSpan
+    $seconds = [math]::Max(1, [int]$elapsedSpan.TotalSeconds)
+    $speed = [math]::Round($Processed / $seconds, 2)
+
+    Write-JobState -Path $StatePath -State @{
+        success = ($Status -ne "error")
+        jobId = $JobId
+        status = $Status
+        percent = $Percent
+        current = $Current
+        currentDomain = $CurrentDomain
+        currentUser = $CurrentUser
+        processed = $Processed
+        found = @($Data).Count
+        totalEstimated = $TotalEstimated
+        elapsed = $elapsed
+        speed = $speed
+        data = @($Data | Sort-Object AccountExpires)
+        stats = Get-Stats -Data $Data
+        error = $ErrorMessage
+        startedAt = $StartedAt.ToString("yyyy-MM-dd HH:mm:ss")
+        finishedAt = if ($Status -in @("done","error","cancelled")) { (Get-Date).ToString("yyyy-MM-dd HH:mm:ss") } else { $null }
+    }
+}
+
+try {
+    Import-Module ActiveDirectory -ErrorAction Stop
+
+    $Payload = Get-Content $PayloadPath -Raw | ConvertFrom-Json
+
+    $JobId = $Payload.jobId
+    $StatePath = $Payload.statePath
+
+    $User = $Payload.user
+    $Date = $Payload.date
+    $DateFrom = $Payload.dateFrom
+    $DateTo = $Payload.dateTo
+
+    $StartedAt = Get-Date
+    $Data = New-Object System.Collections.Generic.List[object]
+    $Processed = 0
+    $TotalEstimated = 0
+
+    $StartDate = $null
+    $EndDate = $null
+
+    if (-not [string]::IsNullOrWhiteSpace($Date)) {
+        $StartDate = Normalize-Date $Date $false
+        $EndDate = Normalize-Date $Date $true
+    }
+    else {
+        $StartDate = Normalize-Date $DateFrom $false
+        $EndDate = Normalize-Date $DateTo $true
+    }
+
+    $Domains = @(
+        @{ Name = "central.rinterna.local"; Server = "central.rinterna.local"; BasePercent = 0 },
+        @{ Name = "rede.rinterna.local"; Server = "rede.rinterna.local"; BasePercent = 50 }
+    )
+
+    Publish-State `
+        -StatePath $StatePath `
+        -JobId $JobId `
+        -Status "running" `
+        -Percent 1 `
+        -Current "A preparar consulta aos domínios..." `
+        -CurrentDomain "" `
+        -CurrentUser "" `
+        -Processed 0 `
+        -TotalEstimated 0 `
+        -Data $Data `
+        -StartedAt $StartedAt
+
+    foreach ($Domain in $Domains) {
+        $Server = $Domain.Server
+        $DomainName = $Domain.Name
+        $BasePercent = [int]$Domain.BasePercent
+
+        $stateCheck = Read-JobState -Path $StatePath
+        if ($stateCheck -and $stateCheck.status -eq "cancelled") {
+            Publish-State `
+                -StatePath $StatePath `
+                -JobId $JobId `
+                -Status "cancelled" `
+                -Percent 100 `
+                -Current "Consulta cancelada pelo utilizador." `
+                -CurrentDomain $DomainName `
+                -CurrentUser "" `
+                -Processed $Processed `
+                -TotalEstimated $TotalEstimated `
+                -Data $Data `
+                -StartedAt $StartedAt
+            exit
+        }
+
+        Publish-State `
+            -StatePath $StatePath `
+            -JobId $JobId `
+            -Status "running" `
+            -Percent ($BasePercent + 2) `
+            -Current "A consultar domínio $DomainName..." `
+            -CurrentDomain $DomainName `
+            -CurrentUser "" `
+            -Processed $Processed `
+            -TotalEstimated $TotalEstimated `
+            -Data $Data `
+            -StartedAt $StartedAt
+
+        if (-not [string]::IsNullOrWhiteSpace($User)) {
+            $safeUser = $User.Replace("'", "''")
+            $Filter = "SamAccountName -like '*$safeUser*' -or UserPrincipalName -like '*$safeUser*' -or Name -like '*$safeUser*' -or DisplayName -like '*$safeUser*' -or Mail -like '*$safeUser*'"
+        }
+        else {
+            $Filter = "*"
+        }
+
+        $Users = Get-ADUser `
+            -Server $Server `
+            -Filter $Filter `
+            -Properties DisplayName,UserPrincipalName,Mail,Enabled,AccountExpirationDate,Department,Title,Manager,whenCreated,DistinguishedName `
+            -ResultSetSize $null
+
+        $UsersArray = @($Users)
+        $TotalDomain = $UsersArray.Count
+        $TotalEstimated += $TotalDomain
+        $Index = 0
+
+        foreach ($U in $UsersArray) {
+            $Index++
+            $Processed++
+
+            $stateCheck = $null
+
+            if (($Index % 100) -eq 0) {
+                $stateCheck = Read-JobState -Path $StatePath
+                if ($stateCheck -and $stateCheck.status -eq "cancelled") {
+                    Publish-State `
+                        -StatePath $StatePath `
+                        -JobId $JobId `
+                        -Status "cancelled" `
+                        -Percent 100 `
+                        -Current "Consulta cancelada pelo utilizador." `
+                        -CurrentDomain $DomainName `
+                        -CurrentUser $U.SamAccountName `
+                        -Processed $Processed `
+                        -TotalEstimated $TotalEstimated `
+                        -Data $Data `
+                        -StartedAt $StartedAt
+                    exit
+                }
+            }
+
+            $ExpireDate = $U.AccountExpirationDate
+
+            if ($ExpireDate) {
+                if ($StartDate -and $ExpireDate -lt $StartDate) { continue }
+                if ($EndDate -and $ExpireDate -gt $EndDate) { continue }
+
+                $DaysToExpire = [math]::Floor(($ExpireDate.Date - (Get-Date).Date).TotalDays)
+
+                $Status = if ($DaysToExpire -lt 0) {
+                    "Expirado"
+                }
+                elseif ($DaysToExpire -eq 0) {
+                    "Expira hoje"
+                }
+                else {
+                    "A expirar"
+                }
+
+                $Data.Add([PSCustomObject]@{
+                    Dominio = $DomainName
+                    SamAccountName = $U.SamAccountName
+                    Nome = $U.DisplayName
+                    UserPrincipalName = $U.UserPrincipalName
+                    Email = $U.Mail
+                    Enabled = $U.Enabled
+                    Estado = $Status
+                    AccountExpires = $ExpireDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    DiasParaExpirar = $DaysToExpire
+                    Departamento = $U.Department
+                    Cargo = $U.Title
+                    Manager = $U.Manager
+                    CriadoEm = if ($U.whenCreated) { $U.whenCreated.ToString("yyyy-MM-dd HH:mm:ss") } else { $null }
+                    DistinguishedName = $U.DistinguishedName
+                })
+            }
+
+            if (($Index % 25) -eq 0 -or $ExpireDate) {
+                $DomainProgress = if ($TotalDomain -gt 0) {
+                    [math]::Round(($Index / $TotalDomain) * 45)
+                }
+                else {
+                    45
+                }
+
+                $Percent = [math]::Min(98, $BasePercent + $DomainProgress)
+
+                Publish-State `
+                    -StatePath $StatePath `
+                    -JobId $JobId `
+                    -Status "running" `
+                    -Percent $Percent `
+                    -Current "A analisar $DomainName: $Index de $TotalDomain utilizadores..." `
+                    -CurrentDomain $DomainName `
+                    -CurrentUser $U.SamAccountName `
+                    -Processed $Processed `
+                    -TotalEstimated $TotalEstimated `
+                    -Data $Data `
+                    -StartedAt $StartedAt
+            }
+        }
+
+        Publish-State `
+            -StatePath $StatePath `
+            -JobId $JobId `
+            -Status "running" `
+            -Percent ([math]::Min(98, $BasePercent + 49)) `
+            -Current "Domínio $DomainName concluído." `
+            -CurrentDomain $DomainName `
+            -CurrentUser "" `
+            -Processed $Processed `
+            -TotalEstimated $TotalEstimated `
+            -Data $Data `
+            -StartedAt $StartedAt
+    }
+
+    Publish-State `
+        -StatePath $StatePath `
+        -JobId $JobId `
+        -Status "done" `
+        -Percent 100 `
+        -Current "Consulta concluída." `
+        -CurrentDomain "" `
+        -CurrentUser "" `
+        -Processed $Processed `
+        -TotalEstimated $TotalEstimated `
+        -Data $Data `
+        -StartedAt $StartedAt
+}
+catch {
+    try {
+        $Payload = Get-Content $PayloadPath -Raw | ConvertFrom-Json
+        $StartedAt = Get-Date
+
+        Publish-State `
+            -StatePath $Payload.statePath `
+            -JobId $Payload.jobId `
+            -Status "error" `
+            -Percent 100 `
+            -Current "Erro na consulta." `
+            -CurrentDomain "" `
+            -CurrentUser "" `
+            -Processed 0 `
+            -TotalEstimated 0 `
+            -Data @() `
+            -StartedAt $StartedAt `
+            -ErrorMessage $_.Exception.Message
+    } catch {}
+}

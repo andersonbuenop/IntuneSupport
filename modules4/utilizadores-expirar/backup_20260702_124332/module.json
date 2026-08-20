@@ -1,0 +1,13 @@
+{
+  "id": "utilizadores-expirar",
+  "name": "Utilizadores a expirar",
+  "title": "Utilizadores a expirar",
+  "description": "Consulta utilizadores no AD com Account Expires definido.",
+  "category": "Relatórios",
+  "icon": "⏳",
+  "order": 35,
+  "enabled": true,
+  "page": "page.html",
+  "script": "script.js",
+  "api": "api.ps1"
+}

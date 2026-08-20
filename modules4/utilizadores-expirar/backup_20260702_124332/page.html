@@ -1,0 +1,207 @@
+﻿<div class="ux-card">
+    <div class="ux-header">
+        <div>
+            <h2>⏳ Utilizadores a expirar</h2>
+            <p>Consulta o atributo <b>Account Expires</b> nos domínios central.rinterna.local e rede.rinterna.local.</p>
+        </div>
+    </div>
+
+    <div class="ux-filters">
+        <div>
+            <label>Utilizador</label>
+            <input id="uxUser" type="text" placeholder="SamAccountName, UPN, nome ou email">
+        </div>
+
+        <div>
+            <label>Data específica</label>
+            <input id="uxDate" type="date">
+        </div>
+
+        <div>
+            <label>Data inicial</label>
+            <input id="uxDateFrom" type="date">
+        </div>
+
+        <div>
+            <label>Data final</label>
+            <input id="uxDateTo" type="date">
+        </div>
+
+        <div class="ux-actions">
+            <button class="ux-btn primary" onclick="uxSearch()">Consultar</button>
+            <button class="ux-btn" onclick="uxClear()">Limpar</button>
+            <button class="ux-btn" onclick="uxExportCsv()">Exportar CSV</button>
+        </div>
+    </div>
+
+    <div id="uxSummary" class="ux-summary" style="display:none;"></div>
+
+    <div class="ux-table-wrap">
+        <table class="ux-table">
+            <thead>
+                <tr>
+                    <th>Domínio</th>
+                    <th>Utilizador</th>
+                    <th>Nome</th>
+                    <th>UPN</th>
+                    <th>Email</th>
+                    <th>Estado AD</th>
+                    <th>Account Expires</th>
+                    <th>Dias</th>
+                    <th>Departamento</th>
+                    <th>Cargo</th>
+                    <th>Manager</th>
+                    <th>DN</th>
+                </tr>
+            </thead>
+            <tbody id="uxTableBody">
+                <tr>
+                    <td colspan="12" class="ux-empty">Preencha os filtros e clique em Consultar.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+.ux-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 8px 28px rgba(0,0,0,.08);
+    border: 1px solid #eee;
+}
+
+.ux-header h2 {
+    margin: 0;
+    color: #b00020;
+}
+
+.ux-header p {
+    margin-top: 6px;
+    color: #555;
+}
+
+.ux-filters {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(180px, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+    align-items: end;
+}
+
+.ux-filters label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.ux-filters input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 14px;
+}
+
+.ux-actions {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.ux-btn {
+    border: 1px solid #ddd;
+    background: #f8f8f8;
+    border-radius: 10px;
+    padding: 10px 14px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.ux-btn.primary {
+    background: #e4002b;
+    border-color: #e4002b;
+    color: #fff;
+}
+
+.ux-summary {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 12px;
+    background: #fff5f6;
+    border: 1px solid #ffd6dc;
+    color: #5c0011;
+    font-weight: 600;
+}
+
+.ux-table-wrap {
+    margin-top: 16px;
+    overflow: auto;
+    border: 1px solid #eee;
+    border-radius: 14px;
+}
+
+.ux-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+}
+
+.ux-table th {
+    background: #f6f6f6;
+    color: #222;
+    text-align: left;
+    padding: 10px;
+    white-space: nowrap;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.ux-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+
+.ux-table tr:hover {
+    background: #fafafa;
+}
+
+.ux-empty {
+    text-align: center;
+    color: #777;
+    padding: 20px !important;
+}
+
+.ux-badge {
+    padding: 4px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 12px;
+}
+
+.ux-badge.ok {
+    background: #eaf7ea;
+    color: #126b20;
+}
+
+.ux-badge.warn {
+    background: #fff4d6;
+    color: #8a5a00;
+}
+
+.ux-badge.danger {
+    background: #ffe1e5;
+    color: #9b001b;
+}
+
+@media (max-width: 900px) {
+    .ux-filters {
+        grid-template-columns: 1fr;
+    }
+}
+</style>

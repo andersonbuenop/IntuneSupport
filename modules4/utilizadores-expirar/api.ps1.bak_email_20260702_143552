@@ -1,0 +1,172 @@
+param(
+    $Query = $null,
+    $Config = $null,
+    $Body = $null
+)
+
+$ErrorActionPreference = "Stop"
+
+$ModuleRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
+$JobsPath = Join-Path $ModuleRoot "jobs"
+New-Item -ItemType Directory -Force -Path $JobsPath | Out-Null
+
+function Send-Json {
+    param($Obj)
+    $Obj | ConvertTo-Json -Depth 50 -Compress
+}
+
+function Get-Param {
+    param([string]$Name)
+
+    if ($Body) {
+        try {
+            if ($Body -is [string]) {
+                $json = $Body | ConvertFrom-Json
+                if ($json.PSObject.Properties[$Name]) { return $json.$Name }
+            }
+            elseif ($Body.PSObject.Properties[$Name]) {
+                return $Body.$Name
+            }
+        } catch {}
+    }
+
+    if ($Query -and $Query[$Name]) {
+        return $Query[$Name]
+    }
+
+    return $null
+}
+
+function Write-JobState {
+    param(
+        [string]$Path,
+        [object]$State
+    )
+
+    $tmp = "$Path.tmp"
+    $State | ConvertTo-Json -Depth 50 | Set-Content -Path $tmp -Encoding UTF8
+    Move-Item -Path $tmp -Destination $Path -Force
+}
+
+try {
+    $Action = Get-Param "action"
+
+    if ([string]::IsNullOrWhiteSpace($Action)) {
+        $Action = "start"
+    }
+
+    if ($Action -eq "progress") {
+        $JobId = Get-Param "jobId"
+
+        if ([string]::IsNullOrWhiteSpace($JobId)) {
+            Send-Json @{
+                success = $false
+                message = "jobId não informado."
+            }
+            return
+        }
+
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+
+        if (-not (Test-Path $StatePath)) {
+            Send-Json @{
+                success = $false
+                message = "Job não encontrado."
+            }
+            return
+        }
+
+        Get-Content $StatePath -Raw
+        return
+    }
+
+    if ($Action -eq "cancel") {
+        $JobId = Get-Param "jobId"
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+
+        if (Test-Path $StatePath) {
+            $state = Get-Content $StatePath -Raw | ConvertFrom-Json
+            $state.status = "cancelled"
+            $state.current = "Consulta cancelada pelo utilizador."
+            $state.finishedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+            Write-JobState -Path $StatePath -State $state
+        }
+
+        Send-Json @{
+            success = $true
+            message = "Pedido de cancelamento enviado."
+        }
+        return
+    }
+
+    if ($Action -eq "start") {
+        $JobId = [guid]::NewGuid().ToString()
+        $StatePath = Join-Path $JobsPath "$JobId.json"
+        $PayloadPath = Join-Path $JobsPath "$JobId.payload.json"
+        $WorkerPath = Join-Path $ModuleRoot "worker.ps1"
+
+        $Payload = @{
+            jobId = $JobId
+            user = Get-Param "user"
+            date = Get-Param "date"
+            dateFrom = Get-Param "dateFrom"
+            dateTo = Get-Param "dateTo"
+            statePath = $StatePath
+            jobsPath = $JobsPath
+        }
+
+        Write-JobState -Path $StatePath -State @{
+            success = $true
+            jobId = $JobId
+            status = "running"
+            percent = 0
+            current = "A iniciar consulta..."
+            currentDomain = ""
+            currentUser = ""
+            processed = 0
+            found = 0
+            totalEstimated = 0
+            elapsed = "00:00:00"
+            speed = 0
+            data = @()
+            stats = @{
+                total = 0
+                expired = 0
+                today = 0
+                sevenDays = 0
+                thirtyDays = 0
+                future = 0
+            }
+            error = $null
+            startedAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+            finishedAt = $null
+        }
+
+        $Payload | ConvertTo-Json -Depth 20 | Set-Content -Path $PayloadPath -Encoding UTF8
+
+        Start-Process powershell.exe -WindowStyle Hidden -ArgumentList @(
+            "-NoProfile",
+            "-ExecutionPolicy", "Bypass",
+            "-File", "`"$WorkerPath`"",
+            "-PayloadPath", "`"$PayloadPath`""
+        )
+
+        Send-Json @{
+            success = $true
+            jobId = $JobId
+            message = "Consulta iniciada."
+        }
+        return
+    }
+
+    Send-Json @{
+        success = $false
+        message = "Action inválida: $Action"
+    }
+}
+catch {
+    Send-Json @{
+        success = $false
+        message = $_.Exception.Message
+    }
+}
