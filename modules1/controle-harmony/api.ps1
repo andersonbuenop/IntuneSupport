@@ -1,0 +1,1426 @@
+param(
+    $Query = $null,
+    $Config = $null,
+    $Body = $null
+)
+
+$ErrorActionPreference = "Stop"
+
+function ConvertTo-JsonResponse {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 100
+}
+
+function Get-RawBody {
+    param($Body)
+
+    if ($Body -is [string] -and -not [string]::IsNullOrWhiteSpace($Body)) {
+        return $Body
+    }
+
+    if ($Body -and -not ($Body -is [string])) {
+        return ($Body | ConvertTo-Json -Depth 100)
+    }
+
+    $scopes = @("Local", "Script", "Global", 1, 2)
+
+    foreach ($scope in $scopes) {
+        try {
+            $v = Get-Variable -Name ModuleApiBody -Scope $scope -ErrorAction SilentlyContinue
+            if ($v -and $v.Value -and -not [string]::IsNullOrWhiteSpace([string]$v.Value)) {
+                return [string]$v.Value
+            }
+        } catch {}
+    }
+
+    try {
+        if ($ModuleApiBody -and -not [string]::IsNullOrWhiteSpace([string]$ModuleApiBody)) {
+            return [string]$ModuleApiBody
+        }
+    } catch {}
+
+    return ""
+}
+
+function Get-JsonBody {
+    param($Body)
+
+    $raw = Get-RawBody -Body $Body
+
+    if ([string]::IsNullOrWhiteSpace($raw)) {
+        return $null
+    }
+
+    return $raw | ConvertFrom-Json
+}
+
+function Get-ActionName {
+    param($JsonBody, $Query)
+
+    if ($JsonBody -and $JsonBody.action) {
+        return [string]$JsonBody.action
+    }
+
+    if ($Query -and $Query["action"]) {
+        return [string]$Query["action"]
+    }
+
+    try {
+        if ($Global:ModuleApiAction) {
+            return [string]$Global:ModuleApiAction
+        }
+    } catch {}
+
+    return ""
+}
+
+function HtmlEncode {
+    param([string]$Text)
+
+    Add-Type -AssemblyName System.Web -ErrorAction SilentlyContinue
+    return [System.Web.HttpUtility]::HtmlEncode([string]$Text)
+}
+
+function Get-Prop {
+    param(
+        $Obj,
+        [string]$Name
+    )
+
+    if ($null -eq $Obj) {
+        return ""
+    }
+
+    $prop = $Obj.PSObject.Properties[$Name]
+
+    if ($prop) {
+        return [string]$prop.Value
+    }
+
+    return ""
+}
+
+function Get-Saudacao {
+    $now = Get-Date
+    $totalMin = ([int]$now.Hour * 60) + [int]$now.Minute
+
+    if ($totalMin -ge 1 -and $totalMin -le 720) {
+        return "Bom dia"
+    }
+
+    if ($totalMin -ge 721 -and $totalMin -le 1080) {
+        return "Boa tarde"
+    }
+
+    return "Boa noite"
+}
+
+function Resolve-UserFullNameLocalAD {
+    param([string]$Upn)
+
+    $result = [ordered]@{
+        displayName = ""
+        domain = ""
+        found = $false
+        enabled = $null
+        source = ""
+    }
+
+    if ([string]::IsNullOrWhiteSpace($Upn)) {
+        return $result
+    }
+
+    $sam = ($Upn.Trim() -split "@")[0]
+
+    if ([string]::IsNullOrWhiteSpace($sam)) {
+        return $result
+    }
+
+    try {
+        Import-Module ActiveDirectory -ErrorAction Stop
+    }
+    catch {
+        return $result
+    }
+
+    $domains = @(
+        "central.rinterna.local",
+        "rede.rinterna.local"
+    )
+
+    foreach ($domain in $domains) {
+        try {
+            $user = Get-ADUser `
+                -Server $domain `
+                -Identity $sam `
+                -Properties DisplayName,Name,Enabled,UserPrincipalName,Mail,SamAccountName `
+                -ErrorAction Stop
+
+            if ($user) {
+                $name = ""
+
+                if ($user.DisplayName) {
+                    $name = [string]$user.DisplayName
+                }
+                elseif ($user.Name) {
+                    $name = [string]$user.Name
+                }
+
+                $result.displayName = $name
+                $result.domain = $domain
+                $result.found = $true
+                $result.enabled = [bool]$user.Enabled
+                $result.source = "AD Local"
+
+                return $result
+            }
+        }
+        catch {
+            # continua para o próximo domínio
+        }
+    }
+
+    return $result
+}
+
+function Resolve-UserInfoEntra {
+    param([string]$Upn)
+
+    $result = [ordered]@{
+        upn = $Upn
+        displayName = ""
+        accountEnabled = $null
+        accountStatus = "Não encontrado"
+        found = $false
+        source = "Não encontrado"
+        adDomain = ""
+    }
+
+    if ([string]::IsNullOrWhiteSpace($Upn)) {
+        return $result
+    }
+
+    try {
+        Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+        $ctx = Get-MgContext
+        if ($ctx) {
+            $cleanUpn = $Upn.Trim()
+            $escaped = $cleanUpn.Replace("'", "''")
+            $sam = ($cleanUpn -split "@")[0]
+            $samEscaped = $sam.Replace("'", "''")
+
+            $queries = @(
+                "https://graph.microsoft.com/v1.0/users/$([System.Uri]::EscapeDataString($cleanUpn))?`$select=displayName,userPrincipalName,mail,accountEnabled,onPremisesSamAccountName,mailNickname",
+                "https://graph.microsoft.com/v1.0/users?`$filter=$([System.Uri]::EscapeDataString("userPrincipalName eq '$escaped' or mail eq '$escaped'"))&`$select=displayName,userPrincipalName,mail,accountEnabled,onPremisesSamAccountName,mailNickname&`$top=1",
+                "https://graph.microsoft.com/v1.0/users?`$filter=$([System.Uri]::EscapeDataString("onPremisesSamAccountName eq '$samEscaped' or mailNickname eq '$samEscaped' or startswith(userPrincipalName,'$samEscaped')"))&`$select=displayName,userPrincipalName,mail,accountEnabled,onPremisesSamAccountName,mailNickname&`$top=1"
+            )
+
+            foreach ($uri in $queries) {
+                try {
+                    $r = Invoke-MgGraphRequest -Method GET -Uri $uri -Headers @{ ConsistencyLevel = "eventual" } -ErrorAction Stop
+
+                    $u = $null
+
+                    if ($r.value) {
+                        if ($r.value.Count -gt 0) {
+                            $u = $r.value[0]
+                        }
+                    }
+                    else {
+                        $u = $r
+                    }
+
+                    if ($u -and $u.displayName) {
+                        $result.displayName = [string]$u.displayName
+                        $result.found = $true
+                        $result.source = "Entra ID"
+
+                        if ($null -ne $u.accountEnabled) {
+                            $result.accountEnabled = [bool]$u.accountEnabled
+
+                            if ([bool]$u.accountEnabled) {
+                                $result.accountStatus = "Ativo"
+                            }
+                            else {
+                                $result.accountStatus = "Desativado"
+                            }
+                        }
+                        else {
+                            $result.accountStatus = "Sem informação"
+                        }
+
+                        return $result
+                    }
+                }
+                catch {}
+            }
+        }
+        else {
+            $result.accountStatus = "Graph não conectado"
+        }
+    }
+    catch {
+        $result.accountStatus = "Erro Graph"
+    }
+
+    # Fallback AD Local
+    $ad = Resolve-UserFullNameLocalAD -Upn $Upn
+
+    if ($ad.found -eq $true) {
+        $result.displayName = [string]$ad.displayName
+        $result.found = $true
+        $result.source = "AD Local"
+        $result.adDomain = [string]$ad.domain
+        $result.accountEnabled = $ad.enabled
+
+        if ($ad.enabled -eq $true) {
+            $result.accountStatus = "Ativo AD Local"
+        }
+        elseif ($ad.enabled -eq $false) {
+            $result.accountStatus = "Desativado AD Local"
+        }
+        else {
+            $result.accountStatus = "Encontrado AD Local"
+        }
+
+        return $result
+    }
+
+    return $result
+}
+
+function Resolve-UserFullName {
+    param([string]$Upn)
+
+    if ([string]::IsNullOrWhiteSpace($Upn)) {
+        return ""
+    }
+
+    try {
+        Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+        $ctx = Get-MgContext
+        if (-not $ctx) {
+            return ""
+        }
+
+        $cleanUpn = $Upn.Trim()
+        $escaped = $cleanUpn.Replace("'", "''")
+        $sam = ($cleanUpn -split "@")[0]
+        $samEscaped = $sam.Replace("'", "''")
+
+        # 1) Direto pelo UPN
+        try {
+            $uriDirect = "https://graph.microsoft.com/v1.0/users/$([System.Uri]::EscapeDataString($cleanUpn))?`$select=displayName,userPrincipalName,mail,onPremisesSamAccountName,mailNickname"
+            $u = Invoke-MgGraphRequest -Method GET -Uri $uriDirect -ErrorAction Stop
+
+            if ($u.displayName) {
+                return [string]$u.displayName
+            }
+        } catch {}
+
+        # 2) userPrincipalName ou mail
+        try {
+            $filter = "userPrincipalName eq '$escaped' or mail eq '$escaped'"
+            $uri = "https://graph.microsoft.com/v1.0/users?`$filter=$([System.Uri]::EscapeDataString($filter))&`$select=displayName,userPrincipalName,mail,onPremisesSamAccountName,mailNickname&`$top=1"
+            $r = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            if ($r.value -and $r.value.Count -gt 0 -and $r.value[0].displayName) {
+                return [string]$r.value[0].displayName
+            }
+        } catch {}
+
+        # 3) proxyAddresses
+        try {
+            $proxy1 = "SMTP:$escaped"
+            $proxy2 = "smtp:$escaped"
+            $filterProxy = "proxyAddresses/any(p:p eq '$proxy1') or proxyAddresses/any(p:p eq '$proxy2')"
+            $uriProxy = "https://graph.microsoft.com/v1.0/users?`$filter=$([System.Uri]::EscapeDataString($filterProxy))&`$select=displayName,userPrincipalName,mail,proxyAddresses&`$top=1"
+            $r2 = Invoke-MgGraphRequest -Method GET -Uri $uriProxy -Headers @{ ConsistencyLevel = "eventual" } -ErrorAction Stop
+
+            if ($r2.value -and $r2.value.Count -gt 0 -and $r2.value[0].displayName) {
+                return [string]$r2.value[0].displayName
+            }
+        } catch {}
+
+        # 4) Pesquisa pelo ID antes do @: s800147, C605204, etc.
+        try {
+            $filterSam = "onPremisesSamAccountName eq '$samEscaped' or mailNickname eq '$samEscaped' or startswith(userPrincipalName,'$samEscaped')"
+            $uriSam = "https://graph.microsoft.com/v1.0/users?`$filter=$([System.Uri]::EscapeDataString($filterSam))&`$select=displayName,userPrincipalName,mail,onPremisesSamAccountName,mailNickname&`$top=1"
+            $r3 = Invoke-MgGraphRequest -Method GET -Uri $uriSam -Headers @{ ConsistencyLevel = "eventual" } -ErrorAction Stop
+
+            if ($r3.value -and $r3.value.Count -gt 0 -and $r3.value[0].displayName) {
+                return [string]$r3.value[0].displayName
+            }
+        } catch {}
+
+        return ""
+    }
+    catch {
+        return ""
+    }
+}
+
+function Resolve-MessageTemplate {
+    param(
+        [string]$Template,
+        $Item
+    )
+
+    $upn = Get-Prop $Item "Email"
+    $fullName = Get-Prop $Item "_DisplayName"
+
+    if ([string]::IsNullOrWhiteSpace($fullName) -or $fullName -ieq $upn) {
+        try {
+            $diag = Test-UserLookupDetailed -Upn $upn
+
+            if ($diag.finalDisplayName) {
+                $fullName = [string]$diag.finalDisplayName
+            }
+        }
+        catch {}
+    }
+
+    if ([string]::IsNullOrWhiteSpace($fullName)) {
+        $fullName = $upn
+    }
+
+    $msg = [string]$Template
+
+    $msg = $msg.Replace("{SAUDACAO}", (Get-Saudacao))
+    $msg = $msg.Replace("{NOME}", $fullName)
+    $msg = $msg.Replace("{FULLNAME}", $fullName)
+    $msg = $msg.Replace("{EMAIL}", $upn)
+    $msg = $msg.Replace("{DEVICE}", (Get-Prop $Item "Name"))
+    $msg = $msg.Replace("{DEVICE_TYPE}", (Get-Prop $Item "Device Type"))
+    $msg = $msg.Replace("{OS_VERSION}", (Get-Prop $Item "OS Version"))
+    $msg = $msg.Replace("{CLIENT_VERSION}", (Get-Prop $Item "Client Version"))
+    $msg = $msg.Replace("{LAST_SEEN}", (Get-Prop $Item "Last Seen"))
+    $msg = $msg.Replace("{STATUS}", (Get-Prop $Item "Status"))
+    $msg = $msg.Replace("{POLICY}", (Get-Prop $Item "Policy"))
+    $msg = $msg.Replace("{SERIAL_NUMBER}", (Get-Prop $Item "Serial Number"))
+    $msg = $msg.Replace("{TEMPO_RESTANTE}", (Get-HarmonyTempoRestante -Item $Item))
+    $msg = $msg.Replace("{PRAZO_LIMITE}", (Get-HarmonyPrazoLimite -Item $Item))
+
+    return $msg
+}
+
+function Convert-TextToHtml {
+    param([string]$Text)
+
+    $encoded = HtmlEncode $Text
+    return $encoded.Replace("`r`n", "<br/>").Replace("`n", "<br/>")
+}
+
+function Set-OutlookSender {
+    param(
+        $Mail,
+        $Outlook,
+        [string]$FromAddress
+    )
+
+    if ([string]::IsNullOrWhiteSpace($FromAddress)) {
+        return
+    }
+
+    try {
+        foreach ($account in $Outlook.Session.Accounts) {
+            if ([string]$account.SmtpAddress -ieq $FromAddress) {
+                $Mail.SendUsingAccount = $account
+                return
+            }
+        }
+
+        $Mail.SentOnBehalfOfName = $FromAddress
+    }
+    catch {
+        throw "Não foi possível definir o remetente '$FromAddress'. Confirme permissão Send As ou Send on behalf."
+    }
+}
+
+function Add-OutlookAttachmentFromBase64 {
+    param(
+        $Mail,
+        $Attachment
+    )
+
+    if ($null -eq $Attachment) {
+        return
+    }
+
+    $fileName = [string]$Attachment.fileName
+    $base64 = [string]$Attachment.base64
+
+    if ([string]::IsNullOrWhiteSpace($fileName) -or [string]::IsNullOrWhiteSpace($base64)) {
+        return
+    }
+
+    $tempFolder = Join-Path $env:TEMP "ControleHarmonyAnexos"
+
+    if (!(Test-Path $tempFolder)) {
+        New-Item -ItemType Directory -Path $tempFolder -Force | Out-Null
+    }
+
+    $safeName = [IO.Path]::GetFileName($fileName)
+    $tempFile = Join-Path $tempFolder ("{0}_{1}" -f (Get-Date -Format "yyyyMMddHHmmss"), $safeName)
+
+    [IO.File]::WriteAllBytes($tempFile, [Convert]::FromBase64String($base64))
+    $Mail.Attachments.Add($tempFile) | Out-Null
+}
+
+function New-SantanderHarmonyUserEmailHtml {
+    param(
+        [string]$BodyText,
+        $Item
+    )
+
+    $deviceName    = HtmlEncode (Get-Prop $Item "Name")
+    $deviceType    = HtmlEncode (Get-Prop $Item "Device Type")
+    $osVersion     = HtmlEncode (Get-Prop $Item "OS Version")
+    $clientVersion = HtmlEncode (Get-Prop $Item "Client Version")
+    $lastSeen      = HtmlEncode (Get-Prop $Item "Last Seen")
+    $status        = HtmlEncode (Get-Prop $Item "Status")
+    $policy        = HtmlEncode (Get-Prop $Item "Policy")
+    $serial        = HtmlEncode (Get-Prop $Item "Serial Number")
+
+    $bodyHtml = Convert-TextToHtml -Text $BodyText
+
+    return @"
+<html>
+<body style="margin:0;padding:0;background:#f4f6f8;font-family:Segoe UI,Arial,sans-serif;color:#1f2933;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f8;padding:24px 0;">
+<tr>
+<td align="center">
+
+<table width="720" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:10px;overflow:hidden;border:1px solid #e5e7eb;">
+<tr>
+<td style="background:#e60000;padding:18px 28px;color:#ffffff;">
+<div style="font-size:22px;font-weight:700;letter-spacing:.2px;">Santander</div>
+<div style="font-size:13px;margin-top:4px;">Enduser Portugal | Controlo Harmony</div>
+</td>
+</tr>
+
+<tr>
+<td style="padding:28px;">
+<div style="font-size:18px;font-weight:700;color:#111827;margin-bottom:12px;">
+Ação necessária no dispositivo corporativo
+</div>
+
+<div style="font-size:14px;line-height:1.6;color:#374151;margin-bottom:22px;">
+$bodyHtml
+</div>
+
+<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;margin:22px 0;font-size:13px;">
+<tr>
+<td colspan="2" style="background:#f9fafb;border:1px solid #e5e7eb;padding:10px 12px;font-weight:700;color:#111827;">
+Detalhes do dispositivo
+</td>
+</tr>
+<tr>
+<td style="width:220px;border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Dispositivo</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#111827;">$deviceName</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Tipo</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#111827;">$deviceType</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Sistema Operativo</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#111827;">$osVersion</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Versão Cliente/Harmony</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#111827;">$clientVersion</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Última comunicação</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#111827;">$lastSeen</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Estado atual</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;">
+<span style="display:inline-block;background:#fee2e2;color:#b91c1c;border:1px solid #fecaca;border-radius:999px;padding:4px 10px;font-weight:700;">
+$status
+</span>
+</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Política</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#111827;">$policy</td>
+</tr>
+<tr>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#6b7280;">Serial Number</td>
+<td style="border:1px solid #e5e7eb;padding:9px 12px;color:#111827;">$serial</td>
+</tr>
+</table>
+
+<div style="background:#fff7ed;border-left:5px solid #f97316;padding:12px 14px;margin:20px 0;color:#7c2d12;font-size:13px;line-height:1.5;">
+<strong>Nota:</strong> caso a aplicação Harmony não esteja ativa, o dispositivo poderá ficar condicionado no acesso aos recursos corporativos.
+</div>
+
+<div style="margin-top:24px;font-size:14px;line-height:1.6;color:#374151;">
+Obrigado,<br/>
+<strong>Equipa Santander Enduser Portugal</strong>
+</div>
+</td>
+</tr>
+
+<tr>
+<td style="background:#f9fafb;border-top:1px solid #e5e7eb;padding:14px 28px;font-size:11px;color:#6b7280;">
+Esta mensagem foi gerada automaticamente pelo Santander Support Web V2.
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+</table>
+</body>
+</html>
+"@
+}
+
+function Test-UserLookupDetailed {
+    param([string]$Upn)
+
+    $logs = New-Object System.Collections.Generic.List[string]
+
+    $result = [ordered]@{
+        upn = $Upn
+        sam = ""
+        graphConnected = $false
+        graphDisplayName = ""
+        graphError = ""
+        adCentralDisplayName = ""
+        adCentralEnabled = $null
+        adCentralError = ""
+        adRedeDisplayName = ""
+        adRedeEnabled = $null
+        adRedeError = ""
+        finalDisplayName = ""
+        finalSource = ""
+        logs = @()
+    }
+
+    try {
+        $sam = ($Upn.Trim() -split "@")[0]
+        $result.sam = $sam
+        $logs.Add("SAM extraído: $sam") | Out-Null
+    }
+    catch {
+        $logs.Add("Erro ao extrair SAM: $($_.Exception.Message)") | Out-Null
+    }
+
+    # GRAPH
+    try {
+        Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+        $ctx = Get-MgContext
+
+        if ($ctx) {
+            $result.graphConnected = $true
+            $logs.Add("Graph conectado: $($ctx.Account)") | Out-Null
+
+            try {
+                $encoded = [System.Uri]::EscapeDataString($Upn.Trim())
+                $uri = "https://graph.microsoft.com/v1.0/users/$encoded?`$select=displayName,userPrincipalName,mail,accountEnabled,onPremisesSamAccountName,mailNickname"
+                $u = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+                if ($u.displayName) {
+                    $result.graphDisplayName = [string]$u.displayName
+                    $result.finalDisplayName = [string]$u.displayName
+                    $result.finalSource = "Graph direto"
+                    $logs.Add("Graph direto encontrou: $($u.displayName)") | Out-Null
+                }
+                else {
+                    $logs.Add("Graph direto respondeu, mas sem displayName.") | Out-Null
+                }
+            }
+            catch {
+                $result.graphError = $_.Exception.Message
+                $logs.Add("Graph direto falhou: $($_.Exception.Message)") | Out-Null
+            }
+
+            if ([string]::IsNullOrWhiteSpace($result.finalDisplayName)) {
+                try {
+                    $samEscaped = $result.sam.Replace("'", "''")
+                    $filter = "onPremisesSamAccountName eq '$samEscaped' or mailNickname eq '$samEscaped' or startswith(userPrincipalName,'$samEscaped')"
+                    $uri = "https://graph.microsoft.com/v1.0/users?`$filter=$([System.Uri]::EscapeDataString($filter))&`$select=displayName,userPrincipalName,mail,accountEnabled,onPremisesSamAccountName,mailNickname&`$top=5"
+                    $r = Invoke-MgGraphRequest -Method GET -Uri $uri -Headers @{ ConsistencyLevel = "eventual" } -ErrorAction Stop
+
+                    $count = 0
+                    if ($r.value) { $count = $r.value.Count }
+
+                    $logs.Add("Graph por SAM retornou $count resultado(s).") | Out-Null
+
+                    if ($count -gt 0) {
+                        $u = $r.value[0]
+                        $result.graphDisplayName = [string]$u.displayName
+                        $result.finalDisplayName = [string]$u.displayName
+                        $result.finalSource = "Graph por SAM"
+                        $logs.Add("Graph por SAM encontrou: $($u.displayName) | UPN=$($u.userPrincipalName)") | Out-Null
+                    }
+                }
+                catch {
+                    $logs.Add("Graph por SAM falhou: $($_.Exception.Message)") | Out-Null
+                }
+            }
+        }
+        else {
+            $logs.Add("Graph não conectado.") | Out-Null
+        }
+    }
+    catch {
+        $result.graphError = $_.Exception.Message
+        $logs.Add("Erro Graph geral: $($_.Exception.Message)") | Out-Null
+    }
+
+    # AD LOCAL
+    try {
+        Import-Module ActiveDirectory -ErrorAction Stop
+        $logs.Add("Módulo ActiveDirectory importado.") | Out-Null
+
+        foreach ($domain in @("central.rinterna.local", "rede.rinterna.local")) {
+            try {
+                $logs.Add("A consultar AD $domain pelo SAM $($result.sam)...") | Out-Null
+
+                $u = Get-ADUser `
+                    -Server $domain `
+                    -Identity $result.sam `
+                    -Properties DisplayName,Name,Enabled,SamAccountName,UserPrincipalName,Mail `
+                    -ErrorAction Stop
+
+                if ($u) {
+                    $name = if ($u.DisplayName) { [string]$u.DisplayName } else { [string]$u.Name }
+
+                    if ($domain -eq "central.rinterna.local") {
+                        $result.adCentralDisplayName = $name
+                        $result.adCentralEnabled = [bool]$u.Enabled
+                    }
+                    else {
+                        $result.adRedeDisplayName = $name
+                        $result.adRedeEnabled = [bool]$u.Enabled
+                    }
+
+                    $logs.Add("AD $domain encontrou: $name | Enabled=$($u.Enabled)") | Out-Null
+
+                    if ([string]::IsNullOrWhiteSpace($result.finalDisplayName)) {
+                        $result.finalDisplayName = $name
+                        $result.finalSource = "AD Local $domain"
+                    }
+                }
+            }
+            catch {
+                if ($domain -eq "central.rinterna.local") {
+                    $result.adCentralError = $_.Exception.Message
+                }
+                else {
+                    $result.adRedeError = $_.Exception.Message
+                }
+
+                $logs.Add("AD $domain falhou: $($_.Exception.Message)") | Out-Null
+            }
+        }
+    }
+    catch {
+        $logs.Add("Módulo ActiveDirectory não disponível: $($_.Exception.Message)") | Out-Null
+    }
+
+    $result.logs = @($logs)
+    return $result
+}
+
+function Get-HarmonyTempoRestante {
+    param($Item)
+
+    $deadlineRaw = Get-Prop $Item "_DeadlineAt"
+
+    if ([string]::IsNullOrWhiteSpace($deadlineRaw)) {
+        return "48 horas"
+    }
+
+    try {
+        $deadline = [datetime]::Parse($deadlineRaw)
+        $now = Get-Date
+        $diff = $deadline - $now
+
+        if ($diff.TotalMinutes -le 0) {
+            return "prazo expirado"
+        }
+
+        if ($diff.TotalHours -ge 24) {
+            $dias = [math]::Floor($diff.TotalDays)
+            $horas = [math]::Floor($diff.TotalHours % 24)
+
+            if ($horas -eq 0) {
+                return "$dias dia(s)"
+            }
+
+            return "$dias dia(s) e $horas hora(s)"
+        }
+
+        if ($diff.TotalHours -ge 1) {
+            $horas = [math]::Floor($diff.TotalHours)
+            $min = [math]::Ceiling($diff.TotalMinutes % 60)
+            return "$horas hora(s) e $min minuto(s)"
+        }
+
+        return "$([math]::Ceiling($diff.TotalMinutes)) minuto(s)"
+    }
+    catch {
+        return "48 horas"
+    }
+}
+
+function Get-HarmonyPrazoLimite {
+    param($Item)
+
+    $deadlineRaw = Get-Prop $Item "_DeadlineAt"
+
+    if ([string]::IsNullOrWhiteSpace($deadlineRaw)) {
+        return ""
+    }
+
+    try {
+        return ([datetime]::Parse($deadlineRaw)).ToString("dd/MM/yyyy HH:mm")
+    }
+    catch {
+        return ""
+    }
+}
+
+function Add-HarmonyFixedManuals {
+    param($Mail)
+
+    $root = "C:\Temp\SantanderSupportWebV2_PROD"
+    $filesFolder = Join-Path $root "files"
+
+    $manuals = @(
+        "Harmony Android (ENG).pptx",
+        "Harmony iOS (ENG).pptx"
+    )
+
+    $missing = New-Object System.Collections.Generic.List[string]
+
+    foreach ($manual in $manuals) {
+        $path = Join-Path $filesFolder $manual
+
+        if (Test-Path -LiteralPath $path) {
+            $Mail.Attachments.Add($path) | Out-Null
+        }
+        else {
+            $missing.Add($manual) | Out-Null
+        }
+    }
+
+    if ($missing.Count -gt 0) {
+        throw "Manual(is) não encontrado(s) em C:\Temp\SantanderSupportWebV2_PROD\files: $($missing -join ', ')"
+    }
+}
+
+function Get-HarmonyAusenciasPath {
+    $dataFolder = "C:\Temp\SantanderSupportWebV2_PROD\data"
+
+    if (!(Test-Path $dataFolder)) {
+        New-Item -ItemType Directory -Path $dataFolder -Force | Out-Null
+    }
+
+    $path = Join-Path $dataFolder "harmony-ausencias.json"
+
+    if (!(Test-Path $path)) {
+        "{}" | Set-Content -Path $path -Encoding UTF8
+    }
+
+    return $path
+}
+
+function Read-HarmonyAusencias {
+    $path = Get-HarmonyAusenciasPath
+
+    try {
+        $raw = Get-Content $path -Raw -Encoding UTF8
+
+        if ([string]::IsNullOrWhiteSpace($raw)) {
+            return @{}
+        }
+
+        return $raw | ConvertFrom-Json
+    }
+    catch {
+        return @{}
+    }
+}
+
+function Save-HarmonyAusencias {
+    param($Data)
+
+    $path = Get-HarmonyAusenciasPath
+    $Data | ConvertTo-Json -Depth 20 | Set-Content -Path $path -Encoding UTF8
+}
+
+function Get-DefaultSubject {
+    return "Ação necessária | Validação da aplicação Harmony no dispositivo corporativo"
+}
+
+function Get-DefaultTemplate {
+@"
+{SAUDACAO} {NOME},
+
+Identificámos que o seu dispositivo corporativo apresenta uma situação que requer validação da aplicação Harmony.
+
+Informação do dispositivo:
+
+Dispositivo: {DEVICE}
+Tipo: {DEVICE_TYPE}
+Sistema Operativo: {OS_VERSION}
+Versão Harmony/Cliente: {CLIENT_VERSION}
+Última comunicação: {LAST_SEEN}
+Estado atual: {STATUS}
+
+Ação necessária:
+
+Solicitamos que confirme se a aplicação Harmony se encontra:
+
+- Instalada no dispositivo
+- Atualizada para a versão mais recente
+- Ativa e a comunicar corretamente com os sistemas corporativos
+
+Para apoiar a regularização desta situação, seguem em anexo os manuais de configuração da aplicação Harmony para dispositivos Android e iOS.
+
+Recomendamos a consulta do manual correspondente ao seu equipamento antes de solicitar suporte técnico.
+
+Pedido de suporte:
+
+Caso necessite de apoio, deverá abrir pedido através do ServiceNow no seguinte link:
+
+https://santander.service-now.com/itsm?id=sc_cat_item&table=sc_cat_item&sys_id=a563d82bdb39c0d4f1024dc2ba961981&recordUrl=com.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1&sysparm_id=a563d82bdb39c0d4f1024dc2ba961981
+
+Prazo de regularização:
+
+Dispõe de {TEMPO_RESTANTE} para regularizar esta situação.
+
+Importante:
+
+Caso a situação não seja regularizada dentro do prazo indicado, serão aplicadas restrições de acesso aos serviços corporativos móveis por motivos de segurança e conformidade.
+
+Estas restrições poderão incluir:
+
+- Outlook Mobile
+- Microsoft Teams Mobile
+- Microsoft Authenticator
+- Aplicações corporativas protegidas pelo Intune
+- Outros serviços associados ao acesso móvel corporativo
+
+Recomendamos que efetue a regularização com a maior brevidade possível para evitar impactos na utilização dos serviços corporativos.
+
+Agradecemos a sua colaboração.
+
+Com os melhores cumprimentos,
+
+Equipa Santander Enduser Portugal
+"@
+}
+
+try {
+    Add-Type -AssemblyName System.Web -ErrorAction SilentlyContinue
+
+    $JsonBody = Get-JsonBody -Body $Body
+    $Action = Get-ActionName -JsonBody $JsonBody -Query $Query
+
+    if ([string]::IsNullOrWhiteSpace($Action)) {
+        throw "Ação não informada."
+    }
+
+    $Subject = [string]$JsonBody.subject
+
+    if ([string]::IsNullOrWhiteSpace($Subject)) {
+        $Subject = Get-DefaultSubject
+    }
+
+    $FromAddress = [string]$JsonBody.fromAddress
+
+    if ([string]::IsNullOrWhiteSpace($FromAddress)) {
+        $FromAddress = "User.Action.Required@santander.pt"
+    }
+
+    $MessageTemplate = [string]$JsonBody.messageTemplate
+
+    if ([string]::IsNullOrWhiteSpace($MessageTemplate)) {
+        $MessageTemplate = Get-DefaultTemplate
+    }
+
+
+
+    # HARMONY_V2_DELEGATE_START
+    if ($Action -eq "consultarDispositivosIntunePorIds") {
+        $v2Path = Join-Path (Split-Path -Parent $MyInvocation.MyCommand.Path) "harmony-v2.ps1"
+        & $v2Path -JsonBody $JsonBody -Query $Query
+        return
+    }
+    # HARMONY_V2_DELEGATE_END
+    if ($Action -eq "resolverNome") {
+        $Upn = ""
+
+        if ($Query -and $Query["upn"]) {
+            $Upn = [string]$Query["upn"]
+        }
+
+        if ([string]::IsNullOrWhiteSpace($Upn)) {
+            throw "UPN não informado."
+        }
+
+        $DisplayName = Resolve-UserFullName -Upn $Upn
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            upn = $Upn
+            displayName = $DisplayName
+        }
+        return
+    }
+
+    if ($Action -eq "resolverNome") {
+        $Upn = ""
+
+        if ($Query -and $Query["upn"]) {
+            $Upn = [string]$Query["upn"]
+        }
+
+        if ([string]::IsNullOrWhiteSpace($Upn)) {
+            throw "UPN não informado."
+        }
+
+        $DisplayName = Resolve-UserFullName -Upn $Upn
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            upn = $Upn
+            displayName = $DisplayName
+            displayNameResolved = (-not [string]::IsNullOrWhiteSpace($DisplayName))
+        }
+        return
+    }
+
+    if ($Action -eq "resolverUtilizador") {
+        $Upn = ""
+
+        if ($Query -and $Query["upn"]) {
+            $Upn = [string]$Query["upn"]
+        }
+
+        if ([string]::IsNullOrWhiteSpace($Upn)) {
+            throw "UPN não informado."
+        }
+
+        $info = Resolve-UserInfoEntra -Upn $Upn
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            upn = $info.upn
+            displayName = $info.displayName
+            accountEnabled = $info.accountEnabled
+            accountStatus = $info.accountStatus
+            found = $info.found
+            source = $info.source
+            adDomain = $info.adDomain
+        }
+        return
+    }
+
+    if ($Action -eq "diagnosticarUtilizador") {
+        $Upn = ""
+
+        if ($Query -and $Query["upn"]) {
+            $Upn = [string]$Query["upn"]
+        }
+
+        if ([string]::IsNullOrWhiteSpace($Upn)) {
+            throw "UPN não informado."
+        }
+
+        $diag = Test-UserLookupDetailed -Upn $Upn
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            result = $diag
+        }
+        return
+    }
+
+    if ($Action -eq "enviarCampanhaOutlook") {
+        $Items = @($JsonBody.items)
+
+        if ($Items.Count -eq 0) {
+            throw "Nenhum item recebido para envio."
+        }
+
+        $CcAddress = [string]$JsonBody.cc
+
+        if ([string]::IsNullOrWhiteSpace($CcAddress)) {
+            $CcAddress = "santander.enduser@santander.pt"
+        }
+
+        $Outlook = New-Object -ComObject Outlook.Application
+
+        $results = New-Object System.Collections.Generic.List[object]
+        $sent = 0
+        $failed = 0
+
+        $ReportsFolder = Join-Path "C:\Temp\SantanderSupportWebV2_PROD" "reports"
+
+        if (!(Test-Path $ReportsFolder)) {
+            New-Item -ItemType Directory -Path $ReportsFolder -Force | Out-Null
+        }
+
+        foreach ($Item in $Items) {
+            $email = Get-Prop $Item "Email"
+            $historyKey = Get-Prop $Item "_HistoryKey"
+            $device = Get-Prop $Item "Name"
+            $status = Get-Prop $Item "Status"
+
+            try {
+                if ([string]::IsNullOrWhiteSpace($email)) {
+                    throw "Email vazio."
+                }
+
+                $bodyText = Resolve-MessageTemplate -Template $MessageTemplate -Item $Item
+                $bodyHtml = New-SantanderHarmonyUserEmailHtml -BodyText $bodyText -Item $Item
+
+                $Mail = $Outlook.CreateItem(0)
+
+                Set-OutlookSender -Mail $Mail -Outlook $Outlook -FromAddress $FromAddress
+                Add-HarmonyFixedManuals -Mail $Mail
+
+                $Mail.To = $email
+                $Mail.CC = $CcAddress
+                $Mail.Subject = $Subject
+                $Mail.HTMLBody = $bodyHtml
+
+                $Mail.Send()
+
+                $sent++
+
+                $results.Add([pscustomobject]@{
+                    success = $true
+                    email = $email
+                    device = $device
+                    status = $status
+                    historyKey = $historyKey
+                    message = "Enviado"
+                    error = ""
+                    sentAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+                }) | Out-Null
+
+                Start-Sleep -Milliseconds 350
+            }
+            catch {
+                $failed++
+
+                $results.Add([pscustomobject]@{
+                    success = $false
+                    email = $email
+                    device = $device
+                    status = $status
+                    historyKey = $historyKey
+                    message = "Falha"
+                    error = $_.Exception.Message
+                    sentAt = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+                }) | Out-Null
+            }
+        }
+
+        $ReportPath = Join-Path $ReportsFolder ("Harmony_Campanha_" + (Get-Date -Format "yyyyMMdd_HHmmss") + ".csv")
+
+        $csv = New-Object System.Collections.Generic.List[string]
+        $csv.Add('"Email";"Device";"Status";"Resultado";"Erro";"DataEnvio"') | Out-Null
+
+        foreach ($r in $results) {
+            $line = @(
+                $r.email,
+                $r.device,
+                $r.status,
+                $r.message,
+                $r.error,
+                $r.sentAt
+            ) | ForEach-Object {
+                '"' + ([string]$_).Replace('"','""') + '"'
+            }
+
+            $csv.Add(($line -join ";")) | Out-Null
+        }
+
+        [System.IO.File]::WriteAllText($ReportPath, ([string]::Join("`r`n", $csv)), [System.Text.UTF8Encoding]::new($true))
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            total = $Items.Count
+            sent = $sent
+            failed = $failed
+            reportPath = $ReportPath
+            results = @($results)
+        }
+        return
+    }
+
+    if ($Action -eq "listarAusencias") {
+        $data = Read-HarmonyAusencias
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            ausencias = $data
+        }
+        return
+    }
+
+    if ($Action -eq "guardarAusencia") {
+        $email = [string]$JsonBody.email
+        $motivo = [string]$JsonBody.motivo
+        $dataRegresso = [string]$JsonBody.dataRegresso
+
+        if ([string]::IsNullOrWhiteSpace($email)) {
+            throw "Email não informado."
+        }
+
+        $emailKey = $email.Trim().ToLower()
+        $data = Read-HarmonyAusencias
+
+        if ($null -eq $data) {
+            $data = @{}
+        }
+
+        $hash = @{}
+
+        $data.PSObject.Properties | ForEach-Object {
+            $hash[$_.Name] = $_.Value
+        }
+
+        $hash[$emailKey] = [ordered]@{
+            email = $email
+            motivo = $(if ([string]::IsNullOrWhiteSpace($motivo)) { "Férias / Ausente" } else { $motivo })
+            dataRegresso = $dataRegresso
+            marcadoEm = (Get-Date).ToString("yyyy-MM-dd HH:mm:ss")
+            marcadoPor = $env:USERNAME
+        }
+
+        Save-HarmonyAusencias -Data $hash
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            message = "Ausência guardada."
+            email = $email
+        }
+        return
+    }
+
+    if ($Action -eq "removerAusencia") {
+        $email = [string]$JsonBody.email
+
+        if ([string]::IsNullOrWhiteSpace($email)) {
+            throw "Email não informado."
+        }
+
+        $emailKey = $email.Trim().ToLower()
+        $data = Read-HarmonyAusencias
+        $hash = @{}
+
+        if ($data) {
+            $data.PSObject.Properties | ForEach-Object {
+                if ($_.Name -ne $emailKey) {
+                    $hash[$_.Name] = $_.Value
+                }
+            }
+        }
+
+        Save-HarmonyAusencias -Data $hash
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            message = "Ausência removida."
+            email = $email
+        }
+        return
+    }
+    if ($Action -eq "enviarTesteOutlook") {
+        $TestTo = [string]$JsonBody.testTo
+
+        if ([string]::IsNullOrWhiteSpace($TestTo)) {
+            throw "Informe o e-mail para envio do teste."
+        }
+
+        $Item = $JsonBody.item
+
+        if ($null -eq $Item) {
+            throw "Nenhum item encontrado para gerar o teste. Processe primeiro o CSV."
+        }
+
+        $bodyText = Resolve-MessageTemplate -Template $MessageTemplate -Item $Item
+        $bodyHtml = New-SantanderHarmonyUserEmailHtml -BodyText $bodyText -Item $Item
+
+        $Outlook = New-Object -ComObject Outlook.Application
+        $Mail = $Outlook.CreateItem(0)
+
+        Set-OutlookSender -Mail $Mail -Outlook $Outlook -FromAddress $FromAddress
+        Add-HarmonyFixedManuals -Mail $Mail
+
+        # Anexo manual opcional selecionado no frontend, caso exista
+        Add-OutlookAttachmentFromBase64 -Mail $Mail -Attachment $JsonBody.attachment
+
+        $Mail.To = $TestTo
+        $Mail.CC = "santander.enduser@santander.pt"
+        $Mail.Subject = "[TESTE] $Subject"
+        $Mail.HTMLBody = $bodyHtml
+
+        $Mail.Display()
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            message = "Email de teste aberto no Outlook com cópia para santander.enduser@santander.pt. Confirme o remetente e envie manualmente."
+        }
+        return
+    }
+
+    if ($Action -eq "prepararEmailOutlook") {
+        $Resumo = $JsonBody.resumo
+
+        if ($null -eq $Resumo) {
+            throw "Resumo não recebido."
+        }
+
+        $Items = @($Resumo.items)
+
+        if ($Items.Count -eq 0) {
+            throw "Não existem dispositivos para notificar."
+        }
+
+        $Total = [int]$Resumo.total
+        $Active = [int]$Resumo.active
+        $Notificar = [int]$Resumo.notificar
+
+        $Percent = "0.00"
+
+        if ($Total -gt 0) {
+            $Percent = "{0:N2}" -f (($Active / $Total) * 100)
+        }
+
+        $RowsHtml = ""
+
+        foreach ($item in ($Items | Select-Object -First 100)) {
+            $upn = Get-Prop $item "Email"
+            $fullName = Resolve-UserFullName -Upn $upn
+
+            if ([string]::IsNullOrWhiteSpace($fullName)) {
+                $fullName = $upn
+            }
+
+            $RowsHtml += "<tr>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;'>" + (HtmlEncode $upn) + "</td>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;'>" + (HtmlEncode $fullName) + "</td>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;'>" + (HtmlEncode (Get-Prop $item "Name")) + "</td>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;'>" + (HtmlEncode (Get-Prop $item "Device Type")) + "</td>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;'>" + (HtmlEncode (Get-Prop $item "OS Version")) + "</td>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;'>" + (HtmlEncode (Get-Prop $item "Client Version")) + "</td>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;'>" + (HtmlEncode (Get-Prop $item "Last Seen")) + "</td>"
+            $RowsHtml += "<td style='border:1px solid #ddd;padding:6px;color:#c00000;font-weight:bold;'>" + (HtmlEncode (Get-Prop $item "Status")) + "</td>"
+            $RowsHtml += "</tr>"
+        }
+
+        $Html = @"
+<html>
+<body style="font-family:Segoe UI, Arial, sans-serif;font-size:11pt;">
+<p>$(Get-Saudacao),</p>
+
+<p>Segue relatório <strong>Controle Harmony</strong> com os dispositivos cujo estado está diferente de <strong>Active</strong>.</p>
+
+<table style="border-collapse:collapse;margin-bottom:16px;">
+<tr>
+<td style="border:1px solid #ddd;padding:8px;"><strong>Total no ficheiro</strong></td>
+<td style="border:1px solid #ddd;padding:8px;">$Total</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px;"><strong>Active</strong></td>
+<td style="border:1px solid #ddd;padding:8px;">$Active</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px;"><strong>Para notificar</strong></td>
+<td style="border:1px solid #ddd;padding:8px;color:#c00000;font-weight:bold;">$Notificar</td>
+</tr>
+<tr>
+<td style="border:1px solid #ddd;padding:8px;"><strong>Compliance</strong></td>
+<td style="border:1px solid #ddd;padding:8px;">$Percent%</td>
+</tr>
+</table>
+
+<p><strong>Primeiros 100 dispositivos encontrados:</strong></p>
+
+<table style="border-collapse:collapse;width:100%;font-size:10pt;">
+<thead>
+<tr style="background:#f2f2f2;">
+<th style="border:1px solid #ddd;padding:6px;">UPN</th>
+<th style="border:1px solid #ddd;padding:6px;">Nome</th>
+<th style="border:1px solid #ddd;padding:6px;">Device</th>
+<th style="border:1px solid #ddd;padding:6px;">Tipo</th>
+<th style="border:1px solid #ddd;padding:6px;">OS</th>
+<th style="border:1px solid #ddd;padding:6px;">Client</th>
+<th style="border:1px solid #ddd;padding:6px;">Last Seen</th>
+<th style="border:1px solid #ddd;padding:6px;">Status</th>
+</tr>
+</thead>
+<tbody>
+$RowsHtml
+</tbody>
+</table>
+
+<p>Obrigado,<br/>
+Equipa Santander Enduser Portugal</p>
+</body>
+</html>
+"@
+
+        $Outlook = New-Object -ComObject Outlook.Application
+        $Mail = $Outlook.CreateItem(0)
+
+        Set-OutlookSender -Mail $Mail -Outlook $Outlook -FromAddress $FromAddress
+        Add-HarmonyFixedManuals -Mail $Mail
+
+        # Anexo manual opcional selecionado no frontend, caso exista
+        Add-OutlookAttachmentFromBase64 -Mail $Mail -Attachment $JsonBody.attachment
+
+        $Mail.Subject = "Controle Harmony | Dispositivos com Status diferente de Active"
+        $Mail.HTMLBody = $Html
+        $Mail.Display()
+
+        ConvertTo-JsonResponse @{
+            success = $true
+            message = "Email aberto no Outlook com sucesso."
+        }
+        return
+    }
+
+    throw "Ação inválida: $Action"
+}
+catch {
+    ConvertTo-JsonResponse @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

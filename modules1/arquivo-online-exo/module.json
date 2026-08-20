@@ -1,0 +1,8 @@
+{
+  "name": "arquivo-online-exo",
+  "title": "Arquivo Online EXO",
+  "description": "Verificar e ativar Arquivo Online em mailboxes do Exchange Online",
+  "category": "Exchange",
+  "enabled": false,
+  "order": 20
+}

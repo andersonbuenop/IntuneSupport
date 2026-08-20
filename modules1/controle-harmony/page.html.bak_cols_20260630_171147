@@ -1,0 +1,288 @@
+<div class="harmony-page">
+
+    <div class="harmony-hero">
+        <div>
+            <div class="harmony-kicker">Santander Support Web V2</div>
+            <h1>Controle Harmony</h1>
+            <p>
+                Consolidação, validação e notificação de dispositivos com estado diferente de
+                <strong>Active</strong>.
+            </p>
+        </div>
+
+        <div class="harmony-hero-badge">
+            <span>🛡️</span>
+            <strong>Harmony</strong>
+            <small>Mobile Threat Defense</small>
+        </div>
+    </div>
+
+    <div id="harmonyConnection"></div>
+    <div class="harmony-section harmony-v2-section">
+        <div class="harmony-section-header">
+            <div>
+                <h2>1. Harmony V2 - Consultar por Device ID Intune</h2>
+                <p>Cole as linhas exportadas do Harmony ou apenas os Device IDs do Intune.</p>
+            </div>
+        </div>
+
+        <div class="harmony-field">
+            <label>Export Harmony / Device IDs</label>
+            <textarea id="harmonyDeviceIdsInput" class="form-control harmony-textarea" style="min-height:160px;" placeholder="Portugal REDE.RINTERNA.LOCAL e363073f-e5e0-4487-bba4-01463b7460b4 T506984@corp.santander.pt Android Deploy Not deploy"></textarea>
+            <small>O sistema extrai automaticamente o Device ID e consulta o Intune via Graph.</small>
+        </div>
+
+        <div class="harmony-actions">
+            <button class="harmony-btn harmony-btn-primary" onclick="consultarDispositivosHarmonyPorIds()">Consultar dispositivos no Intune</button>
+            <button class="harmony-btn harmony-btn-light" onclick="limparHarmonyIds()">Limpar IDs</button>
+        </div>
+    </div>
+
+
+    <div class="harmony-section">
+        <div class="harmony-section-header">
+            <div>
+                <h2>1. Consultar dispositivos por ID Intune</h2>
+                <p>Cole as linhas exportadas do Harmony ou apenas os Device IDs do Intune.</p>
+            </div>
+        </div>
+
+        <div class="harmony-form-grid">
+            <div class="harmony-field">
+                <label>Ficheiro CSV / Excel</label>
+                <input type="file" id="harmonyCsvFile" class="form-control" accept=".csv,.xlsx,.xls" />
+                <small>Colunas esperadas: Email, Name, Device Type, OS Version, Client Version, Last Seen, Status.</small>
+            </div>
+
+            <div class="harmony-field">
+                <label>Status considerado correto</label>
+                <input id="harmonyStatusOk" class="form-control" value="Active" />
+                <small>Todos os registos diferentes deste valor serão listados para notificação.</small>
+            </div>
+        </div>
+
+        <div id="harmonyProgress"></div>
+
+        <div class="harmony-actions">
+            <button class="harmony-btn harmony-btn-primary" onclick="consultarDispositivosHarmonyPorIds()">Consultar dispositivos no Intune</button>
+            <button class="harmony-btn harmony-btn-secondary" onclick="exportarCsvHarmony()">Exportar filtrados</button>
+            <button class="harmony-btn harmony-btn-secondary" onclick="exportarRelatorioAndamentoHarmony()">Exportar relatório de andamento</button>
+            <button class="harmony-btn harmony-btn-light" onclick="limparHarmonyIds()">Limpar</button>
+        </div>
+    </div>
+
+    <div id="harmonyResumo"></div>
+
+    <div class="harmony-section">
+        <div class="harmony-section-header">
+            <div>
+                <h2>2. Mensagem de notificação</h2>
+                <p>Configure o remetente, assunto, mensagem e anexo enviado ao utilizador.</p>
+            </div>
+        </div>
+
+        <div class="harmony-form-grid">
+            <div class="harmony-field">
+                <label>Enviar como / From</label>
+                <input id="harmonyEmailFrom" class="form-control" value="User.Action.Required@santander.pt" />
+            </div>
+
+            <div class="harmony-field">
+                <label>Assunto</label>
+                <input id="harmonyEmailSubject" class="form-control" value="Ação necessária | Validação da aplicação Harmony no dispositivo corporativo" />
+            </div>
+
+            <div class="harmony-field">
+                <label>Anexo / Manual</label>
+                <input type="file" id="harmonyManualAnexo" class="form-control" />
+                <small>Os manuais Harmony Android e iOS serão anexados automaticamente a partir da pasta files. Este campo fica opcional para anexos adicionais.</small>
+            </div>
+
+            <div class="harmony-field">
+                <label>Enviar teste para</label>
+                <input id="harmonyEmailTeste" class="form-control" placeholder="exemplo@santander.pt" />
+            </div>
+        </div>
+
+        <div class="harmony-field">
+            <label>Mensagem</label>
+            <textarea id="harmonyEmailMessage" class="form-control harmony-textarea">{SAUDACAO} {NOME},
+
+Identificámos que o seu dispositivo corporativo apresenta uma situação que requer validação da aplicação Harmony.
+
+Informação do dispositivo:
+
+Dispositivo: {DEVICE}
+Tipo: {DEVICE_TYPE}
+Sistema Operativo: {OS_VERSION}
+Versão Harmony/Cliente: {CLIENT_VERSION}
+Última comunicação: {LAST_SEEN}
+Estado atual: {STATUS}
+
+Ação necessária:
+
+Solicitamos que confirme se a aplicação Harmony se encontra:
+
+- Instalada no dispositivo
+- Atualizada para a versão mais recente
+- Ativa e a comunicar corretamente com os sistemas corporativos
+
+Para apoiar a regularização desta situação, seguem em anexo os manuais de configuração da aplicação Harmony para dispositivos Android e iOS.
+
+Recomendamos a consulta do manual correspondente ao seu equipamento antes de solicitar suporte técnico.
+
+Pedido de suporte:
+
+Caso necessite de apoio, deverá abrir pedido através do ServiceNow no seguinte link:
+
+https://santander.service-now.com/itsm?id=sc_cat_item&table=sc_cat_item&sys_id=a563d82bdb39c0d4f1024dc2ba961981&recordUrl=com.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1&sysparm_id=a563d82bdb39c0d4f1024dc2ba961981
+
+Prazo de regularização:
+
+Dispõe de {TEMPO_RESTANTE} para regularizar esta situação.
+
+Importante:
+
+Caso a situação não seja regularizada dentro do prazo indicado, serão aplicadas restrições de acesso aos serviços corporativos móveis por motivos de segurança e conformidade.
+
+Estas restrições poderão incluir:
+
+- Outlook Mobile
+- Microsoft Teams Mobile
+- Microsoft Authenticator
+- Aplicações corporativas protegidas pelo Intune
+- Outros serviços associados ao acesso móvel corporativo
+
+Recomendamos que efetue a regularização com a maior brevidade possível para evitar impactos na utilização dos serviços corporativos.
+
+Agradecemos a sua colaboração.
+
+Com os melhores cumprimentos,
+
+Equipa Santander Enduser Portugal</textarea>
+        </div>
+
+        <div class="harmony-actions">
+            <button class="harmony-btn harmony-btn-primary" onclick="enviarTesteHarmony()">Enviar teste</button>
+            <button class="harmony-btn harmony-btn-secondary" onclick="prepararEmailHarmony()">Preparar email Outlook</button>
+            <button class="harmony-btn harmony-btn-danger" onclick="marcarHarmonyComoNotificado()">Marcar como notificado</button>
+            <button class="harmony-btn harmony-btn-primary" onclick="enviarCampanhaHarmony()">Enviar notificações para todos</button>
+        </div>
+
+        <div class="harmony-preview-card">
+            <div class="harmony-preview-title">Pré-visualização</div>
+            <textarea id="harmonyEmailPreview" class="form-control harmony-preview" readonly>A pré-visualização será apresentada após processar o ficheiro.</textarea>
+        </div>
+    </div>
+
+    <div class="harmony-section">
+        <div class="harmony-section-header">
+            <div>
+                <h2>3. Testar resolução de utilizador</h2>
+                <p>Valide se o nome é encontrado no Graph/Entra ou nos domínios AD locais.</p>
+            </div>
+        </div>
+
+        <div class="harmony-form-grid">
+            <div class="harmony-field">
+                <label>UPN / Email</label>
+                <input id="harmonyTesteUpn" class="form-control" value="s800147@corp.santander.pt" />
+            </div>
+
+            <div class="harmony-field harmony-field-button">
+                <button class="harmony-btn harmony-btn-secondary" onclick="testarResolverUtilizadorHarmony()">Testar utilizador</button>
+            </div>
+        </div>
+
+        <pre id="harmonyTesteResultado" class="harmony-debug-box"></pre>
+    </div>
+
+        <div class="harmony-section">
+        <div class="harmony-section-header">
+            <div>
+                <h2>5. Controlo de férias / ausência</h2>
+                <p>Pesquise por UPN, nome ou dispositivo para marcar utilizadores como ausentes.</p>
+            </div>
+        </div>
+
+        <div class="harmony-form-grid">
+            <div class="harmony-field">
+                <label>Pesquisar utilizador</label>
+                <input id="harmonyPesquisaFerias" class="form-control" placeholder="Exemplo: s800147, Maria Cristina, iPhone..." oninput="pesquisarFeriasHarmony()" />
+                <small>Pesquisa em Email, Nome Entra/AD e nome do dispositivo.</small>
+            </div>
+
+            <div class="harmony-field harmony-field-button">
+                <button class="harmony-btn harmony-btn-secondary" onclick="pesquisarFeriasHarmony()">Pesquisar</button>
+            </div>
+        </div>
+
+        <div id="harmonyResultadoPesquisaFerias" class="harmony-search-results">
+            Digite algo para pesquisar nos utilizadores pendentes.
+        </div>
+    </div>
+
+    <div class="harmony-section">
+        <div class="harmony-section-header">
+            <div>
+                <h2>4. Dispositivos para notificar</h2>
+                <p>Lista final de dispositivos com estado diferente de Active.</p>
+            </div>
+        </div>
+
+        <div class="harmony-table-wrapper">
+            <table class="harmony-table">
+                <thead>
+                    <tr>
+                        <th>Email / UPN</th>
+                        <th>Device</th>
+                        <th>Tipo</th>
+                        <th>OS</th>
+                        <th>Cliente</th>
+                        <th>Last Seen</th>
+                        <th>Status</th>
+                        <th>Policy</th>
+                        <th>Serial</th>
+                        <th>1ª deteção</th>
+                        <th>Últ. notificação</th>
+                        <th>Qtd.</th>
+                        <th>Nome</th>
+                        <th>Estado Entra/AD</th>
+                        <th>Ausência</th>
+                        <th>Regresso</th>
+                        <th>Motivo</th>
+                        <th>Ação</th>
+                        <th>Controlo</th>
+                    </tr>
+                </thead>
+                <tbody id="harmonyTabelaBody">
+                    <tr>
+                        <td colspan="19" class="harmony-empty">Carregue um ficheiro para iniciar.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="harmony-section">
+        <div class="harmony-section-header">
+            <div>
+                <h2>Logs</h2>
+                <p>Eventos do processamento, validação Graph/AD e envio de teste.</p>
+            </div>
+        </div>
+
+        <textarea id="harmonyLogs" class="form-control harmony-logs" readonly></textarea>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+

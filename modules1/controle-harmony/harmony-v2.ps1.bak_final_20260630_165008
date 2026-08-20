@@ -1,0 +1,160 @@
+param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+$Step = "inicio"
+
+function Out-Json {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 80
+}
+
+try {
+    $Step = "importar graph"
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $Step = "validar contexto graph"
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado."
+    }
+
+    $Step = "ler devices do body"
+    $devicesInput = @()
+
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $Step = "ler entrada"
+
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $Step = "consultar graph device $deviceId"
+
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?`$filter=azureADDeviceId eq '$deviceId'"
+
+            $r = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+if (-not $r.value -or $r.value.Count -eq 0) {
+    throw "Dispositivo não encontrado no Intune por azureADDeviceId."
+}
+
+$d = $r.value[0]
+
+            $Step = "mapear resultado $deviceId"
+
+            $email = $usernameEntrada
+            if ($null -ne $d.userPrincipalName -and [string]$d.userPrincipalName -ne "") {
+                $email = [string]$d.userPrincipalName
+            }
+            elseif ($null -ne $d.emailAddress -and [string]$d.emailAddress -ne "") {
+                $email = [string]$d.emailAddress
+            }
+
+            $platform = $platformEntrada
+            if ($null -ne $d.operatingSystem -and [string]$d.operatingSystem -ne "") {
+                $platform = [string]$d.operatingSystem
+            }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) {
+                $statusHarmony = "Not deploy"
+            }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) {
+                $policyHarmony = [string]$d.managementState
+            }
+
+            $obj = [pscustomobject]@{}
+            $obj | Add-Member -NotePropertyName "Email" -NotePropertyValue $email
+            $obj | Add-Member -NotePropertyName "Name" -NotePropertyValue ([string]$d.deviceName)
+            $obj | Add-Member -NotePropertyName "Device Type" -NotePropertyValue $platform
+            $obj | Add-Member -NotePropertyName "OS Version" -NotePropertyValue ([string]$d.osVersion)
+            $obj | Add-Member -NotePropertyName "Client Version" -NotePropertyValue ([string]$d.complianceState)
+            $obj | Add-Member -NotePropertyName "Last Seen" -NotePropertyValue ([string]$d.lastSyncDateTime)
+            $obj | Add-Member -NotePropertyName "Status" -NotePropertyValue $statusHarmony
+            $obj | Add-Member -NotePropertyName "Policy" -NotePropertyValue $policyHarmony
+            $obj | Add-Member -NotePropertyName "Serial Number" -NotePropertyValue ([string]$d.serialNumber)
+            $obj | Add-Member -NotePropertyName "Intune Device ID" -NotePropertyValue ([string]$d.id)
+            $obj | Add-Member -NotePropertyName "Azure AD Device ID" -NotePropertyValue ([string]$d.azureADDeviceId)
+            $obj | Add-Member -NotePropertyName "IMEI" -NotePropertyValue ([string]$d.imei)
+            $obj | Add-Member -NotePropertyName "Manufacturer" -NotePropertyValue ([string]$d.manufacturer)
+            $obj | Add-Member -NotePropertyName "Model" -NotePropertyValue ([string]$d.model)
+            $obj | Add-Member -NotePropertyName "Owner Type" -NotePropertyValue ([string]$d.ownerType)
+            $obj | Add-Member -NotePropertyName "_FoundIntune" -NotePropertyValue $true
+            $obj | Add-Member -NotePropertyName "_RawHarmonyLine" -NotePropertyValue $rawLine
+            $obj | Add-Member -NotePropertyName "_AccountStatus" -NotePropertyValue ""
+            $obj | Add-Member -NotePropertyName "_DisplayName" -NotePropertyValue ""
+
+            $items += $obj
+        }
+        catch {
+            $Step = "erro device $deviceId"
+
+            $obj = [pscustomobject]@{}
+            $obj | Add-Member -NotePropertyName "Email" -NotePropertyValue $usernameEntrada
+            $obj | Add-Member -NotePropertyName "Name" -NotePropertyValue $deviceId
+            $obj | Add-Member -NotePropertyName "Device Type" -NotePropertyValue $platformEntrada
+            $obj | Add-Member -NotePropertyName "OS Version" -NotePropertyValue ""
+            $obj | Add-Member -NotePropertyName "Client Version" -NotePropertyValue ""
+            $obj | Add-Member -NotePropertyName "Last Seen" -NotePropertyValue ""
+            $obj | Add-Member -NotePropertyName "Status" -NotePropertyValue $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+            $obj | Add-Member -NotePropertyName "Policy" -NotePropertyValue $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+            $obj | Add-Member -NotePropertyName "Serial Number" -NotePropertyValue ""
+            $obj | Add-Member -NotePropertyName "Intune Device ID" -NotePropertyValue $deviceId
+            $obj | Add-Member -NotePropertyName "_FoundIntune" -NotePropertyValue $false
+            $obj | Add-Member -NotePropertyName "_LookupError" -NotePropertyValue $_.Exception.Message
+            $obj | Add-Member -NotePropertyName "_AccountStatus" -NotePropertyValue "Dispositivo não encontrado no Intune"
+            $obj | Add-Member -NotePropertyName "_DisplayName" -NotePropertyValue $usernameEntrada
+            $obj | Add-Member -NotePropertyName "_RawHarmonyLine" -NotePropertyValue $rawLine
+
+            $items += $obj
+        }
+    }
+
+    $Step = "gerar resposta"
+
+    Out-Json @{
+        success = $true
+        total = $devicesInput.Count
+        found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+        notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+        items = @($items)
+    }
+}
+catch {
+    Out-Json @{
+        success = $false
+        error = $_.Exception.Message
+        step = $Step
+        type = $_.Exception.GetType().FullName
+        line = $_.InvocationInfo.ScriptLineNumber
+        command = $_.InvocationInfo.Line
+        stack = $_.ScriptStackTrace
+    }
+}
+
+

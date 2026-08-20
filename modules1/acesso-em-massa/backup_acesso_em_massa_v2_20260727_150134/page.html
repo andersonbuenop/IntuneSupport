@@ -1,0 +1,578 @@
+﻿<div class="module-page am-page">
+
+    <div class="am-hero">
+        <div>
+            <div class="am-kicker">Exchange Online</div>
+            <h2>Acesso em Massa</h2>
+            <p>Gestão profissional de permissões FullAccess e SendAs em caixas e listas de distribuição.</p>
+        </div>
+
+        <div class="am-hero-badge">
+            <span>●</span> Santander Support Web V2
+        </div>
+    </div>
+
+    <div class="am-summary">
+        <div class="am-summary-card">
+            <div class="am-summary-label">Linhas</div>
+            <div class="am-summary-value" id="amTotalLinhas">0</div>
+        </div>
+
+        <div class="am-summary-card">
+            <div class="am-summary-label">Operação</div>
+            <div class="am-summary-value" id="amOperacaoAtual">ADD</div>
+        </div>
+
+        <div class="am-summary-card">
+            <div class="am-summary-label">Tipo</div>
+            <div class="am-summary-value" id="amTipoAtual">FullAccess</div>
+        </div>
+
+        <div class="am-summary-card">
+            <div class="am-summary-label">AutoMapping</div>
+            <div class="am-summary-value" id="amAutoMappingAtual">Não</div>
+        </div>
+    </div>
+
+        <div class="am-card am-connect-card">
+        <div class="am-connect-left">
+            <div id="amConnectIcon" class="am-connect-icon am-connect-icon-exo-off">EXO</div>
+            <div>
+                <h5>Conexão Exchange Online</h5>
+                <p>Autentique com WAM para executar consultas e permissões no Exchange Online.</p>
+
+                <div id="amExchangeStatus" class="am-exchange-status am-status-off">
+                    <div class="am-status-dot"></div>
+                    <div>
+                        <strong id="amExchangeStatusTitulo">Exchange Online desligado</strong>
+                        <span id="amExchangeStatusTexto">Clique em Conectar Exchange Online antes de executar.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="am-connect-right">
+            <label>Conta administrativa</label>
+            <select id="amAdminUser" class="form-control am-control">
+                <option value="">Usar conta atual / escolher no WAM</option>
+                <option value="au_86246723@santandernet.onmicrosoft.com">au_86246723@santandernet.onmicrosoft.com</option>
+                <option value="au_81680372@santandernet.onmicrosoft.com">au_81680372@santandernet.onmicrosoft.com</option>
+            </select>
+
+            <button class="am-btn am-btn-dark am-connect-btn" onclick="amConectarExchange()">Conectar Exchange Online</button>
+        </div>
+    </div>
+
+    <div class="am-card"><div class="am-card-header"><div><h5>Configuração da operação</h5>
+                <p>Escolha a ação que será aplicada em todas as linhas.</p>
+            </div>
+        </div>
+
+        <div class="am-grid">
+            <div class="am-field">
+                <label>Operação</label>
+                <select id="amOperacao" class="form-control am-control" onchange="amAtualizarTotais()">
+                    <option value="add">Adicionar acesso</option>
+                    <option value="remove">Remover acesso</option>
+                </select>
+            </div>
+
+            <div class="am-field">
+                <label>Tipo de acesso</label>
+                <select id="amTipoAcesso" class="form-control am-control" onchange="amAtualizarTotais()">
+                    <option value="FullAccess">FullAccess</option>
+                    <option value="SendAs">SendAs</option>
+                </select>
+            </div>
+
+            <div class="am-field">
+                <label>AutoMapping</label>
+                <select id="amAutoMapping" class="form-control am-control" onchange="amAtualizarTotais()">
+                    <option value="true" selected>Sim</option><option value="false">Não</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="am-button-row">
+            <button class="am-btn am-btn-primary" onclick="amAdicionarLinha()">+ Adicionar linha</button>
+            <button class="am-btn am-btn-light" onclick="amLimpar()">Limpar</button>
+        </div>
+    </div>
+
+    <div class="am-card">
+        <div class="am-card-header">
+            <div>
+                <h5>Importar CSV</h5>
+                <p>Formato aceite: user,mailbox ou user;mailbox</p>
+            </div>
+        </div>
+
+        <div class="am-import-row">
+            <input type="file" id="amCsvFile" accept=".csv" class="form-control am-control">
+            <button class="am-btn am-btn-dark" onclick="amImportarCSV()">Importar CSV</button>
+        </div>
+    </div>
+
+    <div class="am-card">
+        <div class="am-card-header">
+            <div>
+                <h5>Lista de acessos</h5>
+                <p>Informe o utilizador e a mailbox/LD onde será aplicada a permissão.</p>
+            </div>
+        </div>
+
+        <div class="am-table-wrap">
+            <table class="am-table">
+                <thead>
+                    <tr>
+                        <th>Utilizador</th>
+<th>Email associado</th>
+<th>Mailbox / LD</th>
+<th>Tipo</th>
+<th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="amTabelaBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="am-card">
+        <div class="am-card-header">
+            <div>
+                <h5>Texto para fecho do ticket</h5>
+                <p>Texto gerado automaticamente conforme a operação executada.</p>
+            </div>
+        </div>
+
+        <textarea id="amTicketTexto" class="form-control am-ticket-text" rows="7" readonly></textarea>
+
+        <div class="am-button-row">
+            <button class="am-btn am-btn-light" onclick="amGerarTextoTicket()">Gerar texto</button>
+            <button class="am-btn am-btn-dark" onclick="amCopiarTicket()">Copiar texto</button>
+        </div>
+    </div>
+
+    <div class="am-card">
+        <div class="am-card-header">
+            <div>
+                <h5>Execução</h5>
+                <p>Acompanhe o progresso e valide o resultado no log.</p>
+            </div>
+        </div>
+
+        <button class="am-btn am-btn-execute" onclick="amExecutar()">Executar operação</button>
+
+        <div id="amProgressArea" class="am-progress-area" style="display:none;">
+            <div class="am-progress-top">
+                <strong id="amProgressTitulo">Processando...</strong>
+                <span id="amProgressPercent">0%</span>
+            </div>
+
+            <div class="am-progress-bg">
+                <div id="amProgressBar" class="am-progress-bar"></div>
+            </div>
+
+            <div id="amProgressMensagem" class="am-progress-msg">
+                A iniciar operação...
+            </div>
+        </div>
+
+        <label class="am-log-label">Resultado / Log</label>
+        <pre id="amLog" class="am-log-console"></pre>
+    </div>
+</div>
+
+<style>
+.am-page {
+    color: #1f2937;
+}
+
+.am-hero {
+    background: linear-gradient(135deg, #b40000 0%, #e00000 48%, #ff3b30 100%);
+    color: #fff;
+    border-radius: 18px;
+    padding: 26px 30px;
+    margin-bottom: 22px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    align-items: center;
+    box-shadow: 0 12px 28px rgba(180, 0, 0, .22);
+}
+
+.am-kicker {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    opacity: .9;
+    margin-bottom: 6px;
+}
+
+.am-hero h2 {
+    margin: 0;
+    font-size: 30px;
+    font-weight: 800;
+}
+
+.am-hero p {
+    margin: 8px 0 0 0;
+    opacity: .92;
+    font-size: 15px;
+}
+
+.am-hero-badge {
+    background: rgba(255,255,255,.16);
+    border: 1px solid rgba(255,255,255,.26);
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.am-hero-badge span {
+    color: #32d74b;
+}
+
+.am-summary {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.am-summary-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid #eef0f3;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, .06);
+}
+
+.am-summary-label {
+    color: #6b7280;
+    font-size: 12px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+}
+
+.am-summary-value {
+    margin-top: 6px;
+    font-size: 24px;
+    font-weight: 800;
+    color: #d40000;
+}
+
+.am-card {
+    background: #fff;
+    border: 1px solid #edf0f2;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 8px 22px rgba(15, 23, 42, .055);
+}
+
+.am-card-header {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+    border-bottom: 1px solid #f1f2f4;
+    padding-bottom: 12px;
+}
+
+.am-card-header h5 {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 800;
+    color: #111827;
+}
+
+.am-card-header p {
+    margin: 4px 0 0 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.am-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(180px, 1fr));
+    gap: 14px;
+}
+
+.am-field label,
+.am-log-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    color: #374151;
+    margin-bottom: 6px;
+}
+
+.am-control {
+    border-radius: 10px !important;
+    border: 1px solid #d9dee5 !important;
+    min-height: 42px;
+}
+
+.am-control:focus {
+    border-color: #d40000 !important;
+    box-shadow: 0 0 0 3px rgba(212, 0, 0, .12) !important;
+}
+
+.am-button-row,
+.am-import-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.am-import-row input {
+    flex: 1;
+    min-width: 260px;
+}
+
+.am-btn {
+    border: none;
+    border-radius: 10px;
+    min-height: 42px;
+    padding: 10px 16px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: all .15s ease;
+}
+
+.am-btn:hover {
+    transform: translateY(-1px);
+    filter: brightness(.98);
+}
+
+.am-btn-primary {
+    background: #d40000;
+    color: #fff;
+}
+
+.am-btn-execute {
+    background: #d40000;
+    color: #fff;
+    font-size: 15px;
+    padding-left: 22px;
+    padding-right: 22px;
+}
+
+.am-btn-light {
+    background: #f3f4f6;
+    color: #111827;
+}
+
+.am-btn-dark {
+    background: #111827;
+    color: #fff;
+}
+
+.am-btn-danger-soft {
+    background: #fee2e2;
+    color: #b91c1c;
+    min-height: 34px;
+    padding: 7px 12px;
+}
+
+.am-table-wrap {
+    overflow-x: auto;
+    border: 1px solid #edf0f2;
+    border-radius: 14px;
+}
+
+.am-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.am-table thead th {
+    background: #f8fafc;
+    color: #374151;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    padding: 13px;
+    border-bottom: 1px solid #edf0f2;
+}
+
+.am-table td {
+    padding: 10px;
+    border-bottom: 1px solid #f1f2f4;
+}
+
+.am-table tr:last-child td {
+    border-bottom: none;
+}
+
+.am-progress-area {
+    margin-top: 18px;
+    margin-bottom: 18px;
+    background: #f8fafc;
+    border: 1px solid #edf0f2;
+    border-radius: 14px;
+    padding: 14px;
+}
+
+.am-progress-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 13px;
+}
+
+.am-progress-bg {
+    height: 12px;
+    background: #e5e7eb;
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.am-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #b40000, #e00000, #ff3b30);
+    border-radius: 999px;
+    transition: width .2s ease;
+}
+
+.am-progress-msg {
+    margin-top: 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.am-log-console {
+    margin-top: 8px;
+    background: #0b1220;
+    color: #7dd3fc;
+    padding: 16px;
+    border-radius: 14px;
+    font-family: Consolas, monospace;
+    min-height: 320px;
+    max-height: 520px;
+    overflow: auto;
+    white-space: pre-wrap;
+    border: 1px solid #1f2937;
+}
+
+@media (max-width: 980px) {
+    .am-hero,
+    .am-card-header,
+    .am-import-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .am-summary,
+    .am-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.am-connect-card {
+    display: grid;
+    grid-template-columns: 1.5fr .9fr;
+    gap: 22px;
+    align-items: center;
+    background: linear-gradient(135deg, #ffffff 0%, #fff5f5 100%);
+    border: 1px solid #fee2e2;
+}
+
+.am-connect-left {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.am-connect-icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #b40000, #e00000);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    box-shadow: 0 10px 22px rgba(212,0,0,.22);
+}
+
+.am-connect-left h5 {
+    margin: 0;
+    font-size: 19px;
+    font-weight: 900;
+}
+
+.am-connect-left p {
+    margin: 5px 0 0 0;
+    color: #6b7280;
+}
+
+.am-connect-right label {
+    display: block;
+    font-size: 13px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.am-connect-btn {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.am-ticket-text {
+    border-radius: 12px !important;
+    background: #f8fafc !important;
+    font-family: Consolas, monospace;
+    resize: vertical;
+}
+
+.am-info-badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    padding: 6px 10px;
+    font-size: 12px;
+    font-weight: 800;
+    background: #eef2ff;
+    color: #3730a3;
+}
+
+.am-info-muted {
+    color: #6b7280;
+    font-size: 12px;
+}
+
+@media (max-width: 980px) {
+    .am-connect-card {
+        grid-template-columns: 1fr;
+    }
+}
+
+.am-connect-icon {
+    transition: all .2s ease;
+}
+
+.am-connect-icon-exo-off {
+    background: linear-gradient(135deg, #b40000, #e00000) !important;
+    color: #fff !important;
+    box-shadow: 0 10px 22px rgba(212,0,0,.25) !important;
+}
+
+.am-connect-icon-exo-on {
+    background: linear-gradient(135deg, #047857, #10b981) !important;
+    color: #fff !important;
+    box-shadow: 0 10px 22px rgba(16,185,129,.25) !important;
+}
+
+</style>
+
+
+
+

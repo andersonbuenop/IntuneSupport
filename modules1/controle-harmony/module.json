@@ -1,0 +1,9 @@
+﻿{
+  "name": "controle-harmony",
+  "title": "Controle Harmony",
+  "description": "Relatório de dispositivos Harmony com Status diferente de Active através de ficheiro CSV.",
+  "category": "Relatórios",
+  "icon": "🛡️",
+  "enabled": true,
+  "order": 30
+}

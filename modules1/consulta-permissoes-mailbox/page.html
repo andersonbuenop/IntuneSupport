@@ -1,0 +1,216 @@
+﻿<div class="module-page cpm-module">
+    <div class="cpm-header">
+        <div>
+            <span class="cpm-eyebrow">Exchange Online</span>
+            <h2>Consulta de Permissões e Estrutura do Exchange</h2>
+            <p>Consulte <strong>FullAccess</strong> e <strong>SendAs</strong> em mailboxes. Para <strong>LDs</strong>, o sistema também apresenta os <strong>proprietários</strong> e <strong>membros</strong>.</p>
+        </div>
+        <div id="cpmConnectionBadge" class="cpm-connection cpm-connection-checking">
+            A verificar ligação...
+        </div>
+    </div>
+
+    <div class="card cpm-search-card">
+        <div class="cpm-search-grid">
+            <div class="cpm-field">
+                <label for="cpmMailbox">Nome, número, alias ou endereço de e-mail</label>
+                <div class="cpm-query-row">
+                    <input
+                        id="cpmMailbox"
+                        type="search"
+                        autocomplete="off"
+                        placeholder="Ex.: 5141, Lisboa Centro ou exemplo@santander.pt"
+                        aria-label="Nome, número, alias ou endereço de e-mail">
+
+                    <div class="cpm-scope-field">
+                        <label for="cpmSearchScope">Pesquisar em</label>
+                        <select id="cpmSearchScope" aria-label="Âmbito da pesquisa no Exchange">
+                            <option value="mailboxes" selected>Caixas de correio — igual ao EAC</option>
+                            <option value="distributionLists">Listas de distribuição — LD</option>
+                            <option value="all">Todos os destinatários</option>
+                        </select>
+                    </div>
+                </div>
+                <small id="cpmSearchHelp">O modo padrão pesquisa somente mailboxes, tal como a página Caixas de Correio do Exchange Admin Center.</small>
+            </div>
+
+            <div class="cpm-actions">
+                <button id="cpmConsultarBtn" type="button" class="btn-primary">
+                    Consultar permissões
+                </button>
+                <button id="cpmLimparBtn" type="button" class="btn-secondary">
+                    Limpar
+                </button>
+            </div>
+        </div>
+
+        <div id="cpmProgress" class="cpm-progress" hidden>
+            <div class="cpm-progress-track">
+                <div id="cpmProgressBar" class="cpm-progress-bar" style="width:0%">0%</div>
+            </div>
+            <div id="cpmProgressText" class="cpm-progress-text">Aguardando...</div>
+        </div>
+
+        <div id="cpmAlert" class="cpm-alert" hidden></div>
+    </div>
+
+
+    <div id="cpmSearchResultsArea" class="card cpm-search-results-card" hidden>
+        <div class="cpm-search-results-header">
+            <div>
+                <span class="cpm-summary-label">Resultados da pesquisa</span>
+                <h3>Selecione o objeto do Exchange</h3>
+                <p id="cpmSearchResultsSubtitle">Foram encontrados vários objetos.</p>
+            </div>
+            <span id="cpmSearchResultsCount" class="cpm-search-count">0</span>
+        </div>
+
+        <div class="cpm-table-wrap">
+            <table class="cpm-table cpm-search-results-table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Endereço principal</th>
+                        <th>Alias</th>
+                        <th>Tipo identificado</th>
+                        <th>Tipo técnico</th>
+                        <th>Ação</th>
+                    </tr>
+                </thead>
+                <tbody id="cpmSearchResultsBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="cpmResultadoArea" hidden>
+        <div class="cpm-mailbox-summary card">
+            <div>
+                <span class="cpm-summary-label">Objeto consultado</span>
+                <h3 id="cpmMailboxNome">—</h3>
+                <div id="cpmMailboxEmail" class="cpm-summary-email">—</div>
+            </div>
+            <div class="cpm-mailbox-meta">
+                <span class="cpm-summary-label">Tipo identificado</span>
+                <span id="cpmMailboxTipo" class="cpm-type-badge cpm-type-other">—</span>
+                <span id="cpmRecipientRawType" class="cpm-raw-type">Tipo técnico: —</span>
+                <span id="cpmConsultaData" class="cpm-muted">—</span>
+            </div>
+        </div>
+
+        <div class="cpm-kpi-grid">
+            <button type="button" class="cpm-kpi cpm-kpi-active" data-cpm-filter="all">
+                <span>Total</span>
+                <strong id="cpmTotal">0</strong>
+                <small>Todas as permissões</small>
+            </button>
+
+            <button type="button" class="cpm-kpi" data-cpm-filter="FullAccess">
+                <span>FullAccess</span>
+                <strong id="cpmFullAccessTotal">0</strong>
+                <small id="cpmFullAccessNote">Acesso total à mailbox</small>
+            </button>
+
+            <button type="button" class="cpm-kpi" data-cpm-filter="SendAs">
+                <span>SendAs</span>
+                <strong id="cpmSendAsTotal">0</strong>
+                <small id="cpmSendAsNote">Enviar como o objeto</small>
+            </button>
+        </div>
+
+        <div id="cpmDistributionArea" class="card cpm-distribution-card" hidden>
+            <div class="cpm-distribution-header">
+                <div>
+                    <span class="cpm-summary-label">Estrutura da lista de distribuição</span>
+                    <h3>Proprietários e membros</h3>
+                    <p id="cpmDistributionNote">Relação de pessoas e objetos associados à LD.</p>
+                </div>
+
+                <div class="cpm-distribution-filter">
+                    <input id="cpmDistributionFilter" type="search" placeholder="Filtrar proprietário ou membro">
+                </div>
+            </div>
+
+            <div class="cpm-directory-kpi-grid">
+                <div class="cpm-directory-kpi">
+                    <span>Proprietários</span>
+                    <strong id="cpmOwnersTotal">0</strong>
+                    <small>Responsáveis pela LD</small>
+                </div>
+                <div class="cpm-directory-kpi">
+                    <span>Membros</span>
+                    <strong id="cpmMembersTotal">0</strong>
+                    <small>Destinatários da lista</small>
+                </div>
+                <div class="cpm-directory-kpi">
+                    <span>Total listado</span>
+                    <strong id="cpmDirectoryTotal">0</strong>
+                    <small>Proprietários + membros</small>
+                </div>
+            </div>
+
+            <div class="cpm-table-wrap">
+                <table class="cpm-table cpm-directory-table">
+                    <thead>
+                        <tr>
+                            <th>Vínculo</th>
+                            <th>Nome</th>
+                            <th>E-mail / UPN</th>
+                            <th>Tipo de objeto</th>
+                            <th>Identidade original</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cpmDistributionBody"></tbody>
+                </table>
+
+                <div id="cpmDistributionEmpty" class="cpm-empty" hidden>
+                    Nenhum proprietário ou membro encontrado para o filtro informado.
+                </div>
+            </div>
+        </div>
+
+        <div class="card cpm-table-card">
+            <div class="cpm-table-toolbar">
+                <div>
+                    <h3>Permissões delegadas encontradas</h3>
+                    <p id="cpmTableSubtitle">A mostrar todas as permissões.</p>
+                </div>
+
+                <div class="cpm-toolbar-actions">
+                    <input id="cpmFiltroTexto" type="search" placeholder="Filtrar por nome ou e-mail">
+                    <button id="cpmCopiarBtn" type="button" class="btn-secondary">Copiar resumo</button>
+                    <button id="cpmServiceNowBtn" type="button" class="btn-primary cpm-servicenow-btn" title="Copia o relatório e abre o pedido no ServiceNow">
+                        <span class="cpm-servicenow-icon">📝</span>
+                        Abrir ServiceNow
+                    </button>
+                    <button id="cpmCsvBtn" type="button" class="btn-secondary">Exportar CSV</button>
+                </div>
+            </div>
+
+            <div class="cpm-table-wrap">
+                <table class="cpm-table">
+                    <thead>
+                        <tr>
+                            <th>Permissão</th>
+                            <th>Nome</th>
+                            <th>E-mail / UPN</th>
+                            <th>Tipo de objeto</th>
+                            <th>Trustee original</th>
+                            <th>Herdado</th>
+                            <th>Deny</th>
+                        </tr>
+                    </thead>
+                    <tbody id="cpmTabelaBody"></tbody>
+                </table>
+
+                <div id="cpmEmptyState" class="cpm-empty" hidden>
+                    Nenhuma permissão FullAccess ou SendAs encontrada para o filtro selecionado.
+                </div>
+            </div>
+        </div>
+
+        <details class="card cpm-details">
+            <summary>Detalhes técnicos da consulta</summary>
+            <pre id="cpmLog"></pre>
+        </details>
+    </div>
+</div>

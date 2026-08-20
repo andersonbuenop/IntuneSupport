@@ -1,0 +1,234 @@
+param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function Out-Json {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 100
+}
+
+function Is-MobileDevice {
+    param($Device)
+
+    $os = ([string]$Device.operatingSystem).ToLower()
+
+    return (
+        $os -like "*ios*" -or
+        $os -like "*android*" -or
+        $os -like "*iphone*" -or
+        $os -like "*ipad*"
+    )
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    if (-not (Get-MgContext)) {
+        throw "Microsoft Graph não conectado."
+    }
+
+    $devicesInput = @($JsonBody.devices)
+
+    $badDeviceIds = @{}
+    foreach ($x in $devicesInput) {
+        $id = ([string]$x.id).Trim().ToLower()
+        if ($id) { $badDeviceIds[$id] = $true }
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $username = [string]$entrada.username
+        $platform = [string]$entrada.platform
+        $harmony = [string]$entrada.harmony
+        $statusHarmony = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+        if ([string]::IsNullOrWhiteSpace($harmony)) { $harmony = "Deploy" }
+
+        $found = $false
+        $baseObj = $null
+
+        # 1) Procurar no Intune por AzureADDeviceId
+        try {
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices?`$filter=azureADDeviceId eq '$deviceId'"
+            $r = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            if ($r.value -and $r.value.Count -gt 0) {
+                $d = $r.value[0]
+                $found = $true
+
+                $upnFinal = if ($d.userPrincipalName) { [string]$d.userPrincipalName } else { $username }
+
+                $baseObj = [ordered]@{
+                    "Email" = $upnFinal
+                    "Name" = [string]$d.deviceName
+                    "Device Type" = [string]$d.operatingSystem
+                    "OS Version" = [string]$d.osVersion
+                    "Client Version" = [string]$d.complianceState
+                    "Last Seen" = [string]$d.lastSyncDateTime
+                    "Status" = $statusHarmony
+                    "Origem Consulta" = "Intune"
+                    "Status Intune" = [string]$d.complianceState
+                    "Harmony Instalado" = "Não"
+                    "Policy" = $harmony
+                    "Serial Number" = [string]$d.serialNumber
+                    "Intune Device ID" = [string]$d.id
+                    "Azure AD Device ID" = [string]$d.azureADDeviceId
+                    "Entra Object ID" = ""
+                    "_FoundIntune" = $true
+                    "_FoundEntraDevice" = $false
+                    "_RawHarmonyLine" = $rawLine
+                    "_AccountStatus" = ""
+                    "_DisplayName" = ""
+                }
+            }
+        } catch {}
+
+        # 2) Fallback Entra Device
+        if (-not $found) {
+            try {
+                $entraUri = "https://graph.microsoft.com/v1.0/devices?`$filter=deviceId eq '$deviceId'"
+                $er = Invoke-MgGraphRequest -Method GET -Uri $entraUri -ErrorAction Stop
+
+                if ($er.value -and $er.value.Count -gt 0) {
+                    $e = $er.value[0]
+                    $found = $true
+
+                    $baseObj = [ordered]@{
+                        "Email" = $username
+                        "Name" = [string]$e.displayName
+                        "Device Type" = [string]$e.operatingSystem
+                        "OS Version" = [string]$e.operatingSystemVersion
+                        "Client Version" = "Entra Device"
+                        "Last Seen" = [string]$e.approximateLastSignInDateTime
+                        "Status" = $statusHarmony
+                        "Origem Consulta" = "Entra Device"
+                        "Status Intune" = "Não encontrado no Intune"
+                        "Harmony Instalado" = "Não confirmado"
+                        "Policy" = $harmony
+                        "Serial Number" = ""
+                        "Intune Device ID" = ""
+                        "Azure AD Device ID" = [string]$e.deviceId
+                        "Entra Object ID" = [string]$e.id
+                        "_FoundIntune" = $false
+                        "_FoundEntraDevice" = $true
+                        "_RawHarmonyLine" = $rawLine
+                        "_AccountStatus" = ""
+                        "_DisplayName" = $username
+                    }
+                }
+            } catch {}
+        }
+
+        # 3) Não encontrado
+        if (-not $found) {
+            $baseObj = [ordered]@{
+                "Email" = $username
+                "Name" = $deviceId
+                "Device Type" = $platform
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                "Status" = $statusHarmony
+                "Origem Consulta" = "Não encontrado"
+                "Status Intune" = "Não encontrado"
+                "Harmony Instalado" = "Não confirmado"
+                "Policy" = $harmony
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                "Azure AD Device ID" = $deviceId
+                "Entra Object ID" = ""
+                "_FoundIntune" = $false
+                "_FoundEntraDevice" = $false
+                "_LookupError" = "Não encontrado no Intune nem no Entra."
+                "_AccountStatus" = "Dispositivo não encontrado"
+                "_DisplayName" = $username
+                "_RawHarmonyLine" = $rawLine
+            }
+        }
+
+        # 4) Harmony V4 - analisar outros mobiles do utilizador
+        $upn = [string]$baseObj["Email"]
+        $otherOk = @()
+        $mobileCount = 0
+        $compliantMobileCount = 0
+
+        if (-not [string]::IsNullOrWhiteSpace($upn)) {
+            try {
+                $u = [System.Uri]::EscapeDataString($upn)
+                $mdUri = "https://graph.microsoft.com/v1.0/users/$u/managedDevices"
+                $md = Invoke-MgGraphRequest -Method GET -Uri $mdUri -ErrorAction Stop
+
+                foreach ($m in @($md.value)) {
+                    if (-not (Is-MobileDevice -Device $m)) { continue }
+
+                    $mobileCount++
+
+                    $comp = ([string]$m.complianceState).ToLower()
+                    if ($comp -eq "compliant") {
+                        $compliantMobileCount++
+                    }
+
+                    $az = ([string]$m.azureADDeviceId).Trim().ToLower()
+                    $isListedAsBad = $false
+
+                    if ($az -and $badDeviceIds.ContainsKey($az)) {
+                        $isListedAsBad = $true
+                    }
+
+                    if (($comp -eq "compliant") -and (-not $isListedAsBad)) {
+                        $otherOk += [pscustomobject]@{
+                            name = [string]$m.deviceName
+                            platform = [string]$m.operatingSystem
+                            compliance = [string]$m.complianceState
+                            lastSync = [string]$m.lastSyncDateTime
+                            azureADDeviceId = [string]$m.azureADDeviceId
+                            intuneId = [string]$m.id
+                        }
+                    }
+                }
+            } catch {}
+        }
+
+        $hasOtherOk = $otherOk.Count -gt 0
+
+        $recommendation = "Enviar 1ª notificação"
+        $summary = "Nenhum outro dispositivo móvel compliant com Harmony OK identificado."
+
+        if ($hasOtherOk) {
+            $recommendation = "Não contactar"
+            $summary = "Utilizador tem outro dispositivo móvel compliant não presente na lista Not deploy."
+        }
+
+        $baseObj["Outros Mobiles Intune"] = $mobileCount
+        $baseObj["Mobiles Compliant"] = $compliantMobileCount
+        $baseObj["Outro Harmony OK"] = $(if ($hasOtherOk) { "Sim" } else { "Não" })
+        $baseObj["Outro Device OK"] = $(if ($hasOtherOk) { ($otherOk | ForEach-Object { $_.name }) -join " | " } else { "" })
+        $baseObj["Recomendação V4"] = $recommendation
+        $baseObj["Resumo V4"] = $summary
+        $baseObj["_OtherProtectedDevices"] = @($otherOk)
+
+        $items += [pscustomobject]$baseObj
+    }
+
+    Out-Json @{
+        success = $true
+        total = $devicesInput.Count
+        foundIntune = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+        foundEntra = @($items | Where-Object { $_._FoundEntraDevice -eq $true }).Count
+        notFound = @($items | Where-Object { $_._FoundIntune -ne $true -and $_._FoundEntraDevice -ne $true }).Count
+        usersWithOtherOk = @($items | Where-Object { $_."Outro Harmony OK" -eq "Sim" }).Count
+        usersToContact = @($items | Where-Object { $_."Recomendação V4" -ne "Não contactar" }).Count
+        items = @($items)
+    }
+}
+catch {
+    Out-Json @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}

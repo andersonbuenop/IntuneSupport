@@ -1,0 +1,48 @@
+﻿<div class="module-page">
+    <h2>Arquivo Online EXO</h2>
+    <p>Verificar e ativar o Arquivo Online em mailboxes do Exchange Online.</p>
+
+    <div class="card">
+        <div class="card-body">
+            <h5>Estado das ligações</h5>
+
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+                <span id="archiveExoBolinha"
+                      style="width:16px;height:16px;border-radius:50%;background:#dc3545;display:inline-block;"></span>
+                <strong id="archiveExoStatus">Exchange Online não verificado</strong>
+            </div>
+
+            <button class="btn btn-secondary" onclick="archiveExoVerificarConexao()">Verificar EXO</button>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card">
+        <div class="card-body">
+            <h5>Ativar Arquivo Online</h5>
+
+            <label>Utilizador / UPN / Email da mailbox</label>
+            <input id="archiveExoInputUser"
+                   class="form-control"
+                   placeholder="Ex: E811120 ou E811120@corp.santander.pt">
+
+            <br>
+
+            <button class="btn btn-danger" onclick="archiveExoAtivar()">Ativar Arquivo Online</button>
+            <button class="btn btn-secondary" onclick="archiveExoLimpar()">Limpar</button>
+        </div>
+    </div>
+
+    <br>
+
+    <div class="card">
+        <div class="card-body">
+            <h5>Resultado</h5>
+            <textarea id="archiveExoResultado"
+                      class="form-control"
+                      style="height:320px;font-family:Consolas,monospace;"
+                      readonly>Aguardando operação...</textarea>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+﻿{
+  "name": "consulta-permissoes-mailbox",
+  "title": "Consulta de Permissões",
+  "description": "Identificar o tipo do destinatário e consultar quem possui FullAccess e SendAs no Exchange Online",
+  "category": "Ferramentas",
+  "enabled": true,
+  "order": 18
+}

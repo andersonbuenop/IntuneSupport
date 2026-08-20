@@ -1,0 +1,8 @@
+{
+    "name": "acesso-em-massa",
+    "title": "Acesso em Massa",
+    "description": "Adicionar ou remover acessos em massa no Exchange Online",
+    "category": "Ferramentas",
+    "enabled": true,
+    "order": 4
+}

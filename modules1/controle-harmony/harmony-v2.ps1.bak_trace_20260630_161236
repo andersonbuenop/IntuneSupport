@@ -1,0 +1,1373 @@
+param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _Lookuperror = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.Exception.Message
+type = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.Exception.GetType().FullName
+line = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.InvocationInfo.ScriptLineNumber
+command = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.InvocationInfo.Line
+stack = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.ScriptStackTrace
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.Exception.Message
+type = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.Exception.GetType().FullName
+line = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.InvocationInfo.ScriptLineNumber
+command = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.InvocationInfo.Line
+stack = param(
+    $JsonBody = $null,
+    $Query = $null
+)
+
+function ConvertTo-JsonResponseV2 {
+    param($Data)
+    $Data | ConvertTo-Json -Depth 50
+}
+
+try {
+    Import-Module Microsoft.Graph.Authentication -ErrorAction Stop
+
+    $ctx = Get-MgContext
+    if (-not $ctx) {
+        throw "Microsoft Graph não conectado. Clique em Conectar Graph antes de consultar."
+    }
+
+    $devicesInput = @()
+    if ($JsonBody -and $JsonBody.devices) {
+        foreach ($d in @($JsonBody.devices)) {
+            $devicesInput += $d
+        }
+    }
+
+    if ($devicesInput.Count -eq 0) {
+        throw "Nenhum Device ID recebido."
+    }
+
+    $items = @()
+
+    foreach ($entrada in $devicesInput) {
+        $deviceId = [string]$entrada.id
+        $rawLine = [string]$entrada.raw
+        $usernameEntrada = [string]$entrada.username
+        $platformEntrada = [string]$entrada.platform
+        $harmonyEntrada = [string]$entrada.harmony
+        $statusHarmonyEntrada = [string]$entrada.statusHarmony
+
+        if ([string]::IsNullOrWhiteSpace($deviceId)) {
+            continue
+        }
+
+        try {
+            $encodedId = [System.Uri]::EscapeDataString($deviceId.Trim())
+
+            $uri = "https://graph.microsoft.com/v1.0/deviceManagement/managedDevices/$encodedId" +
+                   "?`$select=id,deviceName,userPrincipalName,emailAddress,operatingSystem,osVersion,complianceState,managementState,serialNumber,imei,model,manufacturer,lastSyncDateTime,enrolledDateTime,azureADDeviceId,ownerType,managementAgent"
+
+            $d = Invoke-MgGraphRequest -Method GET -Uri $uri -ErrorAction Stop
+
+            $email = $usernameEntrada
+            if ($d.userPrincipalName) { $email = [string]$d.userPrincipalName }
+            elseif ($d.emailAddress) { $email = [string]$d.emailAddress }
+
+            $platform = $platformEntrada
+            if ($d.operatingSystem) { $platform = [string]$d.operatingSystem }
+
+            $statusHarmony = $statusHarmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($statusHarmony)) { $statusHarmony = "Not deploy" }
+
+            $policyHarmony = $harmonyEntrada
+            if ([string]::IsNullOrWhiteSpace($policyHarmony)) { $policyHarmony = [string]$d.managementState }
+
+            $items += [pscustomobject]@{
+                Email = $email
+                Name = [string]$d.deviceName
+                "Device Type" = $platform
+                "OS Version" = [string]$d.osVersion
+                "Client Version" = [string]$d.complianceState
+                "Last Seen" = [string]$d.lastSyncDateTime
+                Status = $statusHarmony
+                Policy = $policyHarmony
+                "Serial Number" = [string]$d.serialNumber
+                "Intune Device ID" = [string]$d.id
+                "Azure AD Device ID" = [string]$d.azureADDeviceId
+                IMEI = [string]$d.imei
+                Manufacturer = [string]$d.manufacturer
+                Model = [string]$d.model
+                "Owner Type" = [string]$d.ownerType
+                _FoundIntune = $true
+                _RawHarmonyLine = $rawLine
+                _AccountStatus = ""
+                _DisplayName = ""
+            }
+        }
+        catch {
+            $items += [pscustomobject]@{
+                Email = $usernameEntrada
+                Name = $deviceId
+                "Device Type" = $platformEntrada
+                "OS Version" = ""
+                "Client Version" = ""
+                "Last Seen" = ""
+                Status = $(if ($statusHarmonyEntrada) { $statusHarmonyEntrada } else { "Not deploy" })
+                Policy = $(if ($harmonyEntrada) { $harmonyEntrada } else { "Deploy" })
+                "Serial Number" = ""
+                "Intune Device ID" = $deviceId
+                _FoundIntune = $false
+                _LookupError = $_.Exception.Message
+                _AccountStatus = "Dispositivo não encontrado no Intune"
+                _DisplayName = $usernameEntrada
+                _RawHarmonyLine = $rawLine
+            }
+        }
+    }
+
+    $found = @($items | Where-Object { $_._FoundIntune -eq $true }).Count
+    $notFound = @($items | Where-Object { $_._FoundIntune -ne $true }).Count
+
+    ConvertTo-JsonResponseV2 @{
+        success = $true
+        total = $devicesInput.Count
+        found = $found
+        notFound = $notFound
+        items = @($items)
+    }
+}
+catch {
+    ConvertTo-JsonResponseV2 @{
+        success = $false
+        error = $_.Exception.Message
+    }
+}
+.ScriptStackTrace
+    }
+}
+
